@@ -39,3 +39,6 @@ project(":org.compiere.query").projectDir = file("subprojects/org.compiere.query
 
 include "org.compiere.rule"
 project(":org.compiere.rule").projectDir = file("subprojects/org.compiere.rule")
+
+include "org.compiere.util"
+project(":org.compiere.util").projectDir = file("subprojects/org.compiere.util")
