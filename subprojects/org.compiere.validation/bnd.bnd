@@ -1,0 +1,7 @@
+#
+#   ORG COMPIERE VALIDATION
+#
+Bundle-Name: iDempiere Validation
+Import-Package: !org.compiere.validation*, *
+Export-Package: org.compiere.validation*
+DynamicImport-Package: *
