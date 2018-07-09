@@ -9,3 +9,6 @@ project(":org.adempiere.exceptions").projectDir = file("subprojects/org.adempier
 
 include "org.adempiere.install"
 project(":org.adempiere.install").projectDir = file("subprojects/org.adempiere.install")
+
+include "org.adempiere.osgi"
+project(":org.adempiere.osgi").projectDir = file("subprojects/org.adempiere.osgi")
