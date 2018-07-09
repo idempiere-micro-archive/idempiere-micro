@@ -109,7 +109,6 @@ class DataService : IDataService {
         get() = "iDempiere Data Service"
 
     private fun getType(next: Pair<String, Any>, table: IDataTable): String {
-        println( "getting type from $table table for $next" )
         return table.columns.find({ it.columnName.toLowerCase() == next.first.toLowerCase() })!!.columnType
     }
 
@@ -136,14 +135,11 @@ class DataService : IDataService {
                                 "ad_client_id, ad_org_id, updatedby, updated, createdby, created ) VALUES ( (SELECT COALESCE(MAX(\"${tableName_lowerCase}_id\"),0) + 1 FROM \"${tableName_lowerCase}\" ),",
                                 { total, next -> "${total}CAST(? AS ${getType(next, table!!)})," } ) ) + " ?, ?, ?, statement_timestamp(), ?, statement_timestamp()) RETURNING ${tableName_lowerCase}_id;";
 
-        System.out.println( "createData SQL:$sql" );
-
         val statement = cnn.prepareStatement(sql)
         fields.forEachIndexed { index, value ->
             try {
                 statement.setObject(index + 1, value.second)
             } catch ( ex : Exception ) {
-                println( "setting $index . parameter to $value failed" )
                 throw ex
             }
         }
@@ -184,8 +180,6 @@ class DataService : IDataService {
         val sql =
                 ( fields.fold( "UPDATE \"${tableName_lowerCase}\" SET ", { total, next -> total + "${next.first}=?," } ) ) +
                         "ad_client_id = ?, ad_org_id = ? WHERE ${tableName_lowerCase}_id = ? RETURNING ${tableName}_id;";
-
-        System.out.println( "SQL:$sql, ID:$id" );
 
         val statement = cnn.prepareStatement(sql)
         fields.forEachIndexed { index, value -> statement.setObject( index + 1, value.second ) }
@@ -232,17 +226,14 @@ class DataService : IDataService {
         val tableNameLowerCase = tableName.toLowerCase()
         val selectPart = "SELECT *"
         val sql =  "$selectPart, set_user(?) FROM \"${tableNameLowerCase}\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0) AND \"${tableNameLowerCase}_id\" = ? "
-        println ( "Row SQL:$sql" )
         val statement = cnn.prepareStatement(sql)
         statement.setInt(1, ad_User_ID)
         statement.setInt(2, ad_Client_ID)
         statement.setInt(3, ad_Org_ID)
         statement.setInt(4, id)
-        println ( "Row ad_User_ID:$ad_User_ID ad_Client_ID:$ad_Client_ID ad_Org_ID:$ad_Org_ID id:$id" )
         val rs = statement.executeQuery()
 
         val table = MTable.get( ctx, tableName )
-        println( "Row table:$table" )
         if ( table == null ) {
             return GetRowResult( rs = rs, __metadata = null, __paging = null )
         } else {
@@ -291,7 +282,6 @@ class DataService : IDataService {
         val tableName_lowerCase = tableName.toLowerCase()
 
         val sql_count = "SELECT COUNT(*), set_user(?) FROM \"${tableName_lowerCase}\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0) $where_clause"
-        println ( "SQL (sql_count):$sql_count" )
         val statement_count = cnn.prepareStatement(sql_count)
         statement_count.setInt(1, ad_User_ID)
         statement_count.setInt(2, ad_Client_ID)
@@ -305,7 +295,6 @@ class DataService : IDataService {
         while (rs_count.next()) {
             count = rs_count.getInt(1)
         }
-        println ( "count:$count" )
 
         var selectPart =
           if ( columnsRequested == null || columnsRequested!!.count() == 0 )  { "SELECT * " }
@@ -318,7 +307,6 @@ class DataService : IDataService {
                     " ORDER BY \"$orderBy\"" + if ( orderByOrder.toLowerCase() == "desc" ) { " desc" } else { "" }
                 } else { " ORDER BY 1" } +
                 " LIMIT $limit OFFSET $offset;"
-        println ( "SQL:$sql" )
         val statement = cnn.prepareStatement(sql)
         statement.setInt(1, ad_User_ID)
         statement.setInt(2, ad_Client_ID)
