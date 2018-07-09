@@ -78,3 +78,6 @@ project(":software.hsharp.db.h2.provider").projectDir = file("subprojects/softwa
 
 include "software.hsharp.idempiere.api"
 project(":software.hsharp.idempiere.api").projectDir = file("subprojects/software.hsharp.idempiere.api")
+
+include "software.hsharp.woocommerce"
+project(":software.hsharp.woocommerce").projectDir = file("subprojects/software.hsharp.woocommerce")
