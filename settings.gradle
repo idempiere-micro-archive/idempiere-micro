@@ -102,3 +102,6 @@ project(":org.compiere.schedule").projectDir = file("subprojects/org.compiere.sc
 
 include "org.compiere.server"
 project(":org.compiere.server").projectDir = file("subprojects/org.compiere.server")
+
+include "org.compiere.validation"
+project(":org.compiere.validation").projectDir = file("subprojects/org.compiere.validation")
