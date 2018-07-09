@@ -1,0 +1,6 @@
+#
+#   ORG ADEMPIERE OSGI
+#
+Bundle-Name: iDempiere OSGi Script Engine
+Import-Package: *
+Export-Package: org.adempiere.osgi*
