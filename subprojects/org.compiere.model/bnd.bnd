@@ -1,0 +1,8 @@
+#
+#   ORG COMPIERE MODEL
+#
+Bundle-Name: iDempiere Core Models
+Import-Package: *
+Export-Package: \
+ org.compiere.model*,\
+ org.eevolution.model*
