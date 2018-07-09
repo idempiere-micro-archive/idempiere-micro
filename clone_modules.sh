@@ -1,7 +1,7 @@
 copy_files()
 {
   module=$1
-  ./clone_idempiere_module $module
+  ./clone_idempiere_module.sh $module
 }
 copy_files_github_root()
 {
