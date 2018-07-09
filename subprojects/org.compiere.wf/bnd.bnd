@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE WF
+#
+Bundle-Name: iDempiere Workflow
+Import-Package: *
+Export-Package: org.compiere.wf*
