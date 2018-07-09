@@ -1,0 +1,8 @@
+#
+#   SOFTWARE HSHARP IDEMPIERE API HELPERS
+#
+Bundle-Name: H# REST API Helpers
+Export-Package: \
+    software.hsharp.api.helpers*, \
+    software.hsharp.api.helpers.cors*, \
+    software.hsharp.api.helpers.jwt*, \
