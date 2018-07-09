@@ -33,3 +33,6 @@ project(":org.compiere.orm").projectDir = file("subprojects/org.compiere.orm")
 
 include "org.compiere.process"
 project(":org.compiere.process").projectDir = file("subprojects/org.compiere.process")
+
+include "org.compiere.query"
+project(":org.compiere.query").projectDir = file("subprojects/org.compiere.query")
