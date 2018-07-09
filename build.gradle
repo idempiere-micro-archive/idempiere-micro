@@ -1,0 +1,38 @@
+dependencies {
+    compile files('./c3p0-0.9.5.2.jar')
+
+    compile project(':org.idempiere.icommon')
+    compile files('../org.idempiere.icommon/bin')    
+
+    compile project(':org.idempiere.common')
+    compile files('../org.idempiere.common/bin')    
+
+    compile files('./jcommon-1.0.24.jar')
+
+    compile project(':org.adempiere.install')
+    compile files('../org.adempiere.install/bin')
+
+    compile project(':org.adempiere.install')
+    compile files('../org.adempiere.install/bin')
+
+    compile project(':software.hsharp.db.postgresql.provider')
+    compile files('../software.hsharp.db.postgresql.provider/bin')
+
+    testCompile project(':org.compiere.db.postgresql.provider')
+    testCompile files('../org.compiere.db.postgresql.provider/bin')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+}
+buildscript {
+    ext.kotlin_version = '1.2.50'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+repositories {
+    mavenCentral()
+}
