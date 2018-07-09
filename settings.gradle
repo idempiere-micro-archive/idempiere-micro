@@ -48,3 +48,6 @@ project(":org.idempiere.common").projectDir = file("subprojects/org.idempiere.co
 
 include "org.idempiere.icommon"
 project(":org.idempiere.icommon").projectDir = file("subprojects/org.idempiere.icommon")
+
+include "org.idempiere.orm"
+project(":org.idempiere.orm").projectDir = file("subprojects/org.idempiere.orm")
