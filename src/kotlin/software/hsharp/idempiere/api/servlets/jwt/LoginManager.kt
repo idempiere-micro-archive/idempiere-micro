@@ -67,7 +67,6 @@ class LoginManager : ILoginService {
 	 */
 	private fun checkLogin(ctx: Properties, AD_User_ID: Int, AD_Role_ID: Int, AD_Client_ID: Int, AD_Org_ID: Int, M_Warehouse_ID: Int): KeyNamePair? {
 		//  Get Login Info
-    println( "!!!!! ---- checkLogin $AD_User_ID ----" )
 		var loginInfo: String? = null
 		var c_bpartner_id = -1
 		//  Verify existence of User/Client/Org/Role and User's access to Client & Org
@@ -160,8 +159,6 @@ class LoginManager : ILoginService {
 	fun doLogin( login : ILogin ) : UserLoginModelResponse {
 		SystemService.system.startup()
 
-    	println( "****** 1 When logging to iDempiere got: $login" )
-
 		val ctx = Env.getCtx()
 		val loginUtil = LoginService.loginUtility.init(ctx)
 		
@@ -224,8 +221,6 @@ class LoginManager : ILoginService {
 						
 		val AD_User_ID = Env.getAD_User_ID(ctx)
 
-		println( "selectedWarehouseIndex:$selectedWarehouseIndex selectedOrgIndex:$selectedOrgIndex selectedRoleIndex:$selectedRoleIndex selectedClientIndex:$selectedClientIndex" )
-
 		val logged =
 			( selectedWarehouseIndex != -1 ) &&
 			( selectedOrgIndex != -1 ) &&
@@ -241,7 +236,6 @@ class LoginManager : ILoginService {
 					login.language!! )
 		
 		val result = UserLoginModelResponse( logged, clients, roles, orgs, warehouses, null )
-		println( "iDempiere LoginManager intermediate result:$result" );
 
 		if (result.logged) {
 			val mapper = ObjectMapper()
