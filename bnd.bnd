@@ -1,0 +1,9 @@
+#
+#   SOFTWARE HSHARP WOOCOMMERCE
+#
+Bundle-Name: H# Sync.Today WooCommerce Provider
+Import-Package: !com.github.kittinunf.fuel*,!com.github.kittinunf.result*,*
+Export-Package: \
+    software.hsharp.woocommerce*
+-includeresource: \
+    {fuel-1.13.0.jar}, {result-1.4.0.jar}

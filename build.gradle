@@ -1,0 +1,52 @@
+dependencies {
+
+// https://mvnrepository.com/artifact/com.github.kittinunf.fuel/fuel
+    compile files('./fuel-1.13.0.jar')
+
+// https://mvnrepository.com/artifact/com.github.kittinunf.result/result
+    compile files('./result-1.4.0.jar')
+
+// https://mvnrepository.com/artifact/commons-codec/commons-codec
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.11'
+
+// https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.9.0'
+
+    compile project(':org.compiere.order')
+    compile files('../org.compiere.order/bin')
+
+    testCompile project(':org.compiere.order')
+    testCompile files('../org.compiere.order/bin')
+
+    testCompile files('../org.compiere.db.postgresql.provider/c3p0-0.9.5.2.jar')
+    testCompile files('../org.compiere.db.postgresql.provider/jcommon-1.0.24.jar')
+
+    testCompile project(':software.hsharp.db.postgresql.provider')
+    testCompile files('../software.hsharp.db.postgresql.provider/bin')
+
+    testCompile project(':org.compiere.db.postgresql.provider')
+    testCompile files('../org.compiere.db.postgresql.provider/bin')
+
+    testCompile project(':org.idempiere.process')
+    testCompile files('../org.idempiere.process/bin')
+
+    testCompile project(':org.compiere.process')
+    testCompile files('../org.compiere.process/bin')
+
+    testCompile project(':org.adempiere.base')
+    testCompile files('../org.adempiere.base/bin')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '1.2.50'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+repositories {
+    mavenCentral()
+}
