@@ -1,0 +1,9 @@
+#
+#   SOFTWARE HSHARP CORE MODELS
+#
+Bundle-Name: H# Core Models
+Import-Package: *
+Export-Package: \
+    software.hsharp.core.models*,\
+    software.hsharp.core.services*,\
+    software.hsharp.core.util*
