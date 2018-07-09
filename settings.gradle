@@ -81,3 +81,6 @@ project(":software.hsharp.idempiere.api").projectDir = file("subprojects/softwar
 
 include "software.hsharp.woocommerce"
 project(":software.hsharp.woocommerce").projectDir = file("subprojects/software.hsharp.woocommerce")
+
+include "org.compiere.order"
+project(":org.compiere.order").projectDir = file("subprojects/org.compiere.order")
