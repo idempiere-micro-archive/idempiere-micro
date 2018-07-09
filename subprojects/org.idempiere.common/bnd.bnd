@@ -1,0 +1,15 @@
+#
+#   ORG IDEMPIERE BASE DB
+#
+Bundle-Name: iDempiere Core Commons
+Bundle-Activator: org.idempiere.common.base.BaseActivator
+Import-Package: !org.idempiere.common*,*
+Export-Package: \
+ org.idempiere.common.base*,\
+ org.idempiere.common.db*,\
+ org.idempiere.common.dbPort*,\
+ org.idempiere.common.distributed*,\
+ org.idempiere.common.exceptions*,\
+ org.idempiere.common.imodel*,\
+ org.idempiere.common.util*
+ 
