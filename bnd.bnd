@@ -1,0 +1,70 @@
+#
+#   ORG ADEMPIERE BASE
+#
+Bundle-Name: iDempiere Core
+DynamicImport-Package: *
+Import-Package: !bsh*,\
+ !it.sauronsoftware.cron4j*,\
+ !org.adempiere*,\
+ !org.idempiere.broadcast*,\
+ !org.idempiere.distributed*,\
+ !org.idempiere.model*,\
+ !org.idempiere.iexceptions*,\
+ !org.idempiere.fa*,\
+ !org.idempiere.fa.exceptions*,\
+ !org.idempiere.fa.feature*,\
+ !org.idempiere.fa.model*,\
+ !org.idempiere.fa.process*,\
+ !org.idempiere.fa.util*,\
+ !org.idempiere.util2*,\
+ !org.adempiere.base*,\
+ *
+Export-Package: \
+ bsh*, \
+ bsh.classpath*, \
+ bsh.collection*, \
+ bsh.commands*, \
+ bsh.engine*, \
+ bsh.org.objectweb.asm*, \
+ bsh.reflect*, \
+ bsh.servlet*, \
+ bsh.util*, \
+ com.akunagroup.uk.postcode*, \
+ it.sauronsoftware.cron4j*, \
+ javax.jnlp*, \
+ org.adempiere.apps.graph*, \
+ org.adempiere.base*, \
+ org.adempiere.base.equinox*, \
+ org.adempiere.base.event*, \
+ org.adempiere.impexp*, \
+ org.adempiere.model*, \
+ org.adempiere.pdf*, \
+ org.adempiere.print.export*, \
+ org.adempiere.process*, \
+ org.adempiere.util*, \
+ org.compiere*, \
+ org.compiere.acct*, \
+ org.compiere.cm*, \
+ org.compiere.db*, \
+ org.compiere.dbPort*, \
+ org.compiere.impexp*, \
+ org.compiere.install*, \
+ org.compiere.interfaces*, \
+ org.compiere.interfaces.impl*, \
+ org.compiere.impl*, \
+ org.compiere.print*, \
+ org.compiere.print.layout*, \
+ org.compiere.process2*, \
+ org.compiere.report*, \
+ org.compiere.report.core*, \
+ org.compiere.sla*, \
+ org.compiere.tools*, \
+ org.compiere.util*, \
+ org.compiere.wf*, \
+ org.eevolution.impl*, \
+ org.idempiere.broadcast*, \
+ org.idempiere.model*
+    
+-includeresource: \
+    {bsh-2.0b6.jar}
+-dsannotations-options: extender
