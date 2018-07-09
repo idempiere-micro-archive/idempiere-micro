@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE UTIL
+#
+Bundle-Name: iDempiere Utils
+Import-Package: *
+Export-Package: org.compiere.util*
