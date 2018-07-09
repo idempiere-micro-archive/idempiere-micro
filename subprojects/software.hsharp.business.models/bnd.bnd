@@ -1,0 +1,9 @@
+#
+#   SOFTWARE HSHARP BUSINESS MODELS
+#
+Bundle-Name: H# iDempiere NG Model Interfaces
+Import-Package: *
+Export-Package: \
+    software.hsharp.business.models*,\
+    software.hsharp.business.services*,\
+    software.hsharp.business.util*
