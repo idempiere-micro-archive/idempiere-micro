@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE QUERY
+#
+Bundle-Name: iDempiere Query
+Import-Package: *
+Export-Package: org.compiere.query*
