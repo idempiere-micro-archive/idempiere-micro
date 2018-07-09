@@ -1,0 +1,7 @@
+#
+#   ORG IDEMPIERE PROCESS
+#
+Bundle-Name: iDempiere Processes
+Import-Package: !org.idempiere.process*,*
+Export-Package: \
+ org.idempiere.process*
