@@ -1,0 +1,5 @@
+#
+#   ORG ADEMPIERE INSTALL
+#
+Bundle-Name: iDempiere Setup
+Export-Package: org.adempiere.install*, org.compiere.install*
