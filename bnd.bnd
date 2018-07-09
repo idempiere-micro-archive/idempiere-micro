@@ -1,0 +1,7 @@
+#
+#   SOFTWARE HSHARP API ICOMMON
+#
+Bundle-Name: H# Common Interfaces
+Import-Package: !software.hsharp.api.icommon*,*
+Export-Package: \
+ software.hsharp.api.icommon*
