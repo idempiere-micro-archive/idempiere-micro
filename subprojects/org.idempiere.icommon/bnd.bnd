@@ -1,0 +1,14 @@
+#
+#   ORG IDEMPIERE ICOMMON
+#
+Bundle-Name: iDempiere Core Common Interfaces
+Import-Package: !org.idempiere.icommon*,*
+Export-Package: \
+ org.idempiere.icommon.base*,\
+ org.idempiere.icommon.db*,\
+ org.idempiere.icommon.dbPort*,\
+ org.idempiere.icommon.distributed*,\
+ org.idempiere.icommon.exceptions*,\
+ org.idempiere.icommon.model*,\
+ org.idempiere.icommon.util*
+ 
