@@ -1,0 +1,8 @@
+#
+#   SOFTWARE HSHARP IDEMPIERE API
+#
+Bundle-Name: H# iDempiere REST API
+Import-Package: !software.hsharp.idempiere.api*,*
+Export-Package: \
+    software.hsharp.idempiere.api*,
+-dsannotations-options: extender
