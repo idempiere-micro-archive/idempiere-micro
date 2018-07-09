@@ -72,3 +72,6 @@ project(":software.hsharp.core.models").projectDir = file("subprojects/software.
 
 include "software.hsharp.db.postgresql.provider"
 project(":software.hsharp.db.postgresql.provider").projectDir = file("subprojects/software.hsharp.db.postgresql.provider")
+
+include "software.hsharp.db.h2.provider"
+project(":software.hsharp.db.h2.provider").projectDir = file("subprojects/software.hsharp.db.h2.provider")
