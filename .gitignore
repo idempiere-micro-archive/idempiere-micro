@@ -113,3 +113,6 @@ runtime/bundle/hot-deploy/subprojects/*.jar
 /build.txt
 /.metadata/
 
+*.eclipse.buildship.core.prefs
+*.classpath
+*.project

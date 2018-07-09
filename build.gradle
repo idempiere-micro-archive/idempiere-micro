@@ -75,11 +75,17 @@ subprojects {
 
         //libs and frameworks
         compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.25.1'
+        compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1'
+        compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
+        // https://mvnrepository.com/artifact/biz.aQute.bnd/annotation
+        compile group: 'biz.aQute.bnd', name: 'annotation', version: '2.4.0'
 
         //test runners
         testCompile 'junit:junit:4.12'
         testCompile "org.scalatest:scalatest_${scala_version.split('\\.')[0..<2].join('.')}:3.0.3"
         testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+        testCompile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
+        testCompile group: 'org.jfree', name: 'jcommon', version: '1.0.24'
     }
 
     sourceSets {
@@ -159,7 +165,7 @@ task syncLibs(type: Copy, dependsOn: clearLibs) {
 //use `gradle -q <proj:>properties` to check
 buildscript {
     ext.scala_version = '2.12.3'
-    ext.kotlin_version = '1.2.30'
+    ext.kotlin_version = '1.2.50'
 
     repositories {
         jcenter()
