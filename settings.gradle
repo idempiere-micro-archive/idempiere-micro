@@ -63,3 +63,6 @@ project(":software.hsharp.api.icommon").projectDir = file("subprojects/software.
 
 include "software.hsharp.business.core"
 project(":software.hsharp.business.core").projectDir = file("subprojects/software.hsharp.business.core")
+
+include "software.hsharp.business.models"
+project(":software.hsharp.business.models").projectDir = file("subprojects/software.hsharp.business.models")
