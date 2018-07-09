@@ -54,3 +54,6 @@ project(":org.idempiere.orm").projectDir = file("subprojects/org.idempiere.orm")
 
 include "org.idempiere.process"
 project(":org.idempiere.process").projectDir = file("subprojects/org.idempiere.process")
+
+include "software.hsharp.api.helpers"
+project(":software.hsharp.api.helpers").projectDir = file("subprojects/software.hsharp.api.helpers")
