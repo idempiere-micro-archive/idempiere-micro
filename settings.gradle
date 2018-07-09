@@ -75,3 +75,6 @@ project(":software.hsharp.db.postgresql.provider").projectDir = file("subproject
 
 include "software.hsharp.db.h2.provider"
 project(":software.hsharp.db.h2.provider").projectDir = file("subprojects/software.hsharp.db.h2.provider")
+
+include "software.hsharp.idempiere.api"
+project(":software.hsharp.idempiere.api").projectDir = file("subprojects/software.hsharp.idempiere.api")
