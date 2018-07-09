@@ -1,0 +1,28 @@
+dependencies {
+    compile project(':org.compiere.orm')
+    compile files('../org.compiere.orm/bin')
+    compile project(':org.compiere.process')
+    compile files('../org.compiere.process/bin')
+    compile project(':org.compiere.crm')
+    compile files('../org.compiere.crm/bin')
+    compile files('../org.compiere.schedule/bin')
+    compile files('../org.compiere.schedule/bin')
+    compile project(':org.compiere.product')
+    compile files('../org.compiere.product/bin')
+    compile project(':org.compiere.conversionrate')
+    compile files('../org.compiere.conversionrate/bin')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '1.2.50'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+repositories {
+    mavenCentral()
+}
