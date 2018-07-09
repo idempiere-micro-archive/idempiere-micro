@@ -1,0 +1,7 @@
+#
+#   ORG COMPIERE ORM
+#
+Bundle-Name: iDempiere ORM Full
+Import-Package: *
+Export-Package: org.compiere.orm*
+DynamicImport-Package: *
