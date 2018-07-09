@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE TAX
+#
+Bundle-Name: iDempiere Tax
+Import-Package: *
+Export-Package: org.compiere.tax*
