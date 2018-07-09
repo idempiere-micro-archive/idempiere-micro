@@ -1,0 +1,8 @@
+#
+#   SOFTWARE HSHARP DB H2 PROVIDER
+#
+Bundle-Name: H# H2 Provider
+Import-Package: *
+Export-Package: \
+    software.hsharp.db.h2.provider*
+-dsannotations-options: extender
