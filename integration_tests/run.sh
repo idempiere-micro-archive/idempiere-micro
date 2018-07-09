@@ -1,1 +1,1 @@
-./node_modules/.bin/mocha --recursive
+./node_modules/.bin/jest

@@ -71,7 +71,7 @@ class LoginManager : ILoginService {
 		var loginInfo: String? = null
 		var c_bpartner_id = -1
 		//  Verify existence of User/Client/Org/Role and User's access to Client & Org
-		val sql = ("SELECT u.Name || '@' || c.Name || '.' || o.Name AS Text, u.c_bpartner_id, set_user(?) " //#1
+		val sql = ("SELECT u.Name || '@' || c.Name || '.' || o.Name AS Text, u.c_bpartner_id, ? " //#1
 				+ "FROM AD_User u, AD_Client c, AD_Org o, AD_User_Roles ur "
 				+ "WHERE u.AD_User_ID=?"    //  #2
 
