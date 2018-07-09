@@ -66,3 +66,6 @@ project(":software.hsharp.business.core").projectDir = file("subprojects/softwar
 
 include "software.hsharp.business.models"
 project(":software.hsharp.business.models").projectDir = file("subprojects/software.hsharp.business.models")
+
+include "software.hsharp.core.models"
+project(":software.hsharp.core.models").projectDir = file("subprojects/software.hsharp.core.models")
