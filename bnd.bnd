@@ -1,0 +1,6 @@
+#
+#   ORG ADEMPIERE EXCEPTIONS
+#
+Bundle-Name: iDempiere Exceptions
+Import-Package: *
+Export-Package: org.adempiere.exceptions*
