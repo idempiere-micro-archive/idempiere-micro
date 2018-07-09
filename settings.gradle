@@ -3,3 +3,6 @@ project(":example").projectDir = file("subprojects/example")
 
 include "org.adempiere.base"
 project(":org.adempiere.base").projectDir = file("subprojects/org.adempiere.base")
+
+include "org.adempiere.exceptions"
+project(":org.adempiere.exceptions").projectDir = file("subprojects/org.adempiere.exceptions")
