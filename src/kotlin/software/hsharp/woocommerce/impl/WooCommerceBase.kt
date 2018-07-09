@@ -45,8 +45,6 @@ open class WooCommerceBase(val config : IConfig, val apiVersion : ApiVersionType
         val (request, response, result) = securedUrl.httpGet().responseString()
         val data = result.get()
 
-        println( "Data:$data" )
-
         val mapper = ObjectMapper().registerModule(KotlinModule())
         val dataObj = mapper.readValue(data, T::class.java)
 
@@ -62,8 +60,6 @@ open class WooCommerceBase(val config : IConfig, val apiVersion : ApiVersionType
         val url = "${config.url}/wp-json/wc/$apiVersion/$endpointBase"
         val signature = OAuthSignature.getAsQueryString(config, url, HttpMethod.GET, params)
         val securedUrl = "$url?$signature"
-
-        println ( "Secured URL: $securedUrl" )
 
         val (request, response, result) = securedUrl.httpGet().responseString()
         val data = result.get()
