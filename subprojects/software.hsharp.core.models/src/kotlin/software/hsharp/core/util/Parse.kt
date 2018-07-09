@@ -7,8 +7,6 @@ import com.fasterxml.jackson.databind.node.JsonNodeType
 import com.fasterxml.jackson.databind.node.ObjectNode
 
 fun parse(body:String) : MutableList<Pair<String, Any>> {
-    println( "parsing: $body" )
-
     val factory = JsonFactory()
 
     val mapper = ObjectMapper(factory)
@@ -38,6 +36,5 @@ fun parse(body:String) : MutableList<Pair<String, Any>> {
         val mappedField : Pair<String, Any> = Pair( field.key, value )
         values.add( mappedField )
     }
-    println( "... to : $values" )
     return values
 }
