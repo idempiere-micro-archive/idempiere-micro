@@ -117,3 +117,4 @@ runtime/bundle/hot-deploy/subprojects/*.jar
 *.classpath
 *.project
 /runtime/PostgreSQL/pool.properties
+subprojects/cnf

@@ -703,7 +703,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.api.icommon/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.api.icommon/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>

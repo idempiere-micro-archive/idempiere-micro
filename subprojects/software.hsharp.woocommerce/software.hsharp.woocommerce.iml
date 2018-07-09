@@ -23,6 +23,7 @@
     <orderEntry type="module" module-name="org.compiere.tax"/>
     <orderEntry type="module" module-name="org.compiere.product"/>
     <orderEntry type="module" module-name="org.compiere.crm"/>
+    <orderEntry type="module" module-name="org.compiere.validation"/>
     <orderEntry type="module" module-name="org.compiere.process"/>
     <orderEntry type="module" module-name="org.compiere.lookups"/>
     <orderEntry type="module" module-name="org.compiere.rule"/>
@@ -697,7 +698,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.order/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.order/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -706,7 +707,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.idempiere.icommon/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.idempiere.icommon/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -715,7 +716,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.idempiere.common/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.idempiere.common/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -724,7 +725,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.model/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.model/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -733,7 +734,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.core.models/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.core.models/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -742,7 +743,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.idempiere.orm/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.idempiere.orm/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -751,7 +752,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.orm/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.orm/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -760,7 +761,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.util/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.util/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -769,7 +770,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.crm/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.crm/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -778,7 +779,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.process/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.process/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -787,7 +788,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.adempiere.exceptions/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.adempiere.exceptions/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -796,7 +797,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.product/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.product/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -805,7 +806,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.tax/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.tax/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -814,7 +815,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.lookups/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.validation/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -823,7 +824,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.rule/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.rule/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -832,7 +833,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.query/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.lookups/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -841,7 +842,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.adempiere.osgi/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.query/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -850,7 +851,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.business.models/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.adempiere.osgi/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -859,7 +860,16 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.api.icommon/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.business.models/bin"/>
+        </CLASSES>
+        <JAVADOC/>
+        <SOURCES/>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.api.icommon/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1109,7 +1119,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///home/david/dev/biggercompany/erp/subprojects/org.compiere.db.postgresql.provider/c3p0-0.9.5.2.jar!/"/>
+          <root url="jar:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.db.postgresql.provider/c3p0-0.9.5.2.jar!/"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1118,7 +1128,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///home/david/dev/biggercompany/erp/subprojects/org.compiere.db.postgresql.provider/jcommon-1.0.24.jar!/"/>
+          <root url="jar:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.db.postgresql.provider/jcommon-1.0.24.jar!/"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1127,7 +1137,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.db.postgresql.provider/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.db.postgresql.provider/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1136,7 +1146,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.db.postgresql.provider/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.db.postgresql.provider/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1145,7 +1155,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.idempiere.process/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.idempiere.process/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1154,7 +1164,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.adempiere.base/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.adempiere.base/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1163,7 +1173,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///home/david/dev/biggercompany/erp/subprojects/org.adempiere.base/bsh-2.0b6.jar!/"/>
+          <root url="jar:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.adempiere.base/bsh-2.0b6.jar!/"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1172,7 +1182,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///home/david/dev/biggercompany/erp/subprojects/org.adempiere.base/cron4j-2.2.5.jar!/"/>
+          <root url="jar:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.adempiere.base/cron4j-2.2.5.jar!/"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1181,7 +1191,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.bo/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.bo/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1190,7 +1200,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.schedule/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.schedule/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1199,7 +1209,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.conversionrate/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.conversionrate/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1208,7 +1218,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.wf/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.wf/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1217,7 +1227,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.compiere.server/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.server/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1226,7 +1236,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.adempiere.install/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.adempiere.install/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1235,7 +1245,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.db.postgresql.provider/mchange-commons-java-0.2.15.jar!/"/>
+          <root url="jar:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.db.postgresql.provider/mchange-commons-java-0.2.15.jar!/"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -1244,7 +1254,7 @@
     <orderEntry type="module-library" scope="TEST">
       <library>
         <CLASSES>
-          <root url="jar:///home/david/dev/biggercompany/erp/subprojects/org.compiere.schedule/cron4j-2.2.5.jar!/"/>
+          <root url="jar:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.compiere.schedule/cron4j-2.2.5.jar!/"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>

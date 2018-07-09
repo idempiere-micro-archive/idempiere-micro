@@ -533,7 +533,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.idempiere.icommon/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.idempiere.icommon/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -542,7 +542,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/org.idempiere.common/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/org.idempiere.common/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -551,7 +551,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.business.models/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.business.models/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -560,7 +560,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.core.models/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.core.models/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
@@ -569,7 +569,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.api.icommon/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.api.icommon/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>

@@ -682,7 +682,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="file:///home/david/dev/biggercompany/erp/subprojects/software.hsharp.core.models/bin"/>
+          <root url="file:///home/david/dev/biggercompany/idempiere-micro/subprojects/software.hsharp.core.models/bin"/>
         </CLASSES>
         <JAVADOC/>
         <SOURCES/>
