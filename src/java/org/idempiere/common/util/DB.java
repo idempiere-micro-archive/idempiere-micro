@@ -984,8 +984,6 @@ public final class DB
 	 */
 	public static int executeUpdate (String sql, Object[] params, boolean ignoreError, String trxName, int timeOut)
 	{
-		System.out.println( "------ executeUpdate SQL:'" + sql + "' ------" );
-
 		if (sql == null || sql.length() == 0)
 			throw new IllegalArgumentException("Required parameter missing - " + sql);
 		verifyTrx(trxName, sql);
@@ -1028,7 +1026,6 @@ public final class DB
 			close(cs);
 			cs = null;
 		}
-		System.out.println( "------ executeUpdate result:'" + no + "' ------" );
 		return no;
 	}	//	executeUpdate
 
