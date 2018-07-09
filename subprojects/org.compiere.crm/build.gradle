@@ -1,0 +1,72 @@
+dependencies {
+    compile group: 'org.osgi', name: 'org.osgi.service.event', version: '1.3.1'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+    // https://mvnrepository.com/artifact/commons-validator/commons-validator
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    // https://mvnrepository.com/artifact/org.osgi/org.osgi.util.tracker
+    compile group: 'org.osgi', name: 'org.osgi.util.tracker', version: '1.5.1'
+    // https://mvnrepository.com/artifact/org.osgi/org.osgi.service.cm
+    compile group: 'org.osgi', name: 'org.osgi.service.cm', version: '1.5.0'
+    // https://mvnrepository.com/artifact/javax.mail/mail
+    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+
+    compile project(':org.idempiere.icommon')
+    compile files('../org.idempiere.icommon/bin')
+
+    compile project(':org.idempiere.common')
+    compile files('../org.idempiere.common/bin')
+
+    compile project(':org.compiere.model')
+    compile files('../org.compiere.model/bin')
+
+    compile project(':software.hsharp.core.models')
+    compile files('../software.hsharp.core.models/bin')
+
+    compile project(':org.idempiere.orm')
+    compile files('../org.idempiere.orm/bin')
+
+    compile project(':org.compiere.orm')
+    compile files('../org.compiere.orm/bin')
+
+    compile project(':org.compiere.process')
+    compile files('../org.compiere.process/bin')
+
+    compile project(':org.compiere.util')
+    compile files('../org.compiere.util/bin')
+
+    compile project(':org.compiere.validation')
+    compile files('../org.compiere.validation/bin')
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+
+    testCompile files('../org.compiere.db.postgresql.provider/c3p0-0.9.5.2.jar')
+    testCompile files('../org.compiere.db.postgresql.provider/jcommon-1.0.24.jar')
+
+    testCompile project(':software.hsharp.db.postgresql.provider')
+    testCompile files('../software.hsharp.db.postgresql.provider/bin')
+
+    testCompile project(':org.compiere.db.postgresql.provider')
+    testCompile files('../org.compiere.db.postgresql.provider/bin')
+
+    testCompile project(':org.adempiere.base')
+    testCompile files('../org.adempiere.base/bin')
+
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+}
+buildscript {
+    ext.kotlin_version = '1.2.50'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+repositories {
+    mavenCentral()
+}

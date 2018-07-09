@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE CRM
+#
+Bundle-Name: iDempiere CRM
+Import-Package: *
+Export-Package: org.compiere.crm*
