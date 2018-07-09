@@ -152,8 +152,6 @@ public class AddressLookup implements AddressLookupInterface {
 		// Get the root element.
 		Element doc = xmlDoc.getDocumentElement();
 		
-		//System.out.println("Root Node: " + doc.getNodeName());
-		
 		// Get the children.
 		NodeList DataElements = doc.getElementsByTagName("DataElement"); 
 		System.out.println("Number of DataElements: " + DataElements.getLength());
