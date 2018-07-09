@@ -87,3 +87,6 @@ project(":org.compiere.order").projectDir = file("subprojects/org.compiere.order
 
 include "org.compiere.product"
 project(":org.compiere.product").projectDir = file("subprojects/org.compiere.product")
+
+include "org.compiere.tax"
+project(":org.compiere.tax").projectDir = file("subprojects/org.compiere.tax")
