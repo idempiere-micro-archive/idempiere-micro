@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE SERVER
+#
+Bundle-Name: iDempiere Server
+Import-Package: *
+Export-Package: org.compiere.server*
