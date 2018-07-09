@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE CONVERSIONRATE
+#
+Bundle-Name: iDempiere Conversion Rate
+Import-Package: *
+Export-Package: org.compiere.conversionrate*
