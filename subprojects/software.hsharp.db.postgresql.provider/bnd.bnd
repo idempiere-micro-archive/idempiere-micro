@@ -1,0 +1,8 @@
+#
+#   SOFTWARE HSHARP DB POSTGRESQL PROVIDER
+#
+Bundle-Name: H# PostgreSQL Provider
+Import-Package: !javax.naming*;resolution:=optional,*;resolution:=optional
+Export-Package: \
+    software.hsharp.db.postgresql.provider*
+-dsannotations-options: extender
