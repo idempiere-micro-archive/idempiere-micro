@@ -42,3 +42,6 @@ project(":org.compiere.rule").projectDir = file("subprojects/org.compiere.rule")
 
 include "org.compiere.util"
 project(":org.compiere.util").projectDir = file("subprojects/org.compiere.util")
+
+include "org.idempiere.common"
+project(":org.idempiere.common").projectDir = file("subprojects/org.idempiere.common")
