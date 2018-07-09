@@ -114,7 +114,6 @@ implements ImportProcess
         }
 
 		//	****	Prepare	****
-        System.out.println("Import starting");
 
 		//	Delete Old Imported
 		if (m_deleteOldImported)
@@ -630,8 +629,6 @@ implements ImportProcess
 			addLog (0, null, new BigDecimal (noInsert), "@C_BPartner_ID@: @Inserted@");
 			addLog (0, null, new BigDecimal (noUpdate), "@C_BPartner_ID@: @Updated@");
 		}
-
-        System.out.println("Import done!");
 
 		return "OK";
 	}	//	doIt
