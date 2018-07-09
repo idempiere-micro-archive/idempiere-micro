@@ -12,3 +12,6 @@ project(":org.adempiere.install").projectDir = file("subprojects/org.adempiere.i
 
 include "org.adempiere.osgi"
 project(":org.adempiere.osgi").projectDir = file("subprojects/org.adempiere.osgi")
+
+include "org.compiere.bo"
+project(":org.compiere.bo").projectDir = file("subprojects/org.compiere.bo")
