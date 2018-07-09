@@ -8,3 +8,10 @@ The iDempiere-micro repository for the Contributors. Contains all the iDempiere 
 1. `gradle build`
 2. `./start.sh`
 3. test with `wget http://localhost:8008/idempiere/api/authentication?username=GardenUser&password=GardenUser`
+
+## Run integration tests
+You need to have the Apache Karaf running (`./start.sh`).
+
+1. `cd integration_tests`
+2. `npm i`
+3. `./run.sh`
