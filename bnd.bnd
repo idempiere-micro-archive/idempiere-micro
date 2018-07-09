@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE RULE
+#
+Bundle-Name: iDempiere Rules
+Import-Package: *
+Export-Package: org.compiere.rule*
