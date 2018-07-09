@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE PRODUCT
+#
+Bundle-Name: iDempiere Product Catalog
+Import-Package: *
+Export-Package: org.compiere.product*
