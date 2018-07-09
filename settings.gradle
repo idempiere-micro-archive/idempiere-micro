@@ -27,3 +27,6 @@ project(":org.compiere.lookups").projectDir = file("subprojects/org.compiere.loo
 
 include "org.compiere.model"
 project(":org.compiere.model").projectDir = file("subprojects/org.compiere.model")
+
+include "org.compiere.orm"
+project(":org.compiere.orm").projectDir = file("subprojects/org.compiere.orm")
