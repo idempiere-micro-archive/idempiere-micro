@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE LOOKUPS
+#
+Bundle-Name: iDempiere Lookups
+Import-Package: *
+Export-Package: org.compiere.lookups*
