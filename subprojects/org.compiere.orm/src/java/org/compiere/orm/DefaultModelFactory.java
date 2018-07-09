@@ -81,8 +81,6 @@ public class DefaultModelFactory implements IModelFactory {
 	 */
 	@Override
 	public Class<?> getClass(String tableName) {
-		System.out.println( "***** getClass '" + tableName );
-
 //		Not supported
 		if (tableName == null || tableName.endsWith("_Trl"))
 			return null;
@@ -244,7 +242,7 @@ public class DefaultModelFactory implements IModelFactory {
 		Class<?> clazz = getClass(tableName);
 		if (clazz == null)
 		{
-			System.out.println( "***** PO NO CLAZZ FOR TABLE'" + tableName + "', Record_ID:" + Record_ID  );
+			s_log.warning("No class for table: " + tableName + " called with Record_ID");
 			return null;
 		}
 
@@ -268,7 +266,7 @@ public class DefaultModelFactory implements IModelFactory {
 				PO po = constructor != null ? (PO) constructor.newInstance(new Object[]{Env.getCtx(), new Integer(Record_ID), trxName}) : null;
 				return po;
 			} catch ( Exception ex ) {
-				System.out.println( "***** PO FAILED for table '" + tableName + "', Record_ID:" + Record_ID + " and clazz '" + clazz.getCanonicalName() + "'"  );
+				s_log.warning( "PO FAILED for table '" + tableName + "', Record_ID:" + Record_ID + " and clazz '" + clazz.getCanonicalName() + "'"  );
 				throw ex;
 			}
 		}
@@ -310,7 +308,7 @@ public class DefaultModelFactory implements IModelFactory {
 		Class<?> clazz = getClass(tableName);
 		if (clazz == null)
 		{
-			System.out.println( "***** PO NO CLAZZ FOR TABLE'" + tableName + "' with ResultSet" );
+			s_log.warning( "PO NO CLAZZ FOR TABLE'" + tableName + "' with ResultSet" );
 			return null;
 		}
 
