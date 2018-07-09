@@ -48,7 +48,6 @@ copy_files software.hsharp.business.models
 copy_files software.hsharp.core.models
 
 copy_files software.hsharp.db.postgresql.provider
-copy_files software.hsharp.db.h2.provider
 copy_files software.hsharp.idempiere.api
 
 copy_files software.hsharp.woocommerce
