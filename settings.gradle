@@ -21,3 +21,6 @@ project(":org.compiere.crm").projectDir = file("subprojects/org.compiere.crm")
 
 include "org.compiere.db.postgresql.provider"
 project(":org.compiere.db.postgresql.provider").projectDir = file("subprojects/org.compiere.db.postgresql.provider")
+
+include "org.compiere.lookups"
+project(":org.compiere.lookups").projectDir = file("subprojects/org.compiere.lookups")
