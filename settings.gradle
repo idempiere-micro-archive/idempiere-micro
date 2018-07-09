@@ -24,3 +24,6 @@ project(":org.compiere.db.postgresql.provider").projectDir = file("subprojects/o
 
 include "org.compiere.lookups"
 project(":org.compiere.lookups").projectDir = file("subprojects/org.compiere.lookups")
+
+include "org.compiere.model"
+project(":org.compiere.model").projectDir = file("subprojects/org.compiere.model")
