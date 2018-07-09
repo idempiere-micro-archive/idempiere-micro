@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE ORDER
+#
+Bundle-Name: iDempiere Order
+Import-Package: *
+Export-Package: org.compiere.order*
