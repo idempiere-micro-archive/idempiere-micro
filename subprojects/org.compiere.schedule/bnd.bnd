@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE SCHEDULE
+#
+Bundle-Name: iDempiere Schedule
+Import-Package: !it.sauronsoftware.cron4j*,*
+Export-Package: org.compiere.schedule*
