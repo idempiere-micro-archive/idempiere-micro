@@ -1,0 +1,95 @@
+dependencies {
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+
+    compile group: 'org.osgi', name: 'org.osgi.service.event', version: '1.3.1'
+    // https://mvnrepository.com/artifact/org.passay/passay
+    compile group: 'org.passay', name: 'passay', version: '1.3.0'
+    // https://mvnrepository.com/artifact/javax.mail/mail
+    compile group: 'javax.mail', name: 'mail', version: '1.4.7'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+    compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'    
+    // https://mvnrepository.com/artifact/commons-validator/commons-validator
+    compile group: 'commons-validator', name: 'commons-validator', version: '1.6'
+    // https://mvnrepository.com/artifact/org.osgi/org.osgi.util.tracker
+    compile group: 'org.osgi', name: 'org.osgi.util.tracker', version: '1.5.1'    
+    // https://mvnrepository.com/artifact/org.osgi/org.osgi.service.cm
+    compile group: 'org.osgi', name: 'org.osgi.service.cm', version: '1.5.0'   
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.0'     
+
+    compile files('./bsh-2.0b6.jar')
+    compile files('./cron4j-2.2.5.jar')
+
+    compile project(':org.idempiere.icommon')
+    compile files('../org.idempiere.icommon/bin')    
+
+    compile project(':org.idempiere.common')
+    compile files('../org.idempiere.common/bin')
+
+    compile project(':org.compiere.model')
+    compile files('../org.compiere.model/bin')
+
+    compile project(':software.hsharp.core.models')
+    compile files('../software.hsharp.core.models/bin')
+
+    compile project(':org.idempiere.orm')
+    compile files('../org.idempiere.orm/bin')
+
+    compile project(':org.compiere.orm')
+    compile files('../org.compiere.orm/bin')
+
+    compile project(':org.compiere.crm')
+    compile files('../org.compiere.crm/bin')
+
+    compile project(':org.compiere.bo')
+    compile files('../org.compiere.bo/bin')
+
+    compile project(':org.compiere.process')
+    compile files('../org.compiere.process/bin')
+
+    compile project(':org.compiere.query')
+    compile files('../org.compiere.query/bin')
+
+    compile project(':org.compiere.lookups')
+    compile files('../org.compiere.lookups/bin')
+
+    compile project(':org.compiere.rule')
+    compile files('../org.compiere.rule/bin')
+
+    compile project(':org.compiere.product')
+    compile files('../org.compiere.product/bin')
+
+    compile project(':org.compiere.order')
+    compile files('../org.compiere.order/bin')
+
+    compile project(':org.compiere.schedule')
+    compile files('../org.compiere.schedule/bin')
+
+    compile project(':org.compiere.conversionrate')
+    compile files('../org.compiere.conversionrate/bin')
+
+    compile project(':org.compiere.wf')
+    compile files('../org.compiere.wf/bin')
+
+    compile project(':org.compiere.server')
+    compile files('../org.compiere.server/bin')
+
+    compile project(':org.compiere.validation')
+    compile files('../org.compiere.validation/bin')
+
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '1.2.50'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+repositories {
+    mavenCentral()
+}
