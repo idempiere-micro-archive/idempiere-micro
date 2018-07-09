@@ -116,3 +116,4 @@ runtime/bundle/hot-deploy/subprojects/*.jar
 *.eclipse.buildship.core.prefs
 *.classpath
 *.project
+/runtime/PostgreSQL/pool.properties
