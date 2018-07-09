@@ -1,0 +1,6 @@
+#
+#   ORG IDEMPIERE ORM
+#
+Bundle-Name: iDempiere ORM
+Import-Package: *
+Export-Package: org.idempiere.orm
