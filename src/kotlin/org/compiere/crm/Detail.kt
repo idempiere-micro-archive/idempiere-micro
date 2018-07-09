@@ -46,8 +46,6 @@ and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
         statement.setInt(3, AD_ORG_ID)
         statement.setInt(4, AD_ORG_ID)
 
-        println("Prepared Statement after bind variables set:\n\t" + statement.toString());
-
         val rs = statement.executeQuery()
 
         val modelFactory : IModelFactory = DefaultModelFactory()
