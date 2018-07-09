@@ -1,0 +1,6 @@
+#
+#   ORG COMPIERE BO
+#
+Bundle-Name: iDempiere Leads
+Import-Package: *
+Export-Package: org.compiere.bo*
