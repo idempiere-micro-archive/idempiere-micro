@@ -132,14 +132,7 @@ public final class ProcessUtil {
 	public static boolean startJavaProcess(Properties ctx, IProcessInfo pi, Trx trx, boolean managedTrx) {
 		return startJavaProcess(ctx, pi, trx, managedTrx, null);
 	}
-	
-	/**
-	 * @param ctx
-	 * @param pi
-	 * @param trx
-	 * @param managedTrx false if trx is managed by caller
-	 * @return boolean
-	 */
+
 	public static boolean startJavaProcess(Properties ctx, IProcessInfo pi, Trx trx, boolean managedTrx, IProcessUI processMonitor) {
 		String className = pi.getClassName();
 		if (className == null) {
@@ -151,9 +144,25 @@ public final class ProcessUtil {
 		ProcessCall process = null;
 		//invoke process factory
 		process = Core.getProcess(className);
-
 		if (process == null) {
 			pi.setSummary("Failed to create new process instance for " + className, true);
+			return false;
+		}
+
+		return startJavaProcess(ctx, pi, trx, managedTrx, processMonitor, process);
+	}
+
+	/**
+	 * @param ctx
+	 * @param pi
+	 * @param trx
+	 * @param managedTrx false if trx is managed by caller
+	 * @return boolean
+	 */
+	public static boolean startJavaProcess(Properties ctx, IProcessInfo pi, Trx trx, boolean managedTrx, IProcessUI processMonitor, ProcessCall process) {
+
+		if (process == null) {
+			pi.setSummary("Failed to create new process instance", true);
 			return false;
 		}
 
