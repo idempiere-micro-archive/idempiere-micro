@@ -4,7 +4,7 @@ import software.hsharp.core.models.IUser
 import java.util.*
 
 interface IUserService {
-    fun getUser (ctx : Properties, loginName : String ) : IUser
+    fun getUser(ctx: Properties, loginName: String): IUser?
 }
 
 interface IUserServiceImpl : IUserService

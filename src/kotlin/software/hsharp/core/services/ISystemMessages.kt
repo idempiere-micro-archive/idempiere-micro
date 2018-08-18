@@ -5,11 +5,11 @@ import software.hsharp.core.models.ISystemMessage
 import java.sql.Connection
 
 interface ISystemMessagesResult : IResult {
-    val messages : Array<ISystemMessage>
+    val messages: Array<ISystemMessage>
 }
 
 interface ISystemMessages {
-    fun getActiveMessages(connection: Connection) : ISystemMessagesResult
+    fun getActiveMessages(connection: Connection): ISystemMessagesResult
 }
 
 interface ISystemMessagesImpl : ISystemMessages
