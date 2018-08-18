@@ -30,7 +30,7 @@ import java.util.Collection;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import org.compiere.impl.SetGetModel;
+import org.compiere.model.SetGetModel;
 import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.exceptions.DBException;
 import org.idempiere.common.util.CLogger;
