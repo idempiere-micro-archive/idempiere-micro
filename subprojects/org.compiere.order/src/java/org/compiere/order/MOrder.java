@@ -467,7 +467,7 @@ public class MOrder extends X_C_Order implements I_C_Order
 		}	
 
 		//	Set Contact
-		I_AD_User[] contacts = bp.getContacts(false);
+		I_AD_User[] contacts = bp.getContacts();
 		if (contacts != null && contacts.length == 1)
 			setAD_User_ID(contacts[0].getAD_User_ID());
 	}	//	setBPartner
