@@ -2,22 +2,21 @@ package software.hsharp.business.core
 
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
-import java.sql.ResultSet
 import java.util.*
 
 abstract class iDempiereEntities<T, I> {
-    protected abstract val tableName : String
+    protected abstract val tableName: String
 
-    protected val allIdsSelect : String
+    protected val allIdsSelect: String
         get() = """SELECT ${tableName}_id FROM adempiere.$tableName WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0)"""
-    protected val countSelect : String
+    protected val countSelect: String
         get() = "SELECT COUNT(*) FROM adempiere.$tableName WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0)"
 
-    protected abstract fun getEntityById(ctx : Properties, id : Int ) : T?
-    protected abstract fun convertToDTO(t: T) : I
+    protected abstract fun getEntityById(ctx: Properties, id: Int): T?
+    protected abstract fun convertToDTO(t: T): I
 
-    protected fun getAllData() : List<I> {
-        var dataFromDB : ArrayList<T> = arrayListOf()
+    protected fun getAllData(): List<I> {
+        var dataFromDB: ArrayList<T> = arrayListOf()
         val connection = DB.getConnectionRO()
         val ctx = Env.getCtx()
         val ad_Client_ID = Env.getAD_Client_ID(ctx)
@@ -29,20 +28,20 @@ abstract class iDempiereEntities<T, I> {
         val rs = stmt.executeQuery()
         while (rs.next()) {
             val id = rs.getInt(1)
-            val data : T? = getEntityById( ctx, id )
-            if (data!=null) dataFromDB.add(data)
+            val data: T? = getEntityById(ctx, id)
+            if (data != null) dataFromDB.add(data)
         }
         rs.close()
         return dataFromDB.map { convertToDTO(it) }
     }
 
-    protected fun getById( id : Int ) : I? {
+    protected fun getById(id: Int): I? {
         val ctx = Env.getCtx()
-        val data = getEntityById( ctx, id ) ?: return null
-        return convertToDTO( data )
+        val data = getEntityById(ctx, id) ?: return null
+        return convertToDTO(data)
     }
 
-    protected fun getCount() : Int {
+    protected fun getCount(): Int {
         var result = 0
         val connection = DB.getConnectionRO()
         val ctx = Env.getCtx()

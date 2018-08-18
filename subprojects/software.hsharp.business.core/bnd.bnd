@@ -3,7 +3,7 @@
 #
 Bundle-Name: H# iDempiere NG Core
 Bundle-ClassPath: .,exposed-0.10.3.jar
-Import-Package: !org.jetbrains.exposed*,!org.h2.engine*,!org.h2.jdbc*,*
+Import-Package: !org.jetbrains.exposed*,!org.h2.engine*,!org.h2.jdbc*,!software.hsharp.business.core*,*
 Export-Package: \
     software.hsharp.business.core*
 -includeresource: \

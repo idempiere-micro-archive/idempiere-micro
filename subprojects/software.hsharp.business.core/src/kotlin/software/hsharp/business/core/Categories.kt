@@ -14,7 +14,7 @@ object crm_category : IntIdTable(columnName = "category_id") {
     val createdby = integer("createdby")
     val updated = datetime("updated")
     val updatedby = integer("updatedby")
-    val category_uu= varchar("category_uu", 36)
+    val category_uu = varchar("category_uu", 36)
 
     val name = varchar("name", 60)
     val searchKey = varchar("value", 60)
@@ -36,9 +36,9 @@ class CategoryModel(id: EntityID<Int>) : IntEntity(id) {
     var searchKey by crm_category.searchKey
 }
 
-data class Category(override val Key: Int, override val name : String) : ICategory {
+data class Category(override val Key: Int, override val name: String) : ICategory {
     override val ID: String
-        get() = ""+Key
+        get() = "" + Key
 }
 
 class Categories
