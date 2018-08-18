@@ -18,7 +18,6 @@
  *****************************************************************************/
 package pg.org.compiere.db;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.idempiere.common.db.CConnection;
 import org.idempiere.common.db.Database;
 import org.idempiere.common.dbPort.Convert;
@@ -533,11 +532,11 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 	 *	@return Connection
 	 *	@throws Exception
 	 */
-	public Connection getCachedConnection (ICConnection connection,
-		boolean autoCommit, int transactionIsolation)
-		throws Exception
-	{
-		Connection conn = null;
+    public Connection getCachedConnection (ICConnection connection,
+                                           boolean autoCommit, int transactionIsolation)
+            throws Exception
+    {
+        Connection conn = null;
         Exception exception = null;
         try
         {
@@ -547,20 +546,21 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
             //
             try
             {
-            	int numConnections = getNumBusyConnections();
-        		if(numConnections >= m_maxbusyconnections && m_maxbusyconnections > 0)
-        		{
-        			//system is under heavy load, wait between 20 to 40 seconds
-        			int randomNum = rand.nextInt(40 - 20 + 1) + 20;
-        			Thread.sleep(randomNum * 1000);
-        		}
-        		conn = m_ds.getConnection();
-        		if (conn == null) {
-        			//try again after 10 to 30 seconds
-        			int randomNum = rand.nextInt(30 - 10 + 1) + 10;
-        			Thread.sleep(randomNum * 1000);
-        			conn = m_ds.getConnection();
-        		}
+                int numConnections = getNumBusyConnections();
+                if(numConnections >= m_maxbusyconnections && m_maxbusyconnections > 0)
+                {
+                    //system is under heavy load, wait between 20 to 40 seconds
+                    int randomNum = rand.nextInt(40 - 20 + 1) + 20;
+                    Thread.sleep(randomNum * 1000);
+                }
+
+                conn = m_ds.getConnection();
+                if (conn == null) {
+                    //try again after 10 to 30 seconds
+                    int randomNum = rand.nextInt(30 - 10 + 1) + 10;
+                    Thread.sleep(randomNum * 1000);
+                    conn = m_ds.getConnection();
+                }
 
                 if (conn != null)
                 {
@@ -578,11 +578,11 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 
             if (conn == null && exception != null)
             {
-            	//log might cause infinite loop since it will try to acquire database connection again
+                //log might cause infinite loop since it will try to acquire database connection again
             	/*
                 log.log(Level.SEVERE, exception.toString());
                 log.fine(toString()); */
-            	System.err.println(exception.toString());
+                System.err.println(exception.toString());
             }
         }
         catch (Exception e)
@@ -592,27 +592,27 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 
         try
         {
-        	if (conn != null) {
-        		boolean trace = "true".equalsIgnoreCase(System.getProperty("org.adempiere.db.traceStatus"));
-        		int numConnections = getNumBusyConnections();
-        		if (numConnections > 1)
-        		{
-	    			if (trace)
-	    			{
-	    				log.warning(getStatus());
-	    			}
-	    			if(numConnections >= m_maxbusyconnections && m_maxbusyconnections > 0)
-		            {
-	    				if (!trace)
-	    					log.warning(getStatus());
-		                //hengsin: make a best effort to reclaim leak connection
-		                Runtime.getRuntime().runFinalization();
-		            }
-        		}
-        	} else {
-        		//don't use log.severe here as it will try to access db again
-        		System.err.println("Failed to acquire new connection. Status=" + getStatus());
-        	}
+            if (conn != null) {
+                boolean trace = "true".equalsIgnoreCase(System.getProperty("org.adempiere.db.traceStatus"));
+                int numConnections = getNumBusyConnections();
+                if (numConnections > 1)
+                {
+                    if (trace)
+                    {
+                        log.warning(getStatus());
+                    }
+                    if(numConnections >= m_maxbusyconnections && m_maxbusyconnections > 0)
+                    {
+                        if (!trace)
+                            log.warning(getStatus());
+                        //hengsin: make a best effort to reclaim leak connection
+                        Runtime.getRuntime().runFinalization();
+                    }
+                }
+            } else {
+                //don't use log.severe here as it will try to access db again
+                System.err.println("Failed to acquire new connection. Status=" + getStatus());
+            }
         }
         catch (Exception ex)
         {
@@ -620,7 +620,7 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
         if (exception != null)
             throw exception;
         return conn;
-	}	//	getCachedConnection
+    }	//	getCachedConnection
 
 	private String getFileName ()
 	{
@@ -720,11 +720,18 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 				inputStream.close();
 			} catch (IOException e) {}
 		}
-		
-		int idleConnectionTestPeriod = getIntProperty(poolProperties, "IdleConnectionTestPeriod", 1200);
+
+		int connectionTimeout = getIntProperty(poolProperties, "ConnectionTimeout", 5);
+        int validationTimeout = getIntProperty(poolProperties, "ValidationTimeout", 1);
+        int idleTimeout = getIntProperty(poolProperties, "IdleTimeout", 1*60);
+        int leakDetectionThreshold = getIntProperty(poolProperties, "LeakDetectionThreshold", 60);
+        int maxLifetime = getIntProperty(poolProperties, "MaxLifetime", 9*60);
+
+
+		int idleConnectionTestPeriod = getIntProperty(poolProperties, "IdleConnectionTestPeriod", 20*60);
 		int acquireRetryAttempts = getIntProperty(poolProperties, "AcquireRetryAttempts", 2);
-		int maxIdleTimeExcessConnections = getIntProperty(poolProperties, "MaxIdleTimeExcessConnections", 1200);
-		int maxIdleTime = getIntProperty(poolProperties, "MaxIdleTime", 1200);
+		int maxIdleTimeExcessConnections = getIntProperty(poolProperties, "MaxIdleTimeExcessConnections", 20*60);
+		int maxIdleTime = getIntProperty(poolProperties, "MaxIdleTime", 20*60);
 		int unreturnedConnectionTimeout = getIntProperty(poolProperties, "UnreturnedConnectionTimeout", 0);
 		boolean testConnectionOnCheckin = getBooleanProperty(poolProperties, "TestConnectionOnCheckin", false);
 		boolean testConnectionOnCheckout = getBooleanProperty(poolProperties, "TestConnectionOnCheckout", false);
@@ -736,44 +743,38 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
         {
             System.setProperty("com.mchange.v2.log.MLog", mlogClass);
             //System.setProperty("com.mchange.v2.log.FallbackMLog.DEFAULT_CUTOFF_LEVEL", "ALL");
-            DataSource cpds = super.getDataSource();
 
 			int maxPoolSize = getIntProperty(poolProperties, "MaxPoolSize", 400);
 			int initialPoolSize = getIntProperty(poolProperties, "InitialPoolSize", 10);
-			int minPoolSize = getIntProperty(poolProperties, "MinPoolSize", 5);
+			int minPoolSize = getIntProperty(poolProperties, "MinPoolSize", 50);
 			m_maxbusyconnections = (int) (maxPoolSize * 0.9);
 			
 			//statement pooling
 			int maxStatementsPerConnection = getIntProperty(poolProperties, "MaxStatementsPerConnection", 0);
 
+            PgDatabaseSetup defaults = new PgDatabaseSetup();
             PgDatabaseSetup params = new PgDatabaseSetup(
-                    "iDempiereDS",
-					idleConnectionTestPeriod,
-					maxIdleTimeExcessConnections,
-					maxIdleTime,
-					testConnectionOnCheckin,
-					testConnectionOnCheckout,
-					acquireRetryAttempts,
-					checkoutTimeout,
-					initialPoolSize,
-					minPoolSize,
-					maxPoolSize,
-					maxStatementsPerConnection,
-					unreturnedConnectionTimeout,
-					1,
-                    0,
-                    1
+                    connectionTimeout * 1000, //val connectionTimeout: Long
+                    validationTimeout * 1000, //val validationTimeout: Long
+                    idleTimeout * 1000, //val idleTimeout: Long
+                    leakDetectionThreshold * 1000, //val leakDetectionThreshold: Long
+                    maxLifetime * 1000, //val maxLifetime: Long
+                    maxPoolSize, //val maximumPoolSize: Int
+                    minPoolSize, //val minimumIdle: Int
+                    defaults.getCachePrepStmts(), //val cachePrepStmts: Boolean
+                    defaults.getPrepStmtCacheSize(), //val prepStmtCacheSize: Int
+                    defaults.getPrepStmtCacheSqlLimit() //val prepStmtCacheSqlLimit: Int
+
             );
             setup( params );
-			connect( connection );
 
-            m_ds = cpds;
+            m_ds = connect( connection );
             m_connectionURL = getJdbcUrl();
         }
         catch (Exception ex)
         {
             m_ds = null;
-            log.log(Level.SEVERE, "Could not initialise C3P0 Datasource", ex);
+            log.log(Level.SEVERE, "Could not initialise Hikari Datasource", ex);
         }
 
 		return m_ds;
