@@ -26,7 +26,6 @@ import java.util.logging.Level;
 
 import org.compiere.crm.MBPartnerLocation;
 import org.compiere.crm.X_I_BPartner;
-import org.compiere.impl.*;
 import org.compiere.model.IProcessInfo;
 import org.compiere.model.IProcessInfoParameter;
 import org.compiere.process.ImportProcess;

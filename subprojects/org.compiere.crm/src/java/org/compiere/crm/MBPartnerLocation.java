@@ -39,7 +39,7 @@ import software.hsharp.business.models.ILocation;
  *         .net/tracker/index.php?func=detail&aid=2788465&group_id
  *         =176962&atid=879335
  */
-public class MBPartnerLocation extends X_C_BPartner_Location implements IBusinessPartnerLocation, I_C_BPartner_Location {
+public class MBPartnerLocation extends X_C_BPartner_Location implements I_C_BPartner_Location {
 	/**
 	 * 
 	 */

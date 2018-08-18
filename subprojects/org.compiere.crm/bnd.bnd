@@ -4,3 +4,4 @@
 Bundle-Name: iDempiere CRM
 Import-Package: *
 Export-Package: org.compiere.crm*
+-dsannotations-options: extender

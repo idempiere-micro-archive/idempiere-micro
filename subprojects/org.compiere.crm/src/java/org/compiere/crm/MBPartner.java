@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 
-public class MBPartner extends X_C_BPartner implements IBusinessPartner, I_C_BPartner
+public class MBPartner extends X_C_BPartner implements I_C_BPartner
 {
     /**
      *
@@ -342,6 +342,10 @@ public class MBPartner extends X_C_BPartner implements IBusinessPartner, I_C_BPa
         return success;
     }	//	getTemplate
 
+
+    public MUser[] getContacts () {
+        return getContacts(false);
+    }
 
     /**
      * 	Get All Contacts
@@ -921,16 +925,6 @@ public class MBPartner extends X_C_BPartner implements IBusinessPartner, I_C_BPa
             delete_Tree(MTree_Base.TREETYPE_BPartner);
         return success;
     }	//	afterDelete
-
-    @Override
-    public int getKey() {
-        return getC_BPartner_ID();
-    }
-
-    @Override
-    public String getID() {
-        return ""+getC_BPartner_ID();
-    }
 
     @Override
     public boolean save() { return super.save(); }

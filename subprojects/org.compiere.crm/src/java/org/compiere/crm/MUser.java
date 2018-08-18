@@ -36,6 +36,7 @@ import javax.mail.internet.InternetAddress;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.compiere.model.I_AD_User;
+import org.compiere.model.I_C_BPartner;
 import org.compiere.orm.MClient;
 import org.compiere.orm.MRole;
 import org.compiere.orm.MSysConfig;
@@ -312,7 +313,7 @@ public class MUser extends X_AD_User implements IUser
 	 * 	Parent Constructor
 	 *	@param partner partner
 	 */
-	public MUser (MBPartner partner)
+	public MUser (I_C_BPartner partner)
 	{
 		this (partner.getCtx(), 0, partner.get_TrxName());
 		setClientOrg(partner);
