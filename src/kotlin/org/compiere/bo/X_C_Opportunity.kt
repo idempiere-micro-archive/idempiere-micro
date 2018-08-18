@@ -30,11 +30,9 @@ import org.idempiere.common.util.Env
 import org.idempiere.common.util.KeyNamePair
 import org.idempiere.orm.POInfo
 
-
-open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent
-{
-    constructor(ctx : Properties, C_Opportunity_ID : Int, trxName : String? ) :super(ctx, C_Opportunity_ID, trxName)
-    constructor (ctx:Properties , rs:ResultSet , trxName:String? ) : super(ctx, rs, trxName)
+open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent {
+    constructor(ctx: Properties, C_Opportunity_ID: Int, trxName: String?) : super(ctx, C_Opportunity_ID, trxName)
+    constructor (ctx: Properties, rs: ResultSet, trxName: String?) : super(ctx, rs, trxName)
 
     /** AccessLevel
      * @return 3 - Client - Org
@@ -56,7 +54,7 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent
 
     @Throws(RuntimeException::class)
     override fun getAD_User(): org.compiere.model.I_AD_User? {
-        if (aD_User_ID==0) return null;
+        if (aD_User_ID == 0) return null
         return MTable.get(ctx, org.compiere.model.I_AD_User.Table_Name)
                 .getPO(aD_User_ID, _TrxName) as org.compiere.model.I_AD_User?
     }
@@ -105,7 +103,7 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent
 
     @Throws(RuntimeException::class)
     override fun getC_Campaign(): org.compiere.model.I_C_Campaign? {
-        if (c_Campaign_ID==0) return null;
+        if (c_Campaign_ID == 0) return null
         return MTable.get(ctx, org.compiere.model.I_C_Campaign.Table_Name)
                 .getPO(c_Campaign_ID, _TrxName) as org.compiere.model.I_C_Campaign?
     }
@@ -215,7 +213,7 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent
 
     @Throws(RuntimeException::class)
     override fun getC_Order(): org.compiere.model.I_C_Order? {
-        if (c_Order_ID==0) return null;
+        if (c_Order_ID == 0) return null
         return MTable.get(ctx, org.compiere.model.I_C_Order.Table_Name)
                 .getPO(c_Order_ID, _TrxName) as org.compiere.model.I_C_Order
     }
@@ -360,7 +358,7 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent
 
     @Throws(RuntimeException::class)
     override fun getSalesRep(): org.compiere.model.I_AD_User? {
-        if (salesRep_ID==0) return null;
+        if (salesRep_ID == 0) return null
         return MTable.get(ctx, org.compiere.model.I_AD_User.Table_Name)
                 .getPO(salesRep_ID, _TrxName) as org.compiere.model.I_AD_User
     }
