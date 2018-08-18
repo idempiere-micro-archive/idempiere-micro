@@ -1,5 +1,6 @@
 dependencies {
-    compile files('./c3p0-0.9.5.2.jar')
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    compile group: 'com.zaxxer', name: 'HikariCP', version: '3.2.0'
 
     compile project(':org.idempiere.icommon')
     compile files('../org.idempiere.icommon/bin')    
@@ -24,7 +25,7 @@ dependencies {
 
 }
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.41'
     repositories {
         mavenCentral()
     }

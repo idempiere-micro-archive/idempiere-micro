@@ -4,12 +4,11 @@
 Bundle-Name: iDempiere PostgreSQL Provider
 Bundle-Activator: pg.org.adempiere.db.postgresql.PostgreSQLBundleActivator
 Bundle-ClassPath: .,c3p0-0.9.5.2.jar,mchange-commons-java-0.2.15.jar
-Import-Package: !com.mchange.v2.c3p0*, !org.jfree.io, !pg.org.adempiere.db.postgresql*, javax.naming*;resolution:=optional,*
+Import-Package: !org.jfree.io, !pg.org.adempiere.db.postgresql*, javax.naming*;resolution:=optional,*
 -includeresource: \
-    {c3p0-0.9.5.2.jar}, {jcommon-1.0.24.jar}, {server.pool.default.properties}, {mchange-commons-java-0.2.15.jar}
+    {jcommon-1.0.24.jar}, {server.pool.default.properties}
 Export-Package: \
     pg.org.compiere.db*,\
     pg.org.adempiere.db.postgresql*,\
-    org.jfree.io*,\
-    com.mchange.v2.c3p0*
+    org.jfree.io*
 -dsannotations-options: extender
