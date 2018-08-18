@@ -8,9 +8,6 @@ dependencies {
     compile project(':software.hsharp.business.models')
     compile files('../software.hsharp.business.models/bin')
 
-    compile project(':org.compiere.crm')
-    compile files('../org.compiere.crm/bin')
-
     compile project(':org.compiere.process')
     compile files('../org.compiere.process/bin')
 
@@ -20,7 +17,7 @@ dependencies {
     compile files('../software.hsharp.core.models/bin')
 }
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.41'
     repositories {
         mavenCentral()
     }
