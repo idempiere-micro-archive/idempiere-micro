@@ -6,5 +6,5 @@ interface ICConnection {
     val dbName: String
     val dbUid: String
     val dbPwd: String
-    val ssl : Boolean
+    val ssl: Boolean
 }
