@@ -174,7 +174,7 @@ public class MAssetType extends X_A_Asset_Type
 	 * @param model
 	 * @param useDefaults in case is not a concrete value, use defaults
 	 */
-	public boolean update(org.compiere.impl.SetGetModel model, boolean useDefaults)
+	public boolean update(org.compiere.model.SetGetModel model, boolean useDefaults)
 	{
 //		boolean useDefaults = true;
 		Boolean f = getBoolean(getIsOwned(), useDefaults);

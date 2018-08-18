@@ -51,7 +51,7 @@ import software.hsharp.business.models.IBusinessPartner;
  *      <LI>BF [ 2041226 ] BP Open Balance should count only Completed Invoice
  *			<LI>BF [ 2498949 ] BP Get Not Invoiced Shipment Value return null
  */
-public class MBPartner extends X_C_BPartner implements IBusinessPartner, I_C_BPartner
+public class MBPartner extends X_C_BPartner implements I_C_BPartner
 {
 	/**
 	 * 
@@ -376,6 +376,9 @@ public class MBPartner extends X_C_BPartner implements IBusinessPartner, I_C_BPa
 		return success;
 	}	//	getTemplate
 
+	public MUser[] getContacts () {
+		return getContacts(false);
+	}
 
 	/**
 	 * 	Get All Contacts
@@ -998,15 +1001,5 @@ public class MBPartner extends X_C_BPartner implements IBusinessPartner, I_C_BPa
 			delete_Tree(MTree_Base.TREETYPE_BPartner);
 		return success;
 	}	//	afterDelete
-
-	@Override
-	public int getKey() {
-		return getC_BPartner_ID();
-	}
-
-	@Override
-	public String getID() {
-		return ""+getC_BPartner_ID();
-	}
 
 }	//	MBPartner

@@ -16,6 +16,8 @@
  *****************************************************************************/
 package org.compiere.impl;
 
+import org.compiere.crm.X_C_Dunning;
+
 import java.sql.ResultSet;
 import java.util.Properties;
 

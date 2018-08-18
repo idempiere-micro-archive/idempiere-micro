@@ -3,7 +3,7 @@
  */
 package org.idempiere.fa.feature;
 
-import org.compiere.impl.SetGetModel;
+import org.compiere.model.SetGetModel;
 
 import java.sql.Timestamp;
 import java.util.Properties;

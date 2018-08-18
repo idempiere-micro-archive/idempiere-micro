@@ -295,7 +295,6 @@ public class MSystem extends org.compiere.orm.MSystem
 		s_system.put(0, system);
 		return system;
 	}	//	get
-
 	public MSystem (Properties ctx, ResultSet rs, String trxName) {
 		super(ctx, rs, trxName);
 	}
