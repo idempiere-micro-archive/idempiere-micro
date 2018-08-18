@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import java.util.Properties;
 
 import org.idempiere.common.util.KeyNamePair;
+import org.idempiere.icommon.model.IPO;
 import software.hsharp.business.models.IClientBound;
 import software.hsharp.core.models.ISearchableByKey;
 import software.hsharp.core.models.INamedEntity;
@@ -30,7 +31,7 @@ import software.hsharp.core.models.INamedEntity;
  *  @author iDempiere (generated) 
  *  @version Release 5.1
  */
-public interface I_C_BPartner extends IClientBound, ISearchableByKey, INamedEntity, Serializable
+public interface I_C_BPartner extends IClientBound, ISearchableByKey, INamedEntity, Serializable, IPO
 {
 
     /** TableName=C_BPartner */
@@ -978,5 +979,5 @@ public interface I_C_BPartner extends IClientBound, ISearchableByKey, INamedEnti
 
 	boolean delete (boolean force);
 
-    I_AD_User[] getContacts(boolean b);
+    I_AD_User[] getContacts();
 }

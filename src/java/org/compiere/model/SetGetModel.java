@@ -1,4 +1,4 @@
-package org.compiere.impl;
+package org.compiere.model;
 
 import java.util.Properties;
 
