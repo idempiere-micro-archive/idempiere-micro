@@ -3,7 +3,7 @@ package org.compiere.product;
 import java.sql.ResultSet;
 import java.util.Properties;
 
-import org.compiere.impl.SetGetModel;
+import org.compiere.model.SetGetModel;
 import org.compiere.model.I_A_Asset_Group;
 import org.compiere.orm.SetGetUtil;
 import org.idempiere.common.util.CCache;
