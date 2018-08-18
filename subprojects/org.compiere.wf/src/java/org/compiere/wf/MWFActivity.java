@@ -36,7 +36,6 @@ import java.util.logging.Level;
 import org.compiere.conversionrate.MConversionRate;
 import org.compiere.crm.MBPartner;
 import org.compiere.crm.MUser;
-import org.compiere.impl.*;
 import org.compiere.model.I_AD_WF_Activity;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.orm.*;

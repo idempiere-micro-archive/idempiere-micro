@@ -25,8 +25,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
-
-import org.compiere.impl.*;
 import org.compiere.model.IProcessInfo;
 import org.compiere.model.I_AD_Workflow;
 import org.compiere.orm.MColumn;

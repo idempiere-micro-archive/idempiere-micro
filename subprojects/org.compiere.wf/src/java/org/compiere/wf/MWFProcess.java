@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import org.compiere.impl.*;
 import org.compiere.model.IProcessInfo;
 import org.compiere.orm.*;
 import org.compiere.process.DocAction;
