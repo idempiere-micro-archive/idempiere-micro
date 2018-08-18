@@ -21,8 +21,8 @@ import java.sql.ResultSet
 import java.util.*
 
 class MOpportunity : X_C_Opportunity {
-    constructor(ctx : Properties, C_Opportunity_ID : Int, trxName : String? ) :super(ctx, C_Opportunity_ID, trxName)
-    constructor (ctx: Properties, rs: ResultSet, trxName:String? ) : super(ctx, rs, trxName)
+    constructor(ctx: Properties, C_Opportunity_ID: Int, trxName: String?) : super(ctx, C_Opportunity_ID, trxName)
+    constructor (ctx: Properties, rs: ResultSet, trxName: String?) : super(ctx, rs, trxName)
 
     override fun beforeSave(newRecord: Boolean): Boolean {
         if (c_Order_ID > 0) {
@@ -32,5 +32,4 @@ class MOpportunity : X_C_Opportunity {
         }
         return true
     }
-
 }

@@ -4,3 +4,4 @@
 Bundle-Name: iDempiere Leads
 Import-Package: *
 Export-Package: org.compiere.bo*
+-dsannotations-options: extender

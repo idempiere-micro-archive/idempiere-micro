@@ -44,10 +44,26 @@ dependencies {
     compile project(':org.compiere.product')
     compile files('../org.compiere.product/bin')
 
+    compile project(':software.hsharp.business.models')
+    compile files('../software.hsharp.business.models/bin')
+
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testCompile project(':software.hsharp.db.postgresql.provider')
+    testCompile files('../software.hsharp.db.postgresql.provider/bin')
+
+    testCompile project(':org.compiere.db.postgresql.provider')
+    testCompile files('../org.compiere.db.postgresql.provider/bin')
+
+    testCompile project(':software.hsharp.core.models')
+    testCompile files('../software.hsharp.core.models/bin')
+
+    testCompile project(':org.idempiere.common')
+    testCompile files('../org.idempiere.common/bin')
+
 }
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.41'
     repositories {
         mavenCentral()
     }
