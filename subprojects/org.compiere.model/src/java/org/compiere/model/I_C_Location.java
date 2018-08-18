@@ -27,7 +27,7 @@ import software.hsharp.business.models.IClientBound;
  *  @author iDempiere (generated) 
  *  @version Release 5.1
  */
-public interface I_C_Location extends ILocation, IClientBound
+public interface I_C_Location extends IClientBound
 {
 
     /** TableName=C_Location */
@@ -316,4 +316,12 @@ public interface I_C_Location extends ILocation, IClientBound
 	public String getValidateAddress();
 
 	boolean equals(int c_country_id, int c_region_id, String postal, String s, String city, String address1, String address2);
+
+	String getAddress1 ();
+	String getAddress2 ();
+	String getAddress3 ();
+	String getAddress4 ();
+	String getAddress5 ();
+	String getCity ();
+	String getCountryName ();
 }

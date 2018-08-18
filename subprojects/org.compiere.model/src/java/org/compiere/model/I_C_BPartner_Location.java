@@ -27,7 +27,7 @@ import software.hsharp.business.models.ILocation;
  *  @author iDempiere (generated) 
  *  @version Release 5.1
  */
-public interface I_C_BPartner_Location extends IClientBound, IBusinessPartnerLocation
+public interface I_C_BPartner_Location extends IClientBound
 {
 
     /** TableName=C_BPartner_Location */
