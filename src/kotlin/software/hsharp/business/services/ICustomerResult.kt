@@ -4,5 +4,5 @@ import software.hsharp.business.models.ICustomer
 import software.hsharp.core.models.IResult
 
 interface ICustomerResult : IResult {
-    val customer : ICustomer?
+    val customer: ICustomer?
 }
