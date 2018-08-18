@@ -7,39 +7,39 @@ import org.compiere.orm.IModelFactory
 import org.compiere.process.SvrProcess
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
+import org.idempiere.common.util.Trx
+import software.hsharp.business.models.IDTOReady
+import java.io.Serializable
 import java.math.BigDecimal
+import java.sql.Connection
 
-data class DetailResult( val bPartner : I_C_BPartner?, val categoryName : String?, val activities : MutableList<I_C_ContactActivity> ) : java.io.Serializable
+data class DetailResult(
+    val bPartner: I_C_BPartner?,
+    val categoryName: String?,
+    val activities: MutableList<I_C_ContactActivity>
+) : IDTOReady
 
-class Detail : SvrProcess() {
-    var businessPartnerId : Int = 0
-    var AD_CLIENT_ID = 0 //AD_Client_ID
-    var AD_ORG_ID = 0 //AD_Org_ID
+class Detail : SvrProcessBaseSql() {
+    override val isRO: Boolean
+        get() = true
+    var businessPartnerId: Int = 0
 
     override fun prepare() {
+        super.prepare()
         for (para in parameter) {
-            if ( para.parameterName == "BusinessPartnerId" ) {
+            if (para.parameterName == "BusinessPartnerId") {
                 businessPartnerId = para.parameterAsInt
-            } else if ( para.parameterName == "AD_Client_ID" ) {
-                AD_CLIENT_ID = para.parameterAsInt
-            } else if ( para.parameterName == "AD_Org_ID" ) {
-                AD_ORG_ID = para.parameterAsInt
-            } else println( "unknown parameter ${para.parameterName}" )
+            }
         }
     }
 
-    override fun doIt(): String {
-        val pi = processInfo
-
-        val ctx = Env.getCtx()
-
+    override fun getSqlResult(cnn: Connection): IDTOReady {
         val sql =
-                """
-select * from bpartner_detail_v where c_bpartner_id = ?
-and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
+            """
+select *, C_ContactActivity_ID as activity_C_ContactActivity_ID from bpartner_detail_v where c_bpartner_id = ?
+and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y' order by activity_startdate desc
 """.trimIndent()
 
-        val cnn = DB.getConnectionRO()
         val statement = cnn.prepareStatement(sql)
         statement.setInt(1, businessPartnerId)
         statement.setInt(2, AD_CLIENT_ID)
@@ -48,28 +48,26 @@ and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
 
         val rs = statement.executeQuery()
 
-        val modelFactory : IModelFactory = DefaultModelFactory()
-        var bpartner : I_C_BPartner? = null
-        var categoryName : String? = null
+        val modelFactory: IModelFactory = DefaultModelFactory()
+        var bpartner: I_C_BPartner? = null
+        var categoryName: String? = null
 
         val activities = mutableListOf<I_C_ContactActivity>()
 
-        while(rs.next()) {
-            if ( bpartner == null) {
-                bpartner = modelFactory.getPO("C_BPartner", rs, "pokus") as I_C_BPartner
+        while (rs.next()) {
+            if (bpartner == null) {
+                bpartner = modelFactory.getPO("C_BPartner", rs, null) as I_C_BPartner
                 categoryName = rs.getString("category_name")
             }
 
             val c_contactactivity_id = rs.getObject("c_contactactivity_id") as BigDecimal?
             if (c_contactactivity_id != null) {
-                val activity = modelFactory.getPO( "C_ContactActivity", rs, "pokus", "activity_") as I_C_ContactActivity
+                val activity = modelFactory.getPO("C_ContactActivity", rs, null, "activity_") as I_C_ContactActivity
                 activities.add(activity)
             }
         }
 
-        pi.serializableObject = DetailResult( bpartner, categoryName, activities )
-
-        return "OK"
+        return DetailResult(bpartner, categoryName, activities)
     }
 
 }
