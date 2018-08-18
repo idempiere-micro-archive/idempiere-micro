@@ -385,7 +385,7 @@ public class MAssetAddition extends X_A_Asset_Addition
 	 * @param M_MatchInv_ID - matching invoice id
 	 * @param newRecord new object model is created
 	 */
-	public static boolean setM_MatchInv(org.compiere.impl.SetGetModel model, int M_MatchInv_ID)
+	public static boolean setM_MatchInv(org.compiere.model.SetGetModel model, int M_MatchInv_ID)
 	{
 		boolean newRecord = false;
 		String trxName = null;

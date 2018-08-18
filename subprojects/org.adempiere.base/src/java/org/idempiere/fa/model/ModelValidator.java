@@ -9,7 +9,7 @@ import java.util.logging.Level;
 import org.adempiere.exceptions.FillMandatoryException;
 import org.compiere.acct.Fact;
 import org.compiere.impl.*;
-import org.compiere.impl.SetGetModel;
+import org.compiere.model.SetGetModel;
 import org.compiere.model.IFact;
 import org.compiere.model.I_AD_Client;
 import org.compiere.model.I_C_AcctSchema;
