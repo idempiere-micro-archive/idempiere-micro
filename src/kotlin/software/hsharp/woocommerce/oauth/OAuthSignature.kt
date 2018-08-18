@@ -107,7 +107,6 @@ object OAuthSignature {
         } catch (e: UnsupportedEncodingException) {
             throw RuntimeException(e)
         }
-
     }
 
     private fun urlEncode(s: String): String {
@@ -116,7 +115,6 @@ object OAuthSignature {
         } catch (e: UnsupportedEncodingException) {
             throw RuntimeException(e)
         }
-
     }
 
     private fun getSignatureBaseString(url: String, method: String, parameters: Map<String, String>): String {
@@ -156,7 +154,6 @@ object OAuthSignature {
         } catch (e: UnsupportedEncodingException) {
             throw RuntimeException(e.message, e)
         }
-
     }
 
     private fun getSortedParameters(parameters: Map<String, String>): Map<String, String> {
