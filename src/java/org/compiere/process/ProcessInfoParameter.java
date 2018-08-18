@@ -120,8 +120,14 @@ public class ProcessInfoParameter implements Serializable, IProcessInfoParameter
 			return 0;
 		if (m_Parameter instanceof Number)
 			return ((Number)m_Parameter).intValue();
-		BigDecimal bd = new BigDecimal(m_Parameter.toString());
-		return bd.intValue();
+		try {
+			String m_ParameterS = m_Parameter.toString();
+			if (m_ParameterS.equals("null")) return 0;
+			BigDecimal bd = new BigDecimal(m_ParameterS);
+			return bd.intValue();
+		} catch (java.lang.NumberFormatException ex) {
+			throw new IllegalArgumentException("Failed for'"+m_Parameter+"'", ex);
+		}
 	}	//	getParameterAsInt
 	
 	/**
