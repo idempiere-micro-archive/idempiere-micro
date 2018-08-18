@@ -1,8 +1,7 @@
 package software.hsharp.woocommerce.impl
 
-data class MappedOrder(val map: Map<String, Any?>)
-{
-    val id : Int by map
+data class MappedOrder(val map: Map<String, Any?>) {
+    val id: Int by map
 
     /* this is left here as a warning why I did not want to go this way and
     used the "strange" way to get Order by ID

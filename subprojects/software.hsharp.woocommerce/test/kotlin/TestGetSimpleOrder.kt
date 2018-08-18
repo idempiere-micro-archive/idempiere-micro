@@ -338,20 +338,20 @@ class TestGetSimpleOrder {
         DB.isConnected()
 
         val ctx = Env.getCtx()
-        val AD_CLIENT_ID = 1000000
+        val AD_CLIENT_ID = 11
         val AD_CLIENT_ID_s = AD_CLIENT_ID.toString()
         ctx.setProperty(Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
         Env.setContext(ctx, Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
-        val AD_ORG_ID = 1000000
+        val AD_ORG_ID = 11
         val AD_ORG_ID_s = AD_ORG_ID.toString()
         ctx.setProperty(Env.AD_ORG_ID, AD_ORG_ID_s )
         Env.setContext(ctx, Env.AD_ORG_ID, AD_ORG_ID_s )
 
-        val order = MOrder( ctx, 1000019, "test" )
+        val order = MOrder( ctx, 108, "test" )
         val exportOrder = ExportOrder(
                 order
         )
-        val order1 = MOrder( ctx, 1000002, "test" )
+        val order1 = MOrder( ctx, 106, "test" )
         val exportOrder1 = ExportOrder(
                 order1
         )
