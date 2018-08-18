@@ -10,7 +10,7 @@ import javax.crypto.spec.SecretKeySpec
 
 class JwtManager protected constructor() {
 
-    private fun doCreateToken(subject: String, role: String, loginModel:String): String {
+    private fun doCreateToken(subject: String, role: String, loginModel: String): String {
         val now = Instant.now()
         val expiryDate = Date.from(now.plus(TOKEN_VALIDITY))
         return Jwts.builder()
@@ -63,7 +63,7 @@ class JwtManager protected constructor() {
         /**
          * Builds a JWT with the given subject and role and returns it as a JWS signed compact String.
          */
-        fun createToken(subject: String, roleModel: String, loginModel:String): String {
+        fun createToken(subject: String, roleModel: String, loginModel: String): String {
             return getInstance().doCreateToken(subject, roleModel, loginModel)
         }
 
