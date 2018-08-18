@@ -9,8 +9,11 @@ interface ILoginUtility {
     fun getRoles(app_user: String, client: INameKeyPair): Array<INameKeyPair>
     fun getOrgs(rol: INameKeyPair): Array<INameKeyPair>
     fun getWarehouses(org: INameKeyPair): Array<INameKeyPair>
-    fun init(ctx : Properties) : ILoginUtility
-    fun loadPreferences(org: INameKeyPair,
-                        warehouse: INameKeyPair?, timestamp: java.sql.Timestamp?, printerName: String?): String
-
+    fun init(ctx: Properties): ILoginUtility
+    fun loadPreferences(
+        org: INameKeyPair,
+        warehouse: INameKeyPair?,
+        timestamp: java.sql.Timestamp?,
+        printerName: String?
+    ): String
 }

@@ -1,25 +1,23 @@
 package software.hsharp.core.utils
 
 import software.hsharp.core.models.IEmail
-import java.util.ArrayList
-import java.util.logging.Level
 import javax.mail.internet.InternetAddress
 import org.apache.commons.mail.DefaultAuthenticator
 import org.apache.commons.mail.HtmlEmail
-import java.net.URL
 
 open class EMail(
-        override var SmtpHost: String,
-        override var SmtpPort: Int,
-        override var From: InternetAddress,
-        override var ReplyTo: InternetAddress,
-        override var Subject: String,
-        override var UserName: String,
-        override var Password: String,
-        override var MessageHTML: String) : IEmail {
+    override var SmtpHost: String,
+    override var SmtpPort: Int,
+    override var From: InternetAddress,
+    override var ReplyTo: InternetAddress,
+    override var Subject: String,
+    override var UserName: String,
+    override var Password: String,
+    override var MessageHTML: String
+) : IEmail {
 
     companion object {
-        fun convert( s : String, email : EMail ) : InternetAddress? {
+        fun convert(s: String, email: EMail): InternetAddress? {
             try {
                 return InternetAddress(s, true)
             } catch (e: Exception) {
@@ -29,8 +27,8 @@ open class EMail(
         }
     }
 
-    protected fun convert( s : String) : InternetAddress? {
-        return EMail.convert( s, this )
+    protected fun convert(s: String): InternetAddress? {
+        return EMail.convert(s, this)
     }
 
     protected var m_valid = false
@@ -46,8 +44,8 @@ open class EMail(
     }
 
     override fun addTo(newTo: String): Boolean {
-        val ia = convert( newTo )
-        if ( ia == null ) {
+        val ia = convert(newTo)
+        if (ia == null) {
             return false
         } else {
             this.m_to.add(ia)
@@ -56,8 +54,8 @@ open class EMail(
     }
 
     override fun addCc(newCc: String): Boolean {
-        val ia = convert( newCc )
-        if ( ia == null ) {
+        val ia = convert(newCc)
+        if (ia == null) {
             return false
         } else {
             this.m_cc.add(ia)
@@ -66,8 +64,8 @@ open class EMail(
     }
 
     override fun addBcc(newBcc: String): Boolean {
-        val ia = convert( newBcc )
-        if ( ia == null ) {
+        val ia = convert(newBcc)
+        if (ia == null) {
             return false
         } else {
             this.m_bcc.add(ia)
@@ -82,14 +80,13 @@ open class EMail(
         email.setAuthenticator(DefaultAuthenticator(UserName, Password))
         email.isSSLOnConnect = true
         email.setFrom(From.address)
-        m_to.forEach { email.addTo(it.address) }        
+        m_to.forEach { email.addTo(it.address) }
         email.subject = Subject
-        //val kotlinLogoURL = URL("https://kotlinlang.org/assets/images/twitter-card/kotlin_800x320.png")
-        //val cid = email.embed(kotlinLogoURL, "Kotlin logo")
+        // val kotlinLogoURL = URL("https://kotlinlang.org/assets/images/twitter-card/kotlin_800x320.png")
+        // val cid = email.embed(kotlinLogoURL, "Kotlin logo")
         email.setHtmlMsg(MessageHTML)
         email.send()
 
         return "Success"
     }
-
 }

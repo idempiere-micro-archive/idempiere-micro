@@ -7,5 +7,5 @@ interface ISearchableByKey {
      * Since it is a key, it needs to be unique.
      * @return the search key.
      */
-    val value : String
+    val value: String
 }

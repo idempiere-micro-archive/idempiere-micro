@@ -4,22 +4,25 @@ import com.fasterxml.jackson.core.JsonFactory
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.JsonNodeType
-import com.fasterxml.jackson.databind.node.ObjectNode
 
-fun parse(body:String) : MutableList<Pair<String, Any>> {
+fun parse(body: String): MutableList<Pair<String, Any>> {
+    if ( body == "" ) {
+        return mutableListOf()
+    }
+
     val factory = JsonFactory()
 
     val mapper = ObjectMapper(factory)
     val rootNode = mapper.readTree(body)
 
     val fieldsIterator = rootNode.fields()
-    val values : MutableList<Pair<String, Any>> = mutableListOf()
+    val values: MutableList<Pair<String, Any>> = mutableListOf()
     while (fieldsIterator.hasNext()) {
 
         val field = fieldsIterator.next()
-        val nodeValue : JsonNode = field.value
+        val nodeValue: JsonNode = field.value
 
-        val value : Any =
+        val value: Any =
                 when (nodeValue.nodeType) {
                     JsonNodeType.STRING -> nodeValue.asText()
                     JsonNodeType.NUMBER ->
@@ -33,8 +36,8 @@ fun parse(body:String) : MutableList<Pair<String, Any>> {
                     }
                 }
 
-        val mappedField : Pair<String, Any> = Pair( field.key, value )
-        values.add( mappedField )
+        val mappedField: Pair<String, Any> = Pair(field.key, value)
+        values.add(mappedField)
     }
     return values
 }
