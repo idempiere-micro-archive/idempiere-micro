@@ -4,5 +4,5 @@ import software.hsharp.business.models.IBusinessPartner
 import software.hsharp.core.models.IResult
 
 interface IBusinessPartnersResult : IResult {
-   val businessPartners : Array<IBusinessPartner>
+   val businessPartners: Array<IBusinessPartner>
 }

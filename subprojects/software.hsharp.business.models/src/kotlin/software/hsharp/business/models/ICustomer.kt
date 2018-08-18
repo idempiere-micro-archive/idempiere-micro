@@ -1,3 +1,3 @@
 package software.hsharp.business.models
 
-interface ICustomer: IBusinessPartner, ICategorizedEntity
+interface ICustomer : IBusinessPartner, ICategorizedEntity

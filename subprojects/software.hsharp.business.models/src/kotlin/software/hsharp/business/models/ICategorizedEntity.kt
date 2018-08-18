@@ -1,5 +1,5 @@
 package software.hsharp.business.models
 
 interface ICategorizedEntity {
-    val categories : Array<ICategory>
+    val categories: Array<ICategory>
 }
