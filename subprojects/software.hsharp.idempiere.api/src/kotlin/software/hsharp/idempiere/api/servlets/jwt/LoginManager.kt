@@ -1,13 +1,10 @@
 package software.hsharp.idempiere.api.servlets.jwt
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.compiere.model.I_AD_User
-import org.idempiere.common.exceptions.AdempiereException
 import org.idempiere.common.util.*
 import org.osgi.service.component.annotations.Component
 import org.osgi.service.component.annotations.Reference
 import software.hsharp.api.helpers.jwt.*
-import software.hsharp.api.icommon.IDatabase
 import software.hsharp.idempiere.api.servlets.services.LoginService
 import software.hsharp.idempiere.api.servlets.services.SystemService
 import software.hsharp.idempiere.api.servlets.services.UserService
@@ -70,7 +67,7 @@ class LoginManager : ILoginService {
 		var loginInfo: String? = null
 		var c_bpartner_id = -1
 		//  Verify existence of User/Client/Org/Role and User's access to Client & Org
-		val sql = ("SELECT u.Name || '@' || c.Name || '.' || o.Name AS Text, u.c_bpartner_id, ? " //#1
+		val sql = ("SELECT u.Name || '@' || c.Name || '.' || o.Name AS Text, u.c_bpartner_id, ? as ad_user_id " //#1
 				+ "FROM AD_User u, AD_Client c, AD_Org o, AD_User_Roles ur "
 				+ "WHERE u.AD_User_ID=?"    //  #2
 
@@ -157,94 +154,105 @@ class LoginManager : ILoginService {
 	}
 
 	fun doLogin( login : ILogin ) : UserLoginModelResponse {
-		SystemService.system.startup()
+        SystemService.system.startup()
+        Trx.startTrxMonitor(SystemService.system.getThreadPoolExecutor())
 
-		val ctx = Env.getCtx()
-		val loginUtil = LoginService.loginUtility.init(ctx)
-		
-		// HACK - this is needed before calling the list of clients, because the user will be logged in
-		// HACK - and the information about the login success or failure need to be saved to the DB
-		ctx.setProperty(Env.AD_CLIENT_ID, "" + login.clientId)
-       	Env.setContext(ctx, Env.AD_CLIENT_ID, "" + login.clientId)
-		
-		val clients = loginUtil.getClients(login.loginName, login.password)
-		if (clients == null) {
-			return UserLoginModelResponse()
-		}
-		
-		val selectedClientIndex = clients.indexOfFirst { it.Key == login.clientId || clients.count() == 1 }
+        val ctx = Env.getCtx()
+        val loginUtil = LoginService.loginUtility.init(ctx)
 
-    	val roles =
-    			if (selectedClientIndex == -1 ) {
-					null
-				} else {
-					val clientId = clients[selectedClientIndex].ID
-					ctx.setProperty(Env.AD_CLIENT_ID, clientId )
-			       	Env.setContext(ctx, Env.AD_CLIENT_ID, clientId )
-					loginUtil.getRoles(login.loginName, clients[selectedClientIndex] )
-				}		
-		
-    	val user = UserService.userService.getUser(ctx, login.loginName)
-    	if (user != null) {
-    		Env.setContext(ctx, Env.AD_USER_ID, user.ID )
-    		Env.setContext(ctx, "#AD_User_Name", user.name )
-    		Env.setContext(ctx, "#SalesRep_ID", user.ID )
-    	}
+        // HACK - this is needed before calling the list of clients, because the user will be logged in
+        // HACK - and the information about the login success or failure need to be saved to the DB
+        ctx.setProperty(Env.AD_CLIENT_ID, "" + login.clientId)
+        Env.setContext(ctx, Env.AD_CLIENT_ID, "" + login.clientId)
 
-		val selectedRoleIndex =
-				if (roles==null) { -1 }
-				else { roles.indexOfFirst { it.Key == login.roleId || roles.count() == 1 } }
-					
-		// orgs
-		val orgs = 
-    			if (selectedRoleIndex == -1 ) {
-					null
-				} else {
-					loginUtil.getOrgs( roles!![selectedRoleIndex] );
-				}
-		
-		val selectedOrgIndex =
-				if (orgs==null) { -1 }
-				else { orgs.indexOfFirst { it.Key == login.orgId || orgs.count() == 1 } }
-					
-		// warehouses
-		val warehouses = 
-    			if (selectedOrgIndex == -1 ) {
-					null
-				} else {
-					loginUtil.getWarehouses( orgs!![selectedOrgIndex] );
-				}
-		
-		val selectedWarehouseIndex =
-				if (warehouses==null) { -1 }
-				else { warehouses.indexOfFirst { it.Key == login.warehouseId || warehouses.count() == 1  } }
-						
-		val AD_User_ID = Env.getAD_User_ID(ctx)
+        val clients = loginUtil.getClients(login.loginName, login.password)
 
-		val logged =
-			( selectedWarehouseIndex != -1 ) &&
-			( selectedOrgIndex != -1 ) &&
-			( selectedRoleIndex != -1 ) &&
-			( selectedClientIndex != -1 ) &&
-			login(
-					ctx,
-					AD_User_ID,
-					roles!![selectedRoleIndex].Key,
-					clients[selectedClientIndex].Key,
-					orgs!![selectedOrgIndex].Key,
-					warehouses!![selectedWarehouseIndex].Key,
-					login.language!! )
-		
-		val result = UserLoginModelResponse( logged, clients, roles, orgs, warehouses, null )
+        val selectedClientIndex = clients.indexOfFirst { it.Key == login.clientId || clients.count() == 1 }
 
-		if (result.logged) {
-			val mapper = ObjectMapper()
-			val token = JwtManager.createToken( AD_User_ID.toString(), "",
-				mapper.writeValueAsString(login) //"{ \"loginName\":\"" + login.loginName + "\", \"password\":\"" + login.password + "\"}"
-			)
-			return result.copy(token=token)
-		}
+        val roles =
+            if (selectedClientIndex == -1) {
+                null
+            } else {
+                val clientId = clients[selectedClientIndex].ID
+                ctx.setProperty(Env.AD_CLIENT_ID, clientId)
+                Env.setContext(ctx, Env.AD_CLIENT_ID, clientId)
+                loginUtil.getRoles(login.loginName, clients[selectedClientIndex])
+            }
 
-		return result
-	}
+        val user = UserService.userService.getUser(ctx, login.loginName)
+        if (user != null) {
+
+            Env.setContext(ctx, Env.AD_USER_ID, user.ID)
+            Env.setContext(ctx, "#AD_User_Name", user.name)
+            Env.setContext(ctx, "#SalesRep_ID", user.ID)
+
+            val selectedRoleIndex =
+                if (roles == null) {
+                    -1
+                } else {
+                    roles.indexOfFirst { it.Key == login.roleId || roles.count() == 1 }
+                }
+
+            // orgs
+            val orgs =
+                if (selectedRoleIndex == -1) {
+                    null
+                } else {
+                    loginUtil.getOrgs(roles!![selectedRoleIndex]);
+                }
+
+            val selectedOrgIndex =
+                if (orgs == null) {
+                    -1
+                } else {
+                    orgs.indexOfFirst { it.Key == login.orgId || orgs.count() == 1 }
+                }
+
+            // warehouses
+            val warehouses =
+                if (selectedOrgIndex == -1) {
+                    null
+                } else {
+                    loginUtil.getWarehouses(orgs!![selectedOrgIndex]);
+                }
+
+            val selectedWarehouseIndex =
+                if (warehouses == null) {
+                    -1
+                } else {
+                    warehouses.indexOfFirst { it.Key == login.warehouseId || warehouses.count() == 1 }
+                }
+
+            val AD_User_ID = Env.getAD_User_ID(ctx)
+
+            val logged =
+                (selectedWarehouseIndex != -1) &&
+                    (selectedOrgIndex != -1) &&
+                    (selectedRoleIndex != -1) &&
+                    (selectedClientIndex != -1) &&
+                    login(
+                        ctx,
+                        AD_User_ID,
+                        roles!![selectedRoleIndex].Key,
+                        clients[selectedClientIndex].Key,
+                        orgs!![selectedOrgIndex].Key,
+                        warehouses!![selectedWarehouseIndex].Key,
+                        login.language!!
+                    )
+
+            val result = UserLoginModelResponse(logged, clients, roles, orgs, warehouses, null)
+
+            if (result.logged) {
+                val mapper = ObjectMapper()
+                val token = JwtManager.createToken(
+                    AD_User_ID.toString(), "",
+                    mapper.writeValueAsString(login)
+                )
+                return result.copy(token = token)
+            }
+
+            return result
+        }
+        return UserLoginModelResponse()
+    }
 }

@@ -11,7 +11,7 @@ class Status {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
-    fun getStatus() : String {
+    fun getStatus(): String {
         return "works!"
     }
 }

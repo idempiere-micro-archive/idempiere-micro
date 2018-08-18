@@ -12,7 +12,7 @@ class SystemService {
     }
 
     @Reference
-    fun setSystem(system : ISystemImpl) {
-        systemImpl= system
+    fun setSystem(system: ISystemImpl) {
+        systemImpl = system
     }
 }
