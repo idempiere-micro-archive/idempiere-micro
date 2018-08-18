@@ -22,22 +22,23 @@ interface IDatabase {
      */
     fun setup(parameters: IDatabaseSetup)
 
-    val defaultSetupParameters : IDatabaseSetup
+    val defaultSetupParameters: IDatabaseSetup
 
     /**
      * Connect
      * @param connection connection
      */
-    fun connect(connection: ICConnection)
-
-    /**
-     * 	Get Cached Connection
-     */
-  	val CachedConnection : Connection
+    fun connect(connection: ICConnection): DataSource?
 
     /**
      * 	Cleanup connections that are not used using the connection provided
      * @param connection connection
      */
     fun cleanup(connection: Connection)
+
+    /**
+     * Unable to obtain connection, try to do whatever you can to get one.
+     * This must not ever fail.
+     */
+    fun fubar()
 }
