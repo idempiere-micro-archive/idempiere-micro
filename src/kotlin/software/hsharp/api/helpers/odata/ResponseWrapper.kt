@@ -49,7 +49,6 @@ abstract class ResponseWrapper(val delegate: Response) : Response() {
         return delegate.readEntity(entityType)
     }
 
-
     override fun <T> readEntity(entityType: GenericType<T>): T {
         return delegate.readEntity(entityType)
     }

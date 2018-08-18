@@ -1,6 +1,5 @@
 package software.hsharp.api.helpers.jwt
 
-import io.jsonwebtoken.SignatureException
 import org.glassfish.jersey.server.ContainerRequest
 import java.io.IOException
 import java.security.Key
@@ -28,8 +27,8 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
     @Inject
     internal var uriInfo: javax.inject.Provider<UriInfo>? = null
 
-    protected abstract fun decodeUserLoginModel(requestContext : ContainerRequestContext, userLoginModel:String) : IUserLoginModel;
-    protected abstract fun decodeRoles(roleModel:String) : Array<String>;
+    protected abstract fun decodeUserLoginModel(requestContext: ContainerRequestContext, userLoginModel: String): IUserLoginModel
+    protected abstract fun decodeRoles(roleModel: String): Array<String>
 
     @Throws(IOException::class)
     override fun filter(requestContext: ContainerRequestContext) {
@@ -38,10 +37,9 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
 
         val queryParameters = requestContext.uriInfo.queryParameters
 
-        if ( ("options" == method) ||
-                ("get" == method
-                && ("application.wadl" == path || "application.wadl/xsd0.xsd" == path || "status" == path) || "authentication" == path) )
-        {
+        if (("options" == method) ||
+                ("get" == method &&
+                ("application.wadl" == path || "application.wadl/xsd0.xsd" == path || "status" == path) || "authentication" == path)) {
             // pass through the filter.
             requestContext.setSecurityContext(NoLoginSecurityContextAuthorizer(uriInfo!!))
             return
@@ -78,7 +76,7 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
                 JWT expired etc.
 
                  */
-                println( "JWT decode fail $ex" )
+                println("JWT decode fail $ex")
             }
         }
         throw WebApplicationException(Response.Status.UNAUTHORIZED)
@@ -89,5 +87,4 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
         val AUTH_HEADER_KEY = "Authorization"
         val AUTH_HEADER_VALUE_PREFIX = "Bearer " // with trailing space to separate token
     }
-
 }
