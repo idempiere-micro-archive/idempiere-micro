@@ -568,6 +568,8 @@ public final class Env
 			s = getContext(ctx, 0, context, false);		//	search 0 and defaults
 		if (s.length() == 0)
 			return 0;
+		if (s.equals("null"))
+			return -1;
 		//
 		try
 		{

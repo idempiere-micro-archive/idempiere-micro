@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -89,11 +90,10 @@ public class Trx
 	
 	private String m_displayName;
 
-	/* TODO DAP the other way around see Adempiere.java
-	public static void startTrxMonitor()
+	public static void startTrxMonitor(ScheduledThreadPoolExecutor threadPoolExecutor)
 	{
-		Adempiere.getThreadPoolExecutor().scheduleWithFixedDelay(s_monitor, 5, 5, TimeUnit.MINUTES);
-	}*/
+		threadPoolExecutor.scheduleWithFixedDelay(s_monitor, 5, 5, TimeUnit.MINUTES);
+	}
 
 	/**
 	 * 	Create unique Transaction Name
