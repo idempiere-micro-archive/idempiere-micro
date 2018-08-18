@@ -12,7 +12,7 @@ class UserService {
     }
 
     @Reference
-    fun setSystem(userService : IUserServiceImpl) {
+    fun setSystem(userService: IUserServiceImpl) {
         userServiceImpl = userService
     }
 }

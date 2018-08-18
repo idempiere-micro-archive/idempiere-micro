@@ -12,7 +12,7 @@ class LoginService {
     }
 
     @Reference
-    fun setLoginUtility(loginUtility : ILoginUtility) {
-        loginUtilityImpl= loginUtility
+    fun setLoginUtility(loginUtility: ILoginUtility) {
+        loginUtilityImpl = loginUtility
     }
 }

@@ -12,7 +12,7 @@ class Me {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
-    fun getStatus() : String {
+    fun getStatus(): String {
         return "I am user ID " + Env.getAD_User_ID(Env.getCtx()) + ". Me works!"
     }
 }
