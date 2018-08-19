@@ -1,0 +1,7 @@
+#
+#   ORG IDEMPIERE APP
+#
+Bundle-Name: iDempiere Micro Application
+Import-Package: *
+Export-Package: org.idempiere.app*
+-dsannotations-options: extender
