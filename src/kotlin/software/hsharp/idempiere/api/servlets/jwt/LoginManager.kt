@@ -167,7 +167,8 @@ class LoginManager : ILoginService {
 
         val clients = loginUtil.getClients(login.loginName, login.password)
 
-        val selectedClientIndex = clients.indexOfFirst { it.Key == login.clientId || clients.count() == 1 }
+        val selectedClientIndex =
+				if (clients == null) { -1 } else { clients.indexOfFirst { clients.count() == 1 || it.Key == login.clientId } }
 
         val roles =
             if (selectedClientIndex == -1) {
