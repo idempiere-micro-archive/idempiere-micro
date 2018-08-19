@@ -701,11 +701,13 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 			propertyFile = new File(propertyFilename);
 			try {
 				FileOutputStream fos = new FileOutputStream(propertyFile);
-				inputStream = url.openStream();
-				IOUtils.getInstance().copyStreams(inputStream, fos);
-				fos.close();
-				inputStream.close();
-				inputStream = null;
+				if (url != null) {
+					inputStream = url.openStream();
+					IOUtils.getInstance().copyStreams(inputStream, fos);
+					fos.close();
+					inputStream.close();
+					inputStream = null;
+				}
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
