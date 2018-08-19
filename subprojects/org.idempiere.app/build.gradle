@@ -1,0 +1,28 @@
+dependencies {
+    compile project(':software.hsharp.core.models')
+    compile files('../software.hsharp.core.models/bin')
+    compile project(':org.idempiere.common')
+    compile files('../org.idempiere.common/bin')
+    compile project(':org.compiere.orm')
+    compile files('../org.compiere.orm/bin')
+    compile project(':org.compiere.crm')
+    compile files('../org.compiere.crm/bin')
+    compile project(':org.compiere.validation')
+    compile files('../org.compiere.validation/bin')
+    compile project(':org.compiere.model')
+    compile files('../org.compiere.model/bin')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+buildscript {
+    ext.kotlin_version = '1.2.41'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+apply plugin: 'kotlin'
+repositories {
+    mavenCentral()
+}
