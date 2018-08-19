@@ -121,3 +121,7 @@ subprojects/cnf
 
 *.iml
 .idea/
+**/.project
+**/.classpath
+**/org.eclipse.buildship.core.prefs
+**/bin/**
