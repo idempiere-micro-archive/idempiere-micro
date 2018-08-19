@@ -9,8 +9,8 @@ class Secrets  : IConfig {
         get() = Secrets.consumerSecret
 
     companion object {
-        val URL : String = "http://localhost"
-        val consumerKey : String = "ck_xxx123"
-        val consumerSecret : String = "cs_abcdef567"
+        val URL : String = System.getenv("WOOCOMMERCE_URL")
+        val consumerKey : String = System.getenv("WOOCOMMERCE_KEY")
+        val consumerSecret : String = System.getenv("WOOCOMMERCE_SECRET")
     }
 }
