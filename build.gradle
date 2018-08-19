@@ -53,8 +53,8 @@ dependencies {
     testCompile project(':org.compiere.db.postgresql.provider')
     testCompile files('../org.compiere.db.postgresql.provider/bin')
 
-    testCompile project(':org.adempiere.base')
-    testCompile files('../org.adempiere.base/bin')
+    testCompile project(':org.idempiere.app')
+    testCompile files('../org.idempiere.app/bin')
 
 
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
