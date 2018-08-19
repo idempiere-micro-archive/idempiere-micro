@@ -118,3 +118,6 @@ runtime/bundle/hot-deploy/subprojects/*.jar
 *.project
 /runtime/PostgreSQL/pool.properties
 subprojects/cnf
+
+*.iml
+.idea/

@@ -165,7 +165,7 @@ task syncLibs(type: Copy, dependsOn: clearLibs) {
 //use `gradle -q <proj:>properties` to check
 buildscript {
     ext.scala_version = '2.12.3'
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.41'
 
     repositories {
         jcenter()

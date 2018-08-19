@@ -10,8 +10,8 @@ dependencies {
     compile files('../software.hsharp.business.models/bin')
     compile project(':org.compiere.model')
     compile files('../org.compiere.model/bin')
-    testCompile project(':com.gt2base.api')
-    testCompile files('../com.gt2base.api/bin')
+    testCompile project(':org.adempiere.base')
+    testCompile files('../org.adempiere.base/bin')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 buildscript {
