@@ -6,7 +6,7 @@ pull()
 }
 
 
-pull org.adempiere.base
+pull org.idempiere.app
 pull org.adempiere.exceptions
 pull org.adempiere.install
 pull org.adempiere.osgi
@@ -33,7 +33,6 @@ pull org.compiere.wf
 pull org.idempiere.common
 pull org.idempiere.icommon
 pull org.idempiere.orm
-pull org.idempiere.process
 
 pull software.hsharp.api.helpers
 pull software.hsharp.api.icommon

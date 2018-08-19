@@ -325,7 +325,10 @@ public final class DB
 	public static boolean isConnected(boolean createNew)
 	{
 		//bug [1637432]
-		if (s_cc == null) return false;
+		if (s_cc == null) {
+			System.out.println("s_cc == null");
+			return false;
+		}
 
 		//direct connection
 		boolean success = false;
@@ -346,6 +349,8 @@ public final class DB
 		}
 		catch (Exception e)
 		{
+			System.out.println("E1");
+			e.printStackTrace();
 			success = false;
 		}
 		if (eb != null)

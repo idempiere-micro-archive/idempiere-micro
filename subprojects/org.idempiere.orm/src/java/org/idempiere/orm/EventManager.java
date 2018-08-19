@@ -86,7 +86,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#postEvent(org.osgi.service.event.Event)
+	 * @see org.idempiere.app.event.IEventManager#postEvent(org.osgi.service.event.Event)
 	 */
 	@Override
 	public boolean postEvent(Event event) {
@@ -98,7 +98,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#sendEvent(org.osgi.service.event.Event)
+	 * @see org.idempiere.app.event.IEventManager#sendEvent(org.osgi.service.event.Event)
 	 */
 	@Override
 	public boolean sendEvent(Event event) {
@@ -110,7 +110,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#register(java.lang.String, org.osgi.service.event.EventHandler)
+	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String, org.osgi.service.event.EventHandler)
 	 */
 	@Override
 	public boolean register(String topic, EventHandler eventHandler) {
@@ -118,7 +118,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#register(java.lang.String[], org.osgi.service.event.EventHandler)
+	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String[], org.osgi.service.event.EventHandler)
 	 */
 	@Override
 	public boolean register(String[] topics, EventHandler eventHandler) {
@@ -126,7 +126,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#register(java.lang.String, java.lang.String, org.osgi.service.event.EventHandler)
+	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String, java.lang.String, org.osgi.service.event.EventHandler)
 	 */
 	@Override
 	public boolean register(String topic, String filter, EventHandler eventHandler) {
@@ -135,7 +135,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#register(java.lang.String[], java.lang.String, org.osgi.service.event.EventHandler)
+	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String[], java.lang.String, org.osgi.service.event.EventHandler)
 	 */
 	@Override
 	public boolean register(String[] topics, String filter, EventHandler eventHandler) {
@@ -161,7 +161,7 @@ public class EventManager implements IEventManager {
 	}
 
 	/* (non-Javadoc)
-	 * @see org.adempiere.base.event.IEventManager#unregister(org.osgi.service.event.EventHandler)
+	 * @see org.idempiere.app.event.IEventManager#unregister(org.osgi.service.event.EventHandler)
 	 */
 	@Override
 	public boolean unregister(EventHandler eventHandler) {

@@ -56,8 +56,8 @@ dependencies {
     testCompile project(':org.compiere.db.postgresql.provider')
     testCompile files('../org.compiere.db.postgresql.provider/bin')
 
-    testCompile project(':org.adempiere.base')
-    testCompile files('../org.adempiere.base/bin')
+    testCompile project(':org.idempiere.app')
+    testCompile files('../org.idempiere.app/bin')
 
     testCompile project(':org.compiere.product')
     testCompile files('../org.compiere.product/bin')

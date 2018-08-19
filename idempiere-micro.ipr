@@ -50,7 +50,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/idempiere-micro.iml" filepath="$PROJECT_DIR$/idempiere-micro.iml"/>
       <module fileurl="file://$PROJECT_DIR$/subprojects/example/example.iml" filepath="$PROJECT_DIR$/subprojects/example/example.iml"/>
-      <module fileurl="file://$PROJECT_DIR$/subprojects/org.adempiere.base/org.adempiere.base.iml" filepath="$PROJECT_DIR$/subprojects/org.adempiere.base/org.adempiere.base.iml"/>
+      <module fileurl="file://$PROJECT_DIR$/subprojects/org.idempiere.app/org.idempiere.app.iml" filepath="$PROJECT_DIR$/subprojects/org.idempiere.app/org.idempiere.app.iml"/>
       <module fileurl="file://$PROJECT_DIR$/subprojects/org.adempiere.exceptions/org.adempiere.exceptions.iml" filepath="$PROJECT_DIR$/subprojects/org.adempiere.exceptions/org.adempiere.exceptions.iml"/>
       <module fileurl="file://$PROJECT_DIR$/subprojects/org.adempiere.install/org.adempiere.install.iml" filepath="$PROJECT_DIR$/subprojects/org.adempiere.install/org.adempiere.install.iml"/>
       <module fileurl="file://$PROJECT_DIR$/subprojects/org.adempiere.osgi/org.adempiere.osgi.iml" filepath="$PROJECT_DIR$/subprojects/org.adempiere.osgi/org.adempiere.osgi.iml"/>

@@ -20,7 +20,7 @@ public class DefaultProcessFactory implements IProcessFactory {
     }
 
     /* (non-Javadoc)
-     * @see org.adempiere.base.IProcessFactory#newProcessInstance(java.lang.String)
+     * @see org.idempiere.app.IProcessFactory#newProcessInstance(java.lang.String)
      */
     @Override
     public ProcessCall newProcessInstance(String className) {

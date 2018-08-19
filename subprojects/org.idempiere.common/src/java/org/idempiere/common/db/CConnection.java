@@ -736,13 +736,13 @@ public class CConnection implements Serializable, Cloneable, ICConnection
 	 */
 	public boolean setDataSource()
 	{
-	//	System.out.println ("CConnection.setDataSource - " + m_ds + " - Client=" + Ini.getIni().isClient());
+		System.out.println ("CConnection.setDataSource - " + m_ds + " - Client=" + Ini.getIni().isClient());
 		if (m_ds == null && Ini.getIni().isClient())
 		{
 			AdempiereDatabase getDB = getDatabase(); 
 			if (getDB != null)	//	no db selected
 				m_ds = getDB.getDataSource(this);
-		//	System.out.println ("CConnection.setDataSource - " + m_ds);
+			System.out.println ("CConnection.setDataSource - " + m_ds);
 		}
 		return m_ds != null;
 	} 	//	setDataSource

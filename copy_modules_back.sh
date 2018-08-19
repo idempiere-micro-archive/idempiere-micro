@@ -13,7 +13,7 @@ copy_files_github_root()
 }
 
 
-copy_files org.adempiere.base
+copy_files org.idempiere.app
 copy_files org.adempiere.exceptions
 copy_files org.adempiere.install
 copy_files org.adempiere.osgi
@@ -32,7 +32,6 @@ copy_files org.compiere.util
 copy_files org.idempiere.common
 copy_files org.idempiere.icommon
 copy_files org.idempiere.orm
-copy_files org.idempiere.process
 
 copy_files software.hsharp.api.helpers
 copy_files software.hsharp.api.icommon

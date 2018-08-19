@@ -1,6 +1,6 @@
 import junit.framework.Assert
-import org.compiere.Adempiere
-import org.compiere.webutil.Login
+import org.idempiere.app.Login
+import org.idempiere.app.iDempiereMicro
 import org.idempiere.common.db.Database
 import org.junit.Before
 import org.junit.Test
@@ -16,7 +16,7 @@ import software.hsharp.idempiere.api.servlets.services.UserService
 class TestLogin {
 
     companion object {
-        val gardenUser = LoginParams("gardenuser", "GardenUser", orgId = 50001, language="en-US")
+        val gardenUser = LoginParams("GardenUser", "GardenUser", orgId = 50001, language="en-US")
         val fail = LoginParams("aaa", "aaa123")
     }
 
@@ -32,7 +32,7 @@ class TestLogin {
 
     @Before
     fun prepare() {
-        SystemService().setSystem(Adempiere())
+        SystemService().setSystem(iDempiereMicro())
         Database().setDatabase(DB_PostgreSQL())
         LoginService().setLoginUtility(Login())
         UserService().setUserService(org.compiere.bo.UserService())

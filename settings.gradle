@@ -1,9 +1,6 @@
 include "example"
 project(":example").projectDir = file("subprojects/example")
 
-include "org.adempiere.base"
-project(":org.adempiere.base").projectDir = file("subprojects/org.adempiere.base")
-
 include "org.adempiere.exceptions"
 project(":org.adempiere.exceptions").projectDir = file("subprojects/org.adempiere.exceptions")
 
@@ -52,9 +49,6 @@ project(":org.idempiere.icommon").projectDir = file("subprojects/org.idempiere.i
 include "org.idempiere.orm"
 project(":org.idempiere.orm").projectDir = file("subprojects/org.idempiere.orm")
 
-include "org.idempiere.process"
-project(":org.idempiere.process").projectDir = file("subprojects/org.idempiere.process")
-
 include "software.hsharp.api.helpers"
 project(":software.hsharp.api.helpers").projectDir = file("subprojects/software.hsharp.api.helpers")
 
@@ -102,3 +96,6 @@ project(":org.compiere.server").projectDir = file("subprojects/org.compiere.serv
 
 include "org.compiere.validation"
 project(":org.compiere.validation").projectDir = file("subprojects/org.compiere.validation")
+
+include "org.idempiere.app"
+project(":org.idempiere.app").projectDir = file("subprojects/org.idempiere.app")
