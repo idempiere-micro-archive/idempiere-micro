@@ -8,4 +8,5 @@
 # @author Tim Lauv
 
 cd ./runtime
-java -jar ./bin/felix.jar
+#java -jar ./bin/felix.jar
+java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -jar ./bin/felix.jar
