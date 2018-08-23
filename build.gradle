@@ -86,6 +86,7 @@ subprojects {
         testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
         testCompile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
         testCompile group: 'org.jfree', name: 'jcommon', version: '1.0.24'
+
     }
 
     sourceSets {
@@ -164,11 +165,17 @@ task syncLibs(type: Copy, dependsOn: clearLibs) {
 /* === root build script config and deps === */
 //use `gradle -q <proj:>properties` to check
 buildscript {
+    dependencies {
+        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.6.2"
+    }
     ext.scala_version = '2.12.3'
     ext.kotlin_version = '1.2.41'
 
     repositories {
         jcenter()
+        maven {
+        url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
@@ -176,4 +183,12 @@ buildscript {
     }
 
     buildDir = '.gradle'
+}
+
+apply plugin: "org.sonarqube"
+
+sonarqube {
+    properties {
+        property "sonar.web.sessionTimeoutInMinutes", "35790"
+    }
 }
