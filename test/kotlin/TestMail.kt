@@ -1,6 +1,6 @@
 import org.junit.Ignore
 import org.junit.Test
-import software.hsharp.core.utils.EMail
+import software.hsharp.core.util.EMail
 import javax.mail.internet.InternetAddress
 
 class TestMail {

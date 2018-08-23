@@ -12,12 +12,25 @@ import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.osgi.service.component.annotations.Component
 import org.osgi.service.component.annotations.Reference
-import software.hsharp.core.models.*
+import software.hsharp.core.models.IGetDataResult
 import software.hsharp.core.util.Paging
 import software.hsharp.core.util.parse
 import java.io.Serializable
 import java.sql.Connection
 import java.sql.ResultSet
+import software.hsharp.core.models.IDataSource
+import software.hsharp.core.models.IPaging
+import software.hsharp.core.models.IGetRowResultData
+import software.hsharp.core.models.IGetRowResultObject
+import software.hsharp.core.models.IUpdateDataResult
+import software.hsharp.core.models.ICreateDataResult
+import software.hsharp.core.models.IDataService
+import software.hsharp.core.models.ITreeDataDescriptor
+import software.hsharp.core.models.IGetTreeDataResult
+import software.hsharp.core.models.IDataTable
+import software.hsharp.core.models.IDataColumn
+import software.hsharp.core.models.IGetRowResult
+import software.hsharp.core.models.IDataServiceRegister
 
 data class GetDataResult(
     override val rs: ResultSet?,
@@ -28,7 +41,7 @@ data class GetDataResult(
 ) : IGetDataResult {
     companion object {
         val empty: IGetDataResult
-            get() = GetDataResult(null, null, null, rsmdColumnCount=0, cnn = null)
+            get() = GetDataResult(null, null, null, rsmdColumnCount = 0, cnn = null)
     }
 }
 
@@ -87,7 +100,7 @@ class DataService : IDataService {
         val ad_Client_ID = Env.getAD_Client_ID(ctx)
         val ad_Org_ID = Env.getAD_Org_ID(ctx)
         val ad_User_ID = Env.getAD_User_ID(ctx)
-        var parameters: MutableList<ProcessInfoParameter> = mutableListOf(
+        val parameters: MutableList<ProcessInfoParameter> = mutableListOf(
                 ProcessInfoParameter("AD_Client_ID", ad_Client_ID.toBigDecimal(), null, null, null),
                 ProcessInfoParameter("AD_Org_ID", ad_Org_ID.toBigDecimal(), null, null, null),
                 ProcessInfoParameter("AD_User_ID", ad_User_ID.toBigDecimal(), null, null, null)
@@ -222,7 +235,7 @@ class DataService : IDataService {
 
         val tableNameLowerCase = tableName.toLowerCase()
         val selectPart = "SELECT *"
-        val sql = "$selectPart, ? as ad_user_id FROM \"${tableNameLowerCase}\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0 OR ?=0) AND \"${tableNameLowerCase}_id\" = ? "
+        val sql = selectPart + ", ? as ad_user_id FROM \"" + tableNameLowerCase + "\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0 OR ?=0) AND \"" + tableNameLowerCase + "_id\" = ? "
         val statement = cnn.prepareStatement(sql)
         statement.setInt(1, ad_User_ID)
         statement.setInt(2, ad_Client_ID)
@@ -278,7 +291,7 @@ class DataService : IDataService {
 
         val tableName_lowerCase = tableName.toLowerCase()
 
-        val sql_count = "SELECT COUNT(*), ? as ad_user_id FROM \"${tableName_lowerCase}\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0 OR ?=0) $where_clause"
+        val sql_count = "SELECT COUNT(*), ? as ad_user_id FROM \"$tableName_lowerCase\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0 OR ?=0) $where_clause"
         val statement_count = cnn.prepareStatement(sql_count)
         statement_count.setInt(1, ad_User_ID)
         statement_count.setInt(2, ad_Client_ID)
@@ -294,8 +307,8 @@ class DataService : IDataService {
             count = rs_count.getInt(1)
         }
 
-        var selectPart =
-          if (columnsRequested == null || columnsRequested.count() == 0) { "SELECT * " } else { columnsRequested.fold("SELECT ", { total, next -> "$total \"$next\"," }).trimEnd(',') }
+        val selectPart =
+            if (columnsRequested == null || columnsRequested.count() == 0) { "SELECT * " } else { columnsRequested.fold("SELECT ", { total, next -> "$total \"$next\"," }).trimEnd(',') }
 
         val sql =
                 "$selectPart, ? as ad_user_id  FROM \"${tableName_lowerCase}\" WHERE (ad_client_id = ? OR ad_client_id=0) AND (ad_org_id = ? OR ad_org_id=0 OR ?=0) $where_clause" +
