@@ -2,7 +2,7 @@ package software.hsharp.core.models
 
 import javax.mail.internet.InternetAddress
 
-interface IEmail {
+interface IEMail {
     var SmtpHost: String
     var SmtpPort: Int
     var From: InternetAddress

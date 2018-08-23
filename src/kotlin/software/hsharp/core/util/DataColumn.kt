@@ -8,7 +8,7 @@ data class NameValueString(
     override val name: String,
     override val value: String
 ) : INameValueString {
-  constructor() : this("", "")
+    constructor() : this("", "")
 }
 
 data class DataColumnAction(

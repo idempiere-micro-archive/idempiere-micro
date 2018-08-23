@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.node.JsonNodeType
 
 fun parse(body: String): MutableList<Pair<String, Any>> {
-    if ( body == "" ) {
+    if (body == "") {
         return mutableListOf()
     }
 

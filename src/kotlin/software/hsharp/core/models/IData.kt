@@ -6,7 +6,7 @@ import java.sql.Connection
 import java.sql.ResultSet
 
 interface HasRsMdColumnCount {
-    val rsmdColumnCount : Int
+    val rsmdColumnCount: Int
     val cnn: Connection?
 }
 
@@ -14,8 +14,7 @@ interface IGetDataResult : IResult, HasRsMdColumnCount {
     val rs: ResultSet?
 }
 
-interface IGetRowResult : IResult, HasRsMdColumnCount {
-}
+interface IGetRowResult : IResult, HasRsMdColumnCount
 
 interface IGetRowResultData : IGetRowResult {
     val rs: ResultSet?
