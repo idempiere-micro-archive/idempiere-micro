@@ -1,7 +1,7 @@
 package software.hsharp.core.services
 
 import software.hsharp.core.models.INameKeyPair
-import java.util.*
+import java.util.Properties
 
 interface ILoginUtility {
     fun getClients(role: INameKeyPair): Array<INameKeyPair>

@@ -1,8 +1,8 @@
 package software.hsharp.core.models
 
 interface INameValueString {
-  val name: String
-  val value: String
+    val name: String
+    val value: String
 }
 
 interface IDataColumnAction {

@@ -1,7 +1,13 @@
 package software.hsharp.core.util
 
-import java.util.*
-import java.io.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.InputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.io.FileOutputStream
+import java.util.Properties
 
 open class Ini(protected val fileName: String) {
     protected val prop = Properties()
