@@ -8,7 +8,6 @@ import java.sql.Connection
 import java.sql.Driver
 import java.sql.DriverManager.registerDriver
 import java.sql.DriverManager.setLoginTimeout
-import java.util.*
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import com.zaxxer.hikari.pool.HikariPool
@@ -31,17 +30,12 @@ open class PgDB : IDatabase {
         }
     }
 
-    protected val DRIVER: String = "org.postgresql.Driver"
-    protected val DEFAULT_CONN_TEST_SQL: String = "SELECT 1"
-
     /** Connection Timeout in seconds   */
     protected val CONNECTION_TIMEOUT = 10
 
     /** Driver                  */
     private val driverObj: org.postgresql.Driver = registerIfNeeded(org.postgresql.Driver())
     private var driverRegistered: Boolean = false
-
-    private val rand = Random()
 
     private fun registerIfNeeded(driverInst: org.postgresql.Driver): org.postgresql.Driver {
         if (!driverRegistered) {
@@ -57,10 +51,10 @@ open class PgDB : IDatabase {
     override val driver: Driver
     get() = driverObj
 
-    override val defaultSetupParameters: IDatabaseSetup
+    final override val defaultSetupParameters: IDatabaseSetup
     get() = PgDatabaseSetup()
 
-    private var parameters : IDatabaseSetup = defaultSetupParameters
+    private var parameters: IDatabaseSetup = defaultSetupParameters
 
     override fun setup(parameters: IDatabaseSetup) {
         this.parameters = parameters
@@ -68,17 +62,17 @@ open class PgDB : IDatabase {
 
     private var connectionparams: ICConnection? = null
     companion object {
-        val cachedDs: ConcurrentMap<String,HikariDataSource> = ConcurrentHashMap()
+        val cachedDs: ConcurrentMap<String, HikariDataSource> = ConcurrentHashMap()
     }
 
-    override fun connect(connection: ICConnection) : DataSource? {
+    override fun connect(connection: ICConnection): DataSource? {
         connectionparams = connection
         val jdbcUrl = getConnectionURL(connection)
         val username = connection.dbUid
         val password = connection.dbPwd
         val key = "$jdbcUrl|$username|$password"
         val result = cachedDs[key]
-        if ( result == null ) {
+        if (result == null) {
             try {
                 // Test first
                 val cnnString = jdbcUrl + "&user=" + connection.dbUid + "&password=" + connection.dbPwd
@@ -103,14 +97,14 @@ open class PgDB : IDatabase {
                 config.maximumPoolSize = parameters.maximumPoolSize
                 config.minimumIdle = parameters.minimumIdle
 
-                config.addDataSourceProperty( "cachePrepStmts" , parameters.cachePrepStmts.toString())
-                config.addDataSourceProperty( "prepStmtCacheSize" , parameters.prepStmtCacheSize.toString())
-                config.addDataSourceProperty( "prepStmtCacheSqlLimit" , parameters.prepStmtCacheSqlLimit.toString())
+                config.addDataSourceProperty("cachePrepStmts", parameters.cachePrepStmts.toString())
+                config.addDataSourceProperty("prepStmtCacheSize", parameters.prepStmtCacheSize.toString())
+                config.addDataSourceProperty("prepStmtCacheSqlLimit", parameters.prepStmtCacheSqlLimit.toString())
 
                 val ds = HikariDataSource(config)
                 cachedDs[key] = ds
                 return ds
-            } catch(ex: HikariPool.PoolInitializationException) {
+            } catch (ex: HikariPool.PoolInitializationException) {
                 // invalid username or password
                 return null
             }
@@ -161,10 +155,6 @@ open class PgDB : IDatabase {
         } catch (e: Exception) {
         }
     } // 	close
-
-    protected var maxRetries: Int = 5
-    protected var minWaitSecs: Int = 2
-    protected var maxWaitSecs: Int = 10
 
     override fun cleanup(connection: Connection) {
         // try to kill the old idle connections first
