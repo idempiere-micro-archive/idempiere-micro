@@ -4,7 +4,13 @@ import org.compiere.orm.MClient
 import org.compiere.orm.MSystem
 import org.compiere.validation.ModelValidationEngine
 import org.idempiere.common.db.CConnection
-import org.idempiere.common.util.*
+import org.idempiere.common.util.CLogMgt
+import org.idempiere.common.util.CLogger
+import org.idempiere.common.util.DB
+import org.idempiere.common.util.Ini
+import org.idempiere.common.util.Env
+import org.idempiere.common.util.SecureInterface
+import org.idempiere.common.util.SecureEngine
 import org.osgi.service.component.annotations.Component
 import software.hsharp.core.services.ISystemImpl
 import java.util.concurrent.ScheduledThreadPoolExecutor
@@ -18,14 +24,14 @@ open class iDempiereMicro : ISystemImpl {
     protected var log: CLogger? = null
     private var threadPoolExecutor: ScheduledThreadPoolExecutor? = null
 
-	private fun createThreadPool() {
-		val defaultMax = Runtime.getRuntime().availableProcessors() * 20
-        val properties = Ini.getIni().getProperties();
-        val s = properties.getProperty("MaxThreadPoolSize");
+    private fun createThreadPool() {
+        val defaultMax = Runtime.getRuntime().availableProcessors() * 20
+        val properties = Ini.getIni().getProperties()
+        val s = properties.getProperty("MaxThreadPoolSize")
         val maxSize =
             if (s != null) {
                 try {
-                    Integer.parseInt(s);
+                    Integer.parseInt(s)
                 } catch (e: Exception) {
                     0
                 }
@@ -33,12 +39,12 @@ open class iDempiereMicro : ISystemImpl {
 
         val max =
             if (maxSize <= 0) {
-                 defaultMax
+                defaultMax
             } else { maxSize }
 
-		// start thread pool
-		threadPoolExecutor = ScheduledThreadPoolExecutor(max)
-	}
+        // start thread pool
+        threadPoolExecutor = ScheduledThreadPoolExecutor(max)
+    }
 
     override fun startup() {
         if (log != null) return
