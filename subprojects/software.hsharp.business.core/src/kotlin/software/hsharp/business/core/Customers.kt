@@ -1,25 +1,13 @@
 package software.hsharp.business.core
 
-import org.idempiere.common.util.DB
-import org.idempiere.common.util.Env
-import org.jetbrains.exposed.dao.EntityID
-import org.jetbrains.exposed.dao.IntEntity
-import org.jetbrains.exposed.dao.IntEntityClass
-import org.jetbrains.exposed.dao.IntIdTable
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.and
-import org.jetbrains.exposed.sql.transactions.transaction
-import org.osgi.service.component.annotations.Component
-import org.osgi.service.component.annotations.Reference
-import software.hsharp.core.util.Paging
 import software.hsharp.business.models.ICategory
 import software.hsharp.business.models.ICustomer
 import software.hsharp.core.models.IDataSource
 import software.hsharp.core.models.IPaging
 import software.hsharp.business.models.IBusinessPartnerLocation
-import software.hsharp.business.services.*
+import software.hsharp.business.services.ICustomerResult
+import software.hsharp.business.services.ICustomersResult
 import java.math.BigDecimal
-import java.util.*
 
 data class Customer(
     override val Key: Int,

@@ -7,7 +7,8 @@ import software.hsharp.core.models.IDataSource
 import software.hsharp.core.models.IPaging
 import software.hsharp.business.models.IBusinessPartnerLocation
 import software.hsharp.business.models.ILocation
-import software.hsharp.business.services.*
+import software.hsharp.business.services.IBusinessPartnerResult
+import software.hsharp.business.services.IBusinessPartnersResult
 import java.math.BigDecimal
 
 data class Location(
