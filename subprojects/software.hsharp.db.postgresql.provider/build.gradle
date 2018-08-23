@@ -10,8 +10,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
     compile group: 'com.zaxxer', name: 'HikariCP', version: '3.2.0'
 
-    compile files('./mchange-commons-java-0.2.15.jar')
-
     compile project(':software.hsharp.api.icommon')
     compile files('../software.hsharp.api.icommon/bin')
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
