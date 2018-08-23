@@ -60,18 +60,6 @@ public class ServerContextPropertiesWrapper extends Properties {
 	}
 
 	/* (non-Javadoc)
-	 * @see java.util.Properties#save(java.io.OutputStream, java.lang.String)
-	 */
-	@Override
-	public void save(OutputStream out, String comments) {
-		try {
-			ServerContext.getCurrentInstance().store(out, comments);
-		} catch (IOException e) {
-			throw new AdempiereException(e);
-		}
-	}
-
-	/* (non-Javadoc)
 	 * @see java.util.Properties#store(java.io.Writer, java.lang.String)
 	 */
 	@Override
