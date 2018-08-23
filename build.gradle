@@ -24,7 +24,6 @@ idea {
 /* === sub project layout and build configure === */
 
 subprojects {
-
     buildDir = 'generated' // [Caveat: kotlin plugin seems to pick the old buildDir upon applying]
 
     apply plugin: 'idea' // for adding included (settings.gradle) subprojects as IDEA Modules
@@ -87,6 +86,9 @@ subprojects {
         testCompile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
         testCompile group: 'org.jfree', name: 'jcommon', version: '1.0.24'
 
+        // find bugs
+        // https://mvnrepository.com/artifact/com.google.code.findbugs/annotations
+        compile group: 'com.google.code.findbugs', name: 'annotations', version: '3.0.1'
     }
 
     sourceSets {

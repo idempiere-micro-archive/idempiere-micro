@@ -6,6 +6,7 @@ dependencies {
     compile project(':org.compiere.process')
     compile files('../org.compiere.process/bin')
 
+    // https://mvnrepository.com/artifact/it.sauronsoftware.cron4j/cron4j/2.2.5
     compile files('./cron4j-2.2.5.jar')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

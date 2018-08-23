@@ -118,7 +118,8 @@ public class OSGiScriptEngineManager extends ScriptEngineManager{
 	public ScriptEngine getEngineByExtension(String extension) {
 		//TODO this is a hack to deal with context class loader issues
 		ScriptEngine engine=null;
-		for(ScriptEngineManager manager: classLoaders.keySet()){
+		for(Map.Entry <ScriptEngineManager, ClassLoader> entry: classLoaders.entrySet()){
+			ScriptEngineManager manager = entry.getKey();
 			ClassLoader old=Thread.currentThread().getContextClassLoader();
 			Thread.currentThread().setContextClassLoader(classLoaders.get(manager));
 			engine=manager.getEngineByExtension(extension);
@@ -131,7 +132,8 @@ public class OSGiScriptEngineManager extends ScriptEngineManager{
 	public ScriptEngine getEngineByMimeType(String mimeType) {
 		//TODO this is a hack to deal with context class loader issues
 		ScriptEngine engine=null;
-		for(ScriptEngineManager manager: classLoaders.keySet()){
+        for(Map.Entry <ScriptEngineManager, ClassLoader> entry: classLoaders.entrySet()){
+            ScriptEngineManager manager = entry.getKey();
 			ClassLoader old=Thread.currentThread().getContextClassLoader();
 			Thread.currentThread().setContextClassLoader(classLoaders.get(manager));
 			engine=manager.getEngineByMimeType(mimeType);
@@ -143,7 +145,8 @@ public class OSGiScriptEngineManager extends ScriptEngineManager{
 
 	public ScriptEngine getEngineByName(String shortName) {
 		//TODO this is a hack to deal with context class loader issues
-		for(ScriptEngineManager manager: classLoaders.keySet()){
+        for(Map.Entry <ScriptEngineManager, ClassLoader> entry: classLoaders.entrySet()){
+            ScriptEngineManager manager = entry.getKey();
 			ClassLoader old=Thread.currentThread().getContextClassLoader();
 			Thread.currentThread().setContextClassLoader(classLoaders.get(manager));
 			ScriptEngine engine=manager.getEngineByName(shortName);
@@ -156,9 +159,10 @@ public class OSGiScriptEngineManager extends ScriptEngineManager{
 	}
 	public List<ScriptEngineFactory> getEngineFactories() {
 		List<ScriptEngineFactory> osgiFactories=new ArrayList<ScriptEngineFactory>();
-		for(ScriptEngineManager engineManager: classLoaders.keySet()){
-			for (ScriptEngineFactory factory : engineManager.getEngineFactories()){
-				osgiFactories.add(new OSGiScriptEngineFactory(factory, classLoaders.get(engineManager)));
+        for(Map.Entry <ScriptEngineManager, ClassLoader> entry: classLoaders.entrySet()){
+            ScriptEngineManager manager = entry.getKey();
+			for (ScriptEngineFactory factory : manager.getEngineFactories()){
+				osgiFactories.add(new OSGiScriptEngineFactory(factory, classLoaders.get(manager)));
 		}
 		}
 		return osgiFactories;

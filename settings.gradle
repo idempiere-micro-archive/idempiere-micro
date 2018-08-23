@@ -1,6 +1,3 @@
-include "example"
-project(":example").projectDir = file("subprojects/example")
-
 include "org.adempiere.exceptions"
 project(":org.adempiere.exceptions").projectDir = file("subprojects/org.adempiere.exceptions")
 

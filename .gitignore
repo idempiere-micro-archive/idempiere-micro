@@ -125,3 +125,5 @@ subprojects/cnf
 **/.classpath
 **/org.eclipse.buildship.core.prefs
 **/bin/**
+/.vscode/settings.json
+*.kotlin_module

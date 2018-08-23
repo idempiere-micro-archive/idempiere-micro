@@ -24,7 +24,7 @@ fun randomString(length: Int): String {
 class BPartnerTests : BaseProcessTest() {
 
     @Test
-    fun loading_saving_finding_business_partner_work() {
+    fun `loading saving finding business partner work`() {
         Ini.getIni().isClient = false
         CLogger.getCLogger(BPartnerTests::class.java)
         Ini.getIni().properties
@@ -82,49 +82,6 @@ class BPartnerTests : BaseProcessTest() {
 
         val newPartner2 = MBPartner.get( Env.getCtx(), newPartner.c_BPartner_ID )
         Assert.assertEquals( 1, newPartner2.locations.count() )
-
-        val bodyParams = arrayOf(
-            "Full" to true,
-            "Search" to value
-        )
-        val result = runProcess(DB_PostgreSQL(), Find(), bodyParams) as FindResult
-        Assert.assertEquals(1,result.rows.count())
-        val bp = result.rows[0] as BPartnerWithActivity
-        Assert.assertNotNull(bp)
-        Assert.assertNotNull(bp.BPartner)
-        val bpp = bp.BPartner
-        Assert.assertEquals(name, bpp.name)
-        Assert.assertEquals(1,bpp.Locations.count())
-
-        val result2 = runProcess(DB_PostgreSQL(), AbandonedBPartners(), bodyParams) as FindResult
-        Assert.assertTrue(result2.rows.count() > 0)
-        val bp2 = result2.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
-        Assert.assertNotNull(bp2)
-        Assert.assertNotNull(bp2.BPartner)
-        val bpp2 = bp2.BPartner
-        Assert.assertEquals(name, bpp2.name)
-        Assert.assertEquals(1,bpp2.Locations.count())
-
-        newPartner2.salesRep_ID = AD_USER_ID
-        newPartner2.save()
-
-        val result3 = runProcess(DB_PostgreSQL(), MyBPartners(), bodyParams) as FindResult
-        Assert.assertTrue(result3.rows.count() > 0)
-        val bp3 = result3.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
-        Assert.assertNotNull(bp3)
-        Assert.assertNotNull(bp3.BPartner)
-        val bpp3 = bp3.BPartner
-        Assert.assertEquals(name, bpp3.name)
-        Assert.assertEquals(1,bpp3.Locations.count())
-
-        val result4 = runProcess(DB_PostgreSQL(), ForgottenBPartners(), bodyParams) as FindResult
-        Assert.assertTrue(result4.rows.count() > 0)
-        val bp4 = result4.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
-        Assert.assertNotNull(bp4)
-        Assert.assertNotNull(bp4.BPartner)
-        val bpp4 = bp4.BPartner
-        Assert.assertEquals(name, bpp4.name)
-        Assert.assertEquals(1,bpp4.Locations.count())
 
         newPartner.delete(true)
 

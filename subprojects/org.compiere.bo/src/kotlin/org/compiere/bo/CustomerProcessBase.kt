@@ -14,6 +14,36 @@ import java.sql.Connection
 
 data class CustomerProcessBaseResult(val C_BPartner_Id: Int) : IDTOReady
 
+fun updateCustomerCategory(customerCategoryId: Int?, bpartner: I_C_BPartner, cnn: Connection) {
+    if (customerCategoryId == null || customerCategoryId == 0) {
+        val sql =
+                """
+delete from crm_customer_category where c_bpartner_id = ?""".trimIndent()
+
+        val statement = cnn.prepareStatement(sql)
+        statement.setInt(1, bpartner.c_BPartner_ID)
+        statement.executeUpdate()
+        statement.close()
+    } else {
+        val sqlUpdate = "update crm_customer_category set category_id = ? where c_bpartner_id = ?"
+
+        val updateStatement = cnn.prepareStatement(sqlUpdate)
+        updateStatement.setInt(1, customerCategoryId)
+        updateStatement.setInt(2, bpartner.c_BPartner_ID)
+        val changedRows = updateStatement.executeUpdate()
+        updateStatement.close()
+        if (changedRows == 0) {
+            val sqlInsert = "insert into crm_customer_category(c_bpartner_id,category_id) values (?,?)"
+
+            val insertStatement = cnn.prepareStatement(sqlInsert)
+            insertStatement.setInt(1, bpartner.c_BPartner_ID)
+            insertStatement.setInt(2, customerCategoryId)
+            insertStatement.executeUpdate()
+            insertStatement.close()
+        }
+    }
+}
+
 abstract class CustomerProcessBase : SvrProcessBaseSql() {
     override val isRO: Boolean
         get() = false
@@ -108,8 +138,8 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
             } else if (para.parameterName == "isCustomer") {
                 isCustomer = para.parameterAsBoolean
             } else if (para.parameterName == "customerCategoryId") {
-                customerCategoryId = para.parameterAsInt
-                if (customerCategoryId != null && customerCategoryId!!<1) { customerCategoryId == null }
+                val _customerCategoryId: Int? = para.parameterAsInt
+                if (_customerCategoryId == null || _customerCategoryId < 1) { customerCategoryId == null } else { customerCategoryId = _customerCategoryId }
             } else if (para.parameterName == "discount") {
                 discount = para.parameterAsInt
             } else if (para.parameterName == "salesRepId") {
@@ -136,9 +166,7 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
         if (locationPostal != null) {
             loc.postal = locationPostal
         }
-        if (locationCountryId != null) {
-            loc.c_Country_ID = locationCountryId!!
-        }
+        locationCountryId?.let { loc.c_Country_ID = it }
         (loc as I_Persistent).save()
         location.setIsBillTo(false)
         if (locationPhone != null) {
@@ -149,23 +177,13 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
 
     fun setLegalParams(location: I_C_BPartner_Location) {
         val loc = location.location
-        if (legalAddress != null) {
-            loc.setAddress1(legalAddress)
-        }
-        if (legalCity != null) {
-            loc.setCity(legalCity)
-        }
-        if (legalPostal != null) {
-            loc.postal = legalPostal
-        }
-        if (legalCountryId != null) {
-            loc.c_Country_ID = legalCountryId!!
-        }
+        legalAddress?.let { loc.address1 = it }
+        legalCity?.let { loc.city = it }
+        legalPostal?.let { loc.postal = it }
+        legalCountryId?.let { loc.c_Country_ID = it }
         (loc as I_Persistent).save()
         location.setIsShipTo(false)
-        if (legalPhone != null) {
-            location.phone = legalPhone
-        }
+        legalPhone.let { location.phone = it }
         location.c_Location_ID = loc.c_Location_ID
     }
 
@@ -254,48 +272,20 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
             }
         (invoicingPerson as I_Persistent).save()
 
-        if (isCustomer != null) {
-            result.setIsCustomer(isCustomer!!)
-        }
-        if (discount != null) {
-            result.flatDiscount = discount!!.toBigDecimal()
-        }
-        if (salesRepId != null) {
-            result.salesRep_ID = salesRepId!!
-        }
+        isCustomer?.let { result.setIsCustomer(it) }
+        discount?.let { result.flatDiscount = it.toBigDecimal() }
+        salesRepId?.let { result.salesRep_ID = it }
 
         result.save()
 
-        updateCustomerCategory(result, cnn)
+        doUpdateCustomerCategory(result, m_trx.connection)
 
         return CustomerProcessBaseResult(result.c_BPartner_ID)
     }
 
-    private fun updateCustomerCategory(bpartner: I_C_BPartner, cnn: Connection) {
-        if (customerCategoryId == null || customerCategoryId!! == 0) {
-            val sql =
-                """
-delete from crm_customer_category where c_bpartner_id = ?""".trimIndent()
-
-            val statement = cnn.prepareStatement(sql)
-            statement.setInt(1, bpartner.c_BPartner_ID)
-            statement.executeUpdate()
-        } else {
-            val sqlUpdate = "update crm_customer_category set category_id = ? where c_bpartner_id = ?"
-
-            val updateStatement = cnn.prepareStatement(sqlUpdate)
-            updateStatement.setInt(1, customerCategoryId!!)
-            updateStatement.setInt(2, bpartner.c_BPartner_ID)
-            val changedRows = updateStatement.executeUpdate()
-            if (changedRows == 0) {
-                val sqlUpdate = "insert into crm_customer_category(c_bpartner_id,category_id) values (?,?)"
-
-                val updateStatement = cnn.prepareStatement(sqlUpdate)
-                updateStatement.setInt(1, bpartner.c_BPartner_ID)
-                updateStatement.setInt(2, customerCategoryId!!)
-                updateStatement.executeUpdate()
-            }
-        }
+    private fun doUpdateCustomerCategory(bpartner: I_C_BPartner, cnn: Connection) {
+        val _customerCategoryId = customerCategoryId
+        updateCustomerCategory( _customerCategoryId, bpartner, cnn )
     }
 
     override fun getSqlResult(cnn: Connection): IDTOReady {

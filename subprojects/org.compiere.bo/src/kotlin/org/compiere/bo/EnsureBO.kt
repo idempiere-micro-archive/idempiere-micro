@@ -38,15 +38,18 @@ order by 1 desc
         statement.setInt(4, AD_ORG_ID)
         val rs = statement.executeQuery()
 
-        var oppId = 0
+        try {
+            var oppId = 0
 
-        while (rs.next()) {
-            oppId = rs.getInt("c_opportunity_id")
+            while (rs.next()) {
+                oppId = rs.getInt("c_opportunity_id")
+            }
+            return oppId
+        } finally {
+            statement.close()
+            rs.close()
+            cnn.close()
         }
-
-        cnn.close()
-
-        return oppId
     }
 
     override fun getResult(): IDTOReady {
