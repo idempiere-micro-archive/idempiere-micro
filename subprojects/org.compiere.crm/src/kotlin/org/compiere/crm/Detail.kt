@@ -4,12 +4,7 @@ import org.compiere.model.I_C_BPartner
 import org.compiere.model.I_C_ContactActivity
 import org.compiere.orm.DefaultModelFactory
 import org.compiere.orm.IModelFactory
-import org.compiere.process.SvrProcess
-import org.idempiere.common.util.DB
-import org.idempiere.common.util.Env
-import org.idempiere.common.util.Trx
 import software.hsharp.business.models.IDTOReady
-import java.io.Serializable
 import java.math.BigDecimal
 import java.sql.Connection
 
@@ -69,5 +64,4 @@ and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
 
         return DetailResult(bpartner, categoryName, activities)
     }
-
 }

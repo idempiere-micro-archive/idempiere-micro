@@ -143,7 +143,6 @@ class FactoryTests {
         Env.setContext(ctx, Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
 
         val tableName = "C_BPartner"
-        val AD_ORG_ID = 0
         val id = 118
 
         val sql = """select *, C_ContactActivity_ID as activity_C_ContactActivity_ID from adempiere.bpartner_v

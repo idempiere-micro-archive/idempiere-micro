@@ -1,20 +1,8 @@
 package org.compiere.crm
 
-import org.compiere.orm.DefaultModelFactory
-import org.compiere.orm.IModelFactory
-import org.idempiere.common.util.DB
-import org.compiere.model.I_C_BPartner
-import org.compiere.model.I_C_ContactActivity
-import org.idempiere.common.util.Trx
 import software.hsharp.business.models.IContactActivity
 import software.hsharp.business.models.IDTOReady
-import java.io.Serializable
-import java.math.BigDecimal
-import java.sql.Connection
 import software.hsharp.business.models.IBusinessPartner
-import software.hsharp.business.core.BusinessPartner
-import software.hsharp.business.core.BusinessPartnerLocation
-import software.hsharp.business.models.IBusinessPartnerLocation
 import java.sql.PreparedStatement
 
 data class BPartnerFindResult(val id: Int, val name: String, val searchName: String, val taxid: String?)
