@@ -1,14 +1,12 @@
 package org.compiere.bo
 
 import org.compiere.crm.SvrProcessBase
-import org.compiere.process.SvrProcess
 import org.compiere.product.MCurrency
 import org.idempiere.common.util.DB
 import software.hsharp.business.models.IDTOReady
-import java.io.Serializable
 import java.sql.Timestamp
 
-data class EnsureBOResult( val OpportunityId: Int ) : IDTOReady
+data class EnsureBOResult(val OpportunityId: Int) : IDTOReady
 
 class EnsureBO : SvrProcessBase() {
     var businessPartnerId: Int = 0
@@ -66,6 +64,6 @@ order by 1 desc
             oppId = getBoId()
         }
 
-        return EnsureBOResult( oppId )
+        return EnsureBOResult(oppId)
     }
 }

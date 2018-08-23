@@ -18,7 +18,7 @@
 package org.compiere.bo
 
 import java.sql.ResultSet
-import java.util.*
+import java.util.Properties
 
 class MOpportunity : X_C_Opportunity {
     constructor(ctx: Properties, C_Opportunity_ID: Int, trxName: String?) : super(ctx, C_Opportunity_ID, trxName)

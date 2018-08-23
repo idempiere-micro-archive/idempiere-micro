@@ -12,15 +12,15 @@ import org.idempiere.orm.I_Persistent
 import software.hsharp.business.models.IDTOReady
 import java.sql.Connection
 
-data class CustomerProcessBaseResult( val C_BPartner_Id: Int ) : IDTOReady
+data class CustomerProcessBaseResult(val C_BPartner_Id: Int) : IDTOReady
 
 abstract class CustomerProcessBase : SvrProcessBaseSql() {
     override val isRO: Boolean
         get() = false
 
-    abstract val trxName : String
+    abstract val trxName: String
 
-    val modelFactory : IModelFactory = DefaultModelFactory()
+    val modelFactory: IModelFactory = DefaultModelFactory()
 
     // legal name
     var bpName: String? = null // name
@@ -59,7 +59,7 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
     // already a customer
     var isCustomer: Boolean? = null
     // customer category
-    var customerCategoryId : Int? = null
+    var customerCategoryId: Int? = null
     // flat discount
     var discount: Int? = null
     // account manager
@@ -109,7 +109,7 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
                 isCustomer = para.parameterAsBoolean
             } else if (para.parameterName == "customerCategoryId") {
                 customerCategoryId = para.parameterAsInt
-                if (customerCategoryId != null && customerCategoryId!!<1) {customerCategoryId==null}
+                if (customerCategoryId != null && customerCategoryId!!<1) { customerCategoryId == null }
             } else if (para.parameterName == "discount") {
                 discount = para.parameterAsInt
             } else if (para.parameterName == "salesRepId") {
@@ -270,7 +270,6 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
 
         return CustomerProcessBaseResult(result.c_BPartner_ID)
     }
-
 
     private fun updateCustomerCategory(bpartner: I_C_BPartner, cnn: Connection) {
         if (customerCategoryId == null || customerCategoryId!! == 0) {
