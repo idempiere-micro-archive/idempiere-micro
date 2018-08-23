@@ -72,8 +72,6 @@ class TestGetSimpleOrder {
 
     @Ignore
     fun createNewImportOrderAndProcess() {
-        println( org.compiere.impl.X_C_BPartner::class.java )
-
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
@@ -126,8 +124,6 @@ class TestGetSimpleOrder {
 
     @Ignore
     fun importFromWooCommerceAndProcess() {
-        println( org.compiere.impl.X_C_BPartner::class.java )
-
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
@@ -264,7 +260,7 @@ class TestGetSimpleOrder {
 
         println( "pinfo1:$pinfo1" )
 
-
+        /* TODO fix
         val importOrder = ImportOrder()
 
         val parameters : Array<ProcessInfoParameter> = arrayOf(
@@ -279,6 +275,7 @@ class TestGetSimpleOrder {
         importOrder.startProcess(ctx, pinfo, null)
 
         println( "pinfo:$pinfo" )
+         */
     }
 
     @Ignore("Unfinished")
