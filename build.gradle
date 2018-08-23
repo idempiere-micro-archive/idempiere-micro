@@ -41,9 +41,6 @@ dependencies {
     compile project(':org.adempiere.exceptions')
     compile files('../org.adempiere.exceptions/bin')
 
-    testCompile files('../org.compiere.db.postgresql.provider/c3p0-0.9.5.2.jar')
-    testCompile files('../org.compiere.db.postgresql.provider/jcommon-1.0.24.jar')
-
     testCompile project(':software.hsharp.db.postgresql.provider')
     testCompile files('../software.hsharp.db.postgresql.provider/bin')
 
