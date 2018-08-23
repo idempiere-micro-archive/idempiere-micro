@@ -29,7 +29,7 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
     }
 
     abstract fun getSql(): String
-    abstract fun setStatementParams( statement: PreparedStatement)
+    abstract fun setStatementParams(statement: PreparedStatement)
 
     override fun getSqlResult(cnn: Connection): IDTOReady {
         val sql = getSql()
@@ -40,7 +40,6 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
 
         val modelFactory: IModelFactory = DefaultModelFactory()
         val result = mutableListOf<Any>()
-
 
         while (rs.next()) {
             if (full) {
@@ -70,6 +69,4 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
 
         return FindResult(result)
     }
-
-
 }
