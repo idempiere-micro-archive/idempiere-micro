@@ -1,14 +1,17 @@
 package software.hsharp.api.helpers.jwt
 
-import io.jsonwebtoken.*
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jws
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
 import java.security.SecureRandom
 import java.time.Duration
 import java.time.Instant
-import java.util.*
+import java.util.Date
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
-class JwtManager protected constructor() {
+class JwtManager private constructor() {
 
     private fun doCreateToken(subject: String, role: String, loginModel: String): String {
         val now = Instant.now()
@@ -23,7 +26,6 @@ class JwtManager protected constructor() {
                 .compact()
     }
 
-    @Throws(ExpiredJwtException::class, UnsupportedJwtException::class, MalformedJwtException::class, SignatureException::class, IllegalArgumentException::class)
     private fun doParseToken(compactToken: String): Jws<Claims> {
         return Jwts.parser()
                 .setSigningKey(SECRET_KEY)
