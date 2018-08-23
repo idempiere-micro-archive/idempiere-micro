@@ -1,9 +1,7 @@
 package org.idempiere.app
 
 import org.compiere.crm.MUser
-import org.compiere.orm.*
 import org.compiere.util.Msg
-import org.idempiere.common.util.*
 import org.osgi.service.component.annotations.Component
 import software.hsharp.core.models.INameKeyPair
 import software.hsharp.core.services.ILoginUtility
@@ -11,11 +9,23 @@ import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
 import java.sql.Timestamp
-import java.util.*
 import java.util.logging.Level
 import org.compiere.model.I_M_Warehouse
 import org.compiere.crm.MCountry
+import org.compiere.orm.MRole
+import org.compiere.orm.MSysConfig
+import org.compiere.orm.MSystem
+import org.compiere.orm.Query
 import org.compiere.validation.ModelValidationEngine
+import org.idempiere.common.util.CLogger
+import org.idempiere.common.util.DB
+import org.idempiere.common.util.Env
+import org.idempiere.common.util.KeyNamePair
+import org.idempiere.common.util.Ini
+import org.idempiere.common.util.Util
+import java.util.Date
+import java.util.Properties
+import org.compiere.orm.MTree_Base
 
 @Component
 class Login : ILoginUtility {
@@ -84,7 +94,7 @@ class Login : ILoginUtility {
 
         // 	Authentication
         var authenticated = false
-        val system = MSystem.get(m_ctx) ?: throw IllegalStateException("No System Info")
+        MSystem.get(m_ctx) ?: throw IllegalStateException("No System Info")
 
         if (app_pwd == "") {
             log.warning("No Apps Password")
@@ -163,16 +173,13 @@ class Login : ILoginUtility {
                 return arrayOf()
             }
             clientsValidated.add(user.getAD_Client_ID())
-            var valid: Boolean
-            // authenticated by ldap
-            if (authenticated) {
-                valid = true
-            } else if (hash_password) {
-                valid = user.authenticateHash(app_pwd)
-            } else {
-                // password not hashed
-                valid = user.getPassword() != null && user.getPassword() == app_pwd
+            val valid = when {
+                authenticated -> true
+                hash_password -> user.authenticateHash(app_pwd)
+                else -> // password not hashed
+                    user.password != null && user.password == app_pwd
             }
+            // authenticated by ldap
 
             if (valid) {
                 if (user.isLocked()) {
@@ -250,7 +257,7 @@ class Login : ILoginUtility {
 
                 var reachMaxAttempt = false
                 val MAX_LOGIN_ATTEMPT = MSysConfig.getIntValue(MSysConfig.USER_LOCKING_MAX_LOGIN_ATTEMPT, 0)
-                if (MAX_LOGIN_ATTEMPT > 0 && count >= MAX_LOGIN_ATTEMPT) {
+                if (MAX_LOGIN_ATTEMPT in 1..count) {
                     // Reached the maximum number of login attempts, user account ({0}) is locked
                     loginErrMsg = Msg.getMsg(m_ctx, "ReachedMaxLoginAttempts", arrayOf<Any>(app_user))
                     reachMaxAttempt = true
@@ -410,8 +417,6 @@ class Login : ILoginUtility {
             log.log(Level.SEVERE, sql, ex)
         } finally {
             DB.close(rs, pstmt)
-            rs = null
-            pstmt = null
         }
 
         if (list.count() == 0) {
@@ -516,7 +521,7 @@ class Login : ILoginUtility {
         return this
     }
 
-    fun loadUserPreferences() {
+    private fun loadUserPreferences() {
         Env.getCtx()
         /* DAP commented out for now
         val userPreference = MUserPreference.getUserPreference(Env.getAD_User_ID(m_ctx), Env.getAD_Client_ID(m_ctx))
@@ -554,7 +559,7 @@ class Login : ILoginUtility {
         Env.setContext(m_ctx, "#Date", java.sql.Timestamp(today))
 
         // 	Optional Printer
-        val printerName2 = if (printerName == null) { "" } else { printerName }
+        val printerName2 = printerName ?: ""
 
         Env.setContext(m_ctx, "#Printer", printerName2)
         Ini.getIni().setProperty(Ini.getIni().P_PRINTER, printerName2)
@@ -664,16 +669,16 @@ class Login : ILoginUtility {
                     var at = ""
 
                     // preference for window
-                    if ("W" == PreferenceFor) {
-                        if (isAllWindow)
-                            at = "P|" + rs.getString(1)
+                    when (PreferenceFor) {
+                        "W" -> at = if (isAllWindow)
+                            "P|" + rs.getString(1)
                         else
-                            at = "P" + AD_Window_ID + "|" + rs.getString(1)
-                    } else if ("P" == PreferenceFor) { // preference for processs
-                        // when apply for all window or all process format is "P0|0|m_Attribute;
-                        at = "P" + AD_Window_ID + "|" + AD_InfoWindow_ID + "|" + AD_Process_ID + "|" + rs.getString(1)
-                    } else if ("I" == PreferenceFor) { // preference for infoWindow
-                        at = "P" + AD_Window_ID + "|" + AD_InfoWindow_ID + "|" + rs.getString(1)
+                            "P" + AD_Window_ID + "|" + rs.getString(1)
+                        "P" -> // preference for processs
+                            // when apply for all window or all process format is "P0|0|m_Attribute;
+                            at = "P" + AD_Window_ID + "|" + AD_InfoWindow_ID + "|" + AD_Process_ID + "|" + rs.getString(1)
+                        "I" -> // preference for infoWindow
+                            at = "P" + AD_Window_ID + "|" + AD_InfoWindow_ID + "|" + rs.getString(1)
                     }
 
                     val va = rs.getString(2)
@@ -700,7 +705,7 @@ class Login : ILoginUtility {
             DB.close(rs, pstmt)
         }
         // 	Country
-        Env.setContext(m_ctx, "#C_Country_ID", MCountry.getDefault(m_ctx).getC_Country_ID())
+        Env.setContext(m_ctx, "#C_Country_ID", MCountry.getDefault(m_ctx).c_Country_ID)
         // Call ModelValidators afterLoadPreferences - teo_sarca FR [ 1670025 ]
         ModelValidationEngine.get().afterLoadPreferences(m_ctx)
         return retValue
@@ -732,11 +737,9 @@ class Login : ILoginUtility {
             return
         } finally {
             DB.close(rs, pstmt)
-            rs = null
-            pstmt = null
         }
         // 	Set Context Value
-        if (value != null && value.length != 0) {
+        if (value != null && value.isNotEmpty()) {
             if (TableName == "C_DocType")
                 Env.setContext(m_ctx, "#C_DocTypeTarget_ID", value)
             else
