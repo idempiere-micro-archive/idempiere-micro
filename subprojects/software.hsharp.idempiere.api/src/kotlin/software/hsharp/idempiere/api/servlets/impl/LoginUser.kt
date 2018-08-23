@@ -12,7 +12,13 @@ import software.hsharp.idempiere.api.servlets.services.SystemService
 import java.io.PrintWriter
 import java.io.StringWriter
 import javax.annotation.security.PermitAll
-import javax.ws.rs.*
+import javax.ws.rs.Path
+import javax.ws.rs.GET
+import javax.ws.rs.POST
+import javax.ws.rs.Produces
+import javax.ws.rs.Consumes
+import javax.ws.rs.QueryParam
+import javax.ws.rs.FormParam
 import javax.ws.rs.core.MediaType
 
 @PermitAll
@@ -40,16 +46,16 @@ class LoginUser {
                 roleId,
                 orgId,
                 warehouseId,
-                if (language == null) { "en-US" } else { language }
+                    language ?: "en-US"
             )
 
         val result = loginManager.doLogin(userLoginModel)
-        if (result.logged) {
+        return if (result.logged) {
             val AD_User_ID = Env.getAD_User_ID(Env.getCtx())
             val token = JwtManager.createToken(AD_User_ID.toString(), "", mapper.writeValueAsString(userLoginModel))
-            return result.copy(token = token)
+            result.copy(token = token)
         } else {
-            return result
+            result
         }
     }
 
