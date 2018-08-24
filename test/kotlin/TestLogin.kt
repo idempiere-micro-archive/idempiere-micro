@@ -11,6 +11,8 @@ import software.hsharp.idempiere.api.servlets.jwt.LoginManager
 import software.hsharp.idempiere.api.servlets.services.LoginService
 import software.hsharp.idempiere.api.servlets.services.SystemService
 import software.hsharp.idempiere.api.servlets.services.UserService
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class TestLogin {
 
@@ -41,10 +43,10 @@ class TestLogin {
     fun testLoginREST() {
         val loginUser: ILoginService = LoginManager()
         val result = loginUser.login(gardenUser)
-        Assert.assertTrue(
+        assertTrue(
             result.logged
         )
-        Assert.assertTrue(
+        assertTrue(
                 result.token != ""
         )
     }
@@ -53,7 +55,7 @@ class TestLogin {
     fun testLoginFailREST() {
         val loginUser: ILoginService = LoginManager()
         val result = loginUser.login(fail)
-        Assert.assertFalse(
+        assertFalse(
                 result.logged
         )
     }
