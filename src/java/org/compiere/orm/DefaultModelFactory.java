@@ -76,25 +76,31 @@ public class DefaultModelFactory implements IModelFactory {
 	//	AD_Attribute_Value, AD_TreeNode
 	};
 
+
+    @Override
+    public Class<?> getClass(String tableName) {
+        return getClass(tableName, true);
+    }
+
 	/* (non-Javadoc)
 	 * @see org.compiere.orm.IModelFactory#getClass(java.lang.String)
 	 */
-	@Override
-	public Class<?> getClass(String tableName) {
+	public Class<?> getClass(String tableName, Boolean useCache) {
 //		Not supported
 		if (tableName == null || tableName.endsWith("_Trl"))
 			return null;
 
 		//check cache
-		Class<?> cache = s_classCache.get(tableName);
-		if (cache != null)
-		{
-			//Object.class indicate no generated PO class for tableName
-			if (cache.equals(Object.class))
-				return null;
-			else
-				return cache;
-		}
+        if (useCache) {
+            Class<?> cache = s_classCache.get(tableName);
+            if (cache != null) {
+                //Object.class indicate no generated PO class for tableName
+                if (cache.equals(Object.class))
+                    return null;
+                else
+                    return cache;
+            }
+        }
 
 		MTable table = MTable.get(Env.getCtx(), tableName);
 		String entityType = table.getEntityType();
@@ -308,7 +314,8 @@ public class DefaultModelFactory implements IModelFactory {
 		Class<?> clazz = getClass(tableName);
 		if (clazz == null)
 		{
-			s_log.warning( "PO NO CLAZZ FOR TABLE'" + tableName + "' with ResultSet" );
+			s_log.warning( "PO NO CLAZZ FOR TABLE '" + tableName + "' with ResultSet" );
+            getClass(tableName, false);
 			return null;
 		}
 

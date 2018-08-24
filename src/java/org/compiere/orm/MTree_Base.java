@@ -20,6 +20,7 @@ import java.sql.ResultSet;
 import java.util.Properties;
 
 import org.compiere.model.I_AD_Tree;
+import org.compiere.model.I_C_BPartner;
 import org.idempiere.common.util.CCache;
 import org.idempiere.common.util.DB;
 
@@ -167,7 +168,7 @@ public class MTree_Base extends X_AD_Tree
 		else if (treeType.equals(X_AD_Tree.TREETYPE_ElementValue))
 			sourceTable = "C_ElementValue";
 		else if (treeType.equals(X_AD_Tree.TREETYPE_BPartner))
-			sourceTable = "C_BPartner";
+			sourceTable = I_C_BPartner.Table_Name;
 		else if (treeType.equals(X_AD_Tree.TREETYPE_Campaign))
 			sourceTable = "C_Campaign";
 		else if (treeType.equals(X_AD_Tree.TREETYPE_Project))
@@ -307,7 +308,7 @@ public class MTree_Base extends X_AD_Tree
 			return tableName;
 		if ("M_Product".equals(tableName))
 			return "M_Product t INNER JOIN M_Product_Category x ON (t.M_Product_Category_ID=x.M_Product_Category_ID)";
-		if ("C_BPartner".equals(tableName))
+		if (I_C_BPartner.Table_Name.equals(tableName))
 			return "C_BPartner t INNER JOIN C_BP_Group x ON (t.C_BP_Group_ID=x.C_BP_Group_ID)";
 		if ("AD_Org".equals(tableName))
 			return "AD_Org t INNER JOIN AD_OrgInfo i ON (t.AD_Org_ID=i.AD_Org_ID) "
@@ -329,7 +330,7 @@ public class MTree_Base extends X_AD_Tree
 		String tableName = getSourceTableName(getTreeType());
 		if ("AD_Menu".equals(tableName))
 			return "t.Action";
-		if ("M_Product".equals(tableName) || "C_BPartner".equals(tableName) 
+		if ("M_Product".equals(tableName) || I_C_BPartner.Table_Name.equals(tableName) 
 			|| "AD_Org".equals(tableName) || "C_Campaign".equals(tableName))
 			return "x.AD_PrintColor_ID";
 		return "NULL";
