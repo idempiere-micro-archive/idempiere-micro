@@ -1,9 +1,7 @@
 package software.hsharp.business.models
 
-import java.sql.Timestamp
-
 interface IContactActivity : IDatabaseEntity {
-    val start: Timestamp
+    val start: Long // represent the value of java.sql.Timestamp.time
     val bpartnerName: String
     val completed: Boolean
     val activityOwnerName: String
