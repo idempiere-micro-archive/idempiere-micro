@@ -6,7 +6,7 @@ import org.idempiere.common.util.Trx
 class UpdateCustomer : CustomerProcessBase() {
     override fun getData(m_trx: Trx): I_C_BPartner {
         if (id < 1) { throw IllegalArgumentException() }
-        return modelFactory.getPO("C_BPartner", id, m_trx.trxName) as I_C_BPartner
+        return modelFactory.getPO(I_C_BPartner.Table_Name, id, m_trx.trxName) as I_C_BPartner
     }
 
     override val trxName: String

@@ -53,7 +53,7 @@ object OAuthSignature {
         if (_config == null || endpoint == null || httpMethod == null) {
             return emptyMap<String, String>().toMutableMap()
         }
-        val config = _config!!
+        val config = _config
         val authParams = HashMap<String, String>()
         authParams[OAuthHeader.OAUTH_CONSUMER_KEY.value] = config.consumerKey
         authParams[OAuthHeader.OAUTH_TIMESTAMP.value] = (System.currentTimeMillis() / 1000L).toString()
@@ -65,25 +65,13 @@ object OAuthSignature {
         if (HttpMethod.DELETE == httpMethod) {
             authParams[DELETE_PARAM_FORCE] = java.lang.Boolean.TRUE.toString()
         }
-        val oAuthSignature = generateOAuthSignature(config.consumerSecret, endpoint, httpMethod!!, authParams)
+        val oAuthSignature = generateOAuthSignature(config.consumerSecret, endpoint, httpMethod, authParams)
         authParams[OAuthHeader.OAUTH_SIGNATURE.value] = oAuthSignature
         return authParams
     }
 
-    @JvmOverloads
-    fun getAsQueryString(config: IConfig?, endpoint: String?, httpMethod: HttpMethod?, params: Map<String, String> = emptyMap()): String {
-        /*
-        if (config == null || endpoint == null || httpMethod == null) {
-            return ""
-        }
-        val oauthParameters = getAsMap(config, endpoint, httpMethod, params)
-        val encodedSignature = oauthParameters[OAuthHeader.OAUTH_SIGNATURE.value]!!
-                .replace(SpecialSymbol.PLUS.plain, SpecialSymbol.PLUS.encoded)
-        oauthParameters[OAuthHeader.OAUTH_SIGNATURE.value] = encodedSignature
-        return mapToString(oauthParameters, SpecialSymbol.EQUAL.plain, SpecialSymbol.AMP.plain)
-        */
-
-        return "consumer_key=${config!!.consumerKey}&consumer_secret=${config!!.consumerSecret}&per_page=100"
+    fun getAsQueryString(config: IConfig?): String {
+        return "consumer_key=${config!!.consumerKey}&consumer_secret=${config.consumerSecret}&per_page=100"
     }
 
     private fun generateOAuthSignature(customerSecret: String, endpoint: String, httpMethod: HttpMethod, parameters: Map<String, String>): String {

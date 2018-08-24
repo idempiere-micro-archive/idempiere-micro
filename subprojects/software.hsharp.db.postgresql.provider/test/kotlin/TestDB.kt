@@ -1,8 +1,9 @@
-import org.junit.Assert
 import org.junit.Test
 import software.hsharp.api.icommon.ICConnection
 import software.hsharp.db.postgresql.provider.PgDB
 import java.util.Random
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 data class loginParams(
     override val dbHost: String = "localhost",
@@ -27,12 +28,12 @@ class TestDB {
     fun login() {
         val pg = PgDB()
         val cnn = pg.connect(loginParams())
-        Assert.assertNotNull(cnn)
+        assertNotNull(cnn)
     }
     @Test
     fun loginFail() {
         val pg = PgDB()
         val cnn = pg.connect(loginParams(dbUid=randomString(5), dbPwd=randomString(5)))
-        Assert.assertNull(cnn)
+        assertNull(cnn)
     }
 }

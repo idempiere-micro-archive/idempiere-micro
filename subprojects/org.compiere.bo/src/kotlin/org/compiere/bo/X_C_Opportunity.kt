@@ -339,7 +339,7 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent {
      * @return The estimated value of this opportunity.
      */
     override fun getOpportunityAmt(): BigDecimal {
-        return get_Value(I_C_Opportunity.COLUMNNAME_OpportunityAmt) as BigDecimal ?: return Env.ZERO
+        return get_Value(I_C_Opportunity.COLUMNNAME_OpportunityAmt) as BigDecimal? ?: return Env.ZERO
     }
 
     /** Set Probability.
@@ -353,7 +353,7 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent {
      * @return Probability
      */
     override fun getProbability(): BigDecimal {
-        return get_Value(I_C_Opportunity.COLUMNNAME_Probability) as BigDecimal ?: return Env.ZERO
+        return get_Value(I_C_Opportunity.COLUMNNAME_Probability) as BigDecimal? ?: return Env.ZERO
     }
 
     @Throws(RuntimeException::class)
@@ -393,6 +393,6 @@ open class X_C_Opportunity : PO, I_C_Opportunity, I_Persistent {
      * @return The amount adjusted by the probability.
      */
     override fun getWeightedAmt(): BigDecimal {
-        return get_Value(I_C_Opportunity.COLUMNNAME_WeightedAmt) as BigDecimal ?: return Env.ZERO
+        return get_Value(I_C_Opportunity.COLUMNNAME_WeightedAmt) as BigDecimal? ?: return Env.ZERO
     }
 }

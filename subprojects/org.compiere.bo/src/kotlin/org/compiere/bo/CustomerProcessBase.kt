@@ -21,25 +21,34 @@ fun updateCustomerCategory(customerCategoryId: Int?, bpartner: I_C_BPartner, cnn
 delete from crm_customer_category where c_bpartner_id = ?""".trimIndent()
 
         val statement = cnn.prepareStatement(sql)
-        statement.setInt(1, bpartner.c_BPartner_ID)
-        statement.executeUpdate()
-        statement.close()
+        try {
+            statement.setInt(1, bpartner.c_BPartner_ID)
+            statement.executeUpdate()
+        } finally {
+            statement.close()
+        }
     } else {
         val sqlUpdate = "update crm_customer_category set category_id = ? where c_bpartner_id = ?"
 
         val updateStatement = cnn.prepareStatement(sqlUpdate)
-        updateStatement.setInt(1, customerCategoryId)
-        updateStatement.setInt(2, bpartner.c_BPartner_ID)
-        val changedRows = updateStatement.executeUpdate()
-        updateStatement.close()
-        if (changedRows == 0) {
-            val sqlInsert = "insert into crm_customer_category(c_bpartner_id,category_id) values (?,?)"
+        try {
+            updateStatement.setInt(1, customerCategoryId)
+            updateStatement.setInt(2, bpartner.c_BPartner_ID)
+            val changedRows = updateStatement.executeUpdate()
+            if (changedRows == 0) {
+                val sqlInsert = "insert into crm_customer_category(c_bpartner_id,category_id) values (?,?)"
 
-            val insertStatement = cnn.prepareStatement(sqlInsert)
-            insertStatement.setInt(1, bpartner.c_BPartner_ID)
-            insertStatement.setInt(2, customerCategoryId)
-            insertStatement.executeUpdate()
-            insertStatement.close()
+                val insertStatement = cnn.prepareStatement(sqlInsert)
+                try {
+                    insertStatement.setInt(1, bpartner.c_BPartner_ID)
+                    insertStatement.setInt(2, customerCategoryId)
+                    insertStatement.executeUpdate()
+                } finally {
+                    insertStatement.close()
+                }
+            }
+        } finally {
+            updateStatement.close()
         }
     }
 }
@@ -189,7 +198,7 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
 
     abstract fun getData(m_trx: Trx): I_C_BPartner
 
-    fun coreAction(cnn: Connection, m_trx: Trx): IDTOReady {
+    fun coreAction(m_trx: Trx): IDTOReady {
         val result = getData(m_trx)
 
         if (bpName != null) {
@@ -292,7 +301,7 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
         val m_trx = Trx.get(Trx.createTrxName(trxName), true)
         try {
             m_trx.start()
-            val result = coreAction(cnn, m_trx)
+            val result = coreAction(m_trx)
             m_trx.commit()
             return result
         } catch (e: Exception) {

@@ -1,4 +1,5 @@
-import junit.framework.Assert
+package org.compiere.bo.tests
+
 import org.compiere.bo.MyFutureContactActivities
 import org.compiere.crm.*
 import org.compiere.model.I_C_BPartner
@@ -11,6 +12,9 @@ import org.idempiere.common.util.Ini
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
 import java.util.*
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 // generates random string with small letters of a given length
 fun randomString(length: Int): String {
@@ -44,7 +48,7 @@ class TestFutureActivities : BaseProcessTest() {
         Env.setContext(ctx, Env.AD_USER_ID, AD_USER_ID_s )
 
         val processResult = runProcess(DB_PostgreSQL(), MyFutureContactActivities(), arrayOf()) as MyFutureContactActivities.Result
-        Assert.assertTrue( processResult.activities.count() > 0 )
+        assertTrue( processResult.activities.count() > 0 )
     }
 
     @Test
@@ -70,9 +74,9 @@ class TestFutureActivities : BaseProcessTest() {
         val id = 118
         val partner = MBPartner.get( Env.getCtx(), id )
 
-        org.junit.Assert.assertEquals( id, partner.c_BPartner_ID)
-        org.junit.Assert.assertEquals( "JoeBlock", partner.value)
-        org.junit.Assert.assertEquals( "Joe Block", partner.name)
+        assertEquals( id, partner.c_BPartner_ID)
+        assertEquals( "JoeBlock", partner.value)
+        assertEquals( "Joe Block", partner.name)
 
         val partner2 : I_C_BPartner = partner as I_C_BPartner
 
@@ -82,17 +86,17 @@ class TestFutureActivities : BaseProcessTest() {
 
         val partner3 = MBPartner.get( Env.getCtx(), id )
 
-        org.junit.Assert.assertEquals( id, partner3.c_BPartner_ID)
-        org.junit.Assert.assertEquals( newValue, partner3.value)
-        org.junit.Assert.assertEquals( "Joe Block", partner3.name)
+        assertEquals( id, partner3.c_BPartner_ID)
+        assertEquals( newValue, partner3.value)
+        assertEquals( "Joe Block", partner3.name)
 
         partner2.setValue( "JoeBlock" )
         partner2.save()
 
         val newPartner = MBPartner.getTemplate(ctx, AD_CLIENT_ID)
-        val name = "Test "+randomString(10)
+        val name = "Test "+ randomString(10)
         newPartner.setName(name)
-        val value = "t-"+randomString(5)
+        val value = "t-"+ randomString(5)
         newPartner.setValue(value)
         newPartner.save()
 
@@ -105,50 +109,50 @@ class TestFutureActivities : BaseProcessTest() {
         partnerLocation.save()
 
         val newPartner2 = MBPartner.get( Env.getCtx(), newPartner.c_BPartner_ID )
-        org.junit.Assert.assertEquals( 1, newPartner2.locations.count() )
+        assertEquals( 1, newPartner2.locations.count() )
 
         val bodyParams = arrayOf(
                 "Full" to true,
                 "Search" to value
         )
         val result = runProcess(DB_PostgreSQL(), Find(), bodyParams) as FindResult
-        org.junit.Assert.assertEquals(1,result.rows.count())
+        assertEquals(1,result.rows.count())
         val bp = result.rows[0] as BPartnerWithActivity
-        org.junit.Assert.assertNotNull(bp)
-        org.junit.Assert.assertNotNull(bp.BPartner)
+        assertNotNull(bp)
+        assertNotNull(bp.BPartner)
         val bpp = bp.BPartner
-        org.junit.Assert.assertEquals(name, bpp.name)
-        org.junit.Assert.assertEquals(1,bpp.Locations.count())
+        assertEquals(name, bpp.name)
+        assertEquals(1,bpp.Locations.count())
 
         val result2 = runProcess(DB_PostgreSQL(), AbandonedBPartners(), bodyParams) as FindResult
-        org.junit.Assert.assertTrue(result2.rows.count() > 0)
+        assertTrue(result2.rows.count() > 0)
         val bp2 = result2.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
-        org.junit.Assert.assertNotNull(bp2)
-        org.junit.Assert.assertNotNull(bp2.BPartner)
+        assertNotNull(bp2)
+        assertNotNull(bp2.BPartner)
         val bpp2 = bp2.BPartner
-        org.junit.Assert.assertEquals(name, bpp2.name)
-        org.junit.Assert.assertEquals(1,bpp2.Locations.count())
+        assertEquals(name, bpp2.name)
+        assertEquals(1,bpp2.Locations.count())
 
         newPartner2.salesRep_ID = AD_USER_ID
         newPartner2.save()
 
         val result3 = runProcess(DB_PostgreSQL(), MyBPartners(), bodyParams) as FindResult
-        org.junit.Assert.assertTrue(result3.rows.count() > 0)
+        assertTrue(result3.rows.count() > 0)
         val bp3 = result3.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
-        org.junit.Assert.assertNotNull(bp3)
-        org.junit.Assert.assertNotNull(bp3.BPartner)
+        assertNotNull(bp3)
+        assertNotNull(bp3.BPartner)
         val bpp3 = bp3.BPartner
-        org.junit.Assert.assertEquals(name, bpp3.name)
-        org.junit.Assert.assertEquals(1,bpp3.Locations.count())
+        assertEquals(name, bpp3.name)
+        assertEquals(1,bpp3.Locations.count())
 
         val result4 = runProcess(DB_PostgreSQL(), ForgottenBPartners(), bodyParams) as FindResult
-        org.junit.Assert.assertTrue(result4.rows.count() > 0)
+        assertTrue(result4.rows.count() > 0)
         val bp4 = result4.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
-        org.junit.Assert.assertNotNull(bp4)
-        org.junit.Assert.assertNotNull(bp4.BPartner)
+        assertNotNull(bp4)
+        assertNotNull(bp4.BPartner)
         val bpp4 = bp4.BPartner
-        org.junit.Assert.assertEquals(name, bpp4.name)
-        org.junit.Assert.assertEquals(1,bpp4.Locations.count())
+        assertEquals(name, bpp4.name)
+        assertEquals(1,bpp4.Locations.count())
 
         newPartner.delete(true)
 

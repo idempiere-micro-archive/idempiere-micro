@@ -1,17 +1,18 @@
-import junit.framework.Assert
+import org.junit.Assert
 import org.idempiere.app.Login
-import org.idempiere.app.iDempiereMicro
+import org.idempiere.app.Micro
 import org.idempiere.common.db.Database
 import org.junit.Before
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
 import software.hsharp.api.helpers.jwt.ILogin
 import software.hsharp.api.helpers.jwt.ILoginService
-import software.hsharp.db.postgresql.provider.PgDB
 import software.hsharp.idempiere.api.servlets.jwt.LoginManager
 import software.hsharp.idempiere.api.servlets.services.LoginService
 import software.hsharp.idempiere.api.servlets.services.SystemService
 import software.hsharp.idempiere.api.servlets.services.UserService
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class TestLogin {
 
@@ -32,7 +33,7 @@ class TestLogin {
 
     @Before
     fun prepare() {
-        SystemService().setSystem(iDempiereMicro())
+        SystemService().setSystem(Micro())
         Database().setDatabase(DB_PostgreSQL())
         LoginService().setLoginUtility(Login())
         UserService().setUserService(org.compiere.bo.UserService())
@@ -42,10 +43,10 @@ class TestLogin {
     fun testLoginREST() {
         val loginUser: ILoginService = LoginManager()
         val result = loginUser.login(gardenUser)
-        Assert.assertTrue(
+        assertTrue(
             result.logged
         )
-        Assert.assertTrue(
+        assertTrue(
                 result.token != ""
         )
     }
@@ -54,7 +55,7 @@ class TestLogin {
     fun testLoginFailREST() {
         val loginUser: ILoginService = LoginManager()
         val result = loginUser.login(fail)
-        Assert.assertFalse(
+        assertFalse(
                 result.logged
         )
     }

@@ -10,12 +10,12 @@ import org.idempiere.common.util.Ini
 import org.junit.Assert
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class ProductTests {
     @Test
     fun getUsingDefaultModelFactoryById() {
-        val p : org.compiere.product.MProduct? = null
-
         Ini.getIni().isClient = false
         CLogger.getCLogger(ProductTests::class.java)
         Ini.getIni().properties
@@ -34,9 +34,9 @@ class ProductTests {
         val modelFactory : IModelFactory = DefaultModelFactory()
         val result = modelFactory.getPO( "M_Product", product_id, "pokus")
         println( result );
-        Assert.assertNotNull(result)
+        assertNotNull(result)
         val product = result as MProduct
-        Assert.assertNotNull(product)
-        Assert.assertEquals( product_id, product._ID )
+        assertNotNull(product)
+        assertEquals( product_id, product._ID )
     }
 }

@@ -48,7 +48,7 @@ data class BusinessPartnersResult(
     companion object {
         val metadata: IDataSource? get() {
             /*return DataTable(
-                    tableName = "c_bpartner",
+                    tableName = I_C_BPartner.Table_Name,
                     columns = arrayOf(),
                     defaultSortBy = DataColumn(
                             isRequired = true,

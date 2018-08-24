@@ -3,7 +3,6 @@ package software.hsharp.woocommerce.impl
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.github.kittinunf.fuel.httpGet
-import software.hsharp.woocommerce.oauth.HttpMethod
 import software.hsharp.woocommerce.oauth.OAuthSignature
 
 interface IConfig {
@@ -33,7 +32,7 @@ open class WooCommerceBase(val config: IConfig, val apiVersion: ApiVersionType) 
         factoryMethod: (Any) -> T
     ): T {
         val url = "${config.url}/wp-json/wc/$apiVersion/$endpointBase/$id"
-        val signature = OAuthSignature.getAsQueryString(config, url, HttpMethod.GET)
+        val signature = OAuthSignature.getAsQueryString(config)
         val securedUrl = "$url?$signature"
 
         val (_, _, result) = securedUrl.httpGet().responseString()
@@ -45,13 +44,12 @@ open class WooCommerceBase(val config: IConfig, val apiVersion: ApiVersionType) 
         return factoryMethod(dataObj)
     }
 
-    inline fun <reified T : Any> getAll(
+    inline fun <reified T : Any, reified U : Any> getAll(
         endpointBase: String,
-        params: Map<String, String>,
-        factoryMethod: (Any) -> T
-    ): Array<T> {
+        factoryMethod: (T) -> U
+    ): Array<U> {
         val url = "${config.url}/wp-json/wc/$apiVersion/$endpointBase"
-        val signature = OAuthSignature.getAsQueryString(config, url, HttpMethod.GET, params)
+        val signature = OAuthSignature.getAsQueryString(config)
         val securedUrl = "$url?$signature"
 
         val (_, _, result) = securedUrl.httpGet().responseString()

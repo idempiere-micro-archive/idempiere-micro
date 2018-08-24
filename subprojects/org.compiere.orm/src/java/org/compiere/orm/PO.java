@@ -1,10 +1,21 @@
 package org.compiere.orm;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Savepoint;
+import java.sql.Timestamp;
 import org.compiere.model.I_C_ElementValue;
 import org.compiere.util.Msg;
 import org.idempiere.common.exceptions.AdempiereException;
-import org.idempiere.common.util.*;
+import org.idempiere.common.util.AdempiereUserError;
+import org.idempiere.common.util.CLogger;
+import org.idempiere.common.util.CacheMgt;
+import org.idempiere.common.util.DB;
+import org.idempiere.common.util.Env;
+import org.idempiere.common.util.Trx;
+import org.idempiere.common.util.ValueNamePair;
 import org.idempiere.icommon.model.IPO;
 import org.idempiere.orm.EventManager;
 import org.idempiere.orm.IEventTopics;
@@ -12,12 +23,12 @@ import org.idempiere.orm.Null;
 import org.osgi.service.event.Event;
 
 import java.math.BigDecimal;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.logging.Level;
+import org.idempiere.common.exceptions.DBException;
 
 public abstract class PO extends org.idempiere.orm.PO {
     public PO(Properties ctx) {
@@ -40,7 +51,7 @@ public abstract class PO extends org.idempiere.orm.PO {
     }
 
     /**	Attachment with entries	*/
-    protected MAttachment			m_attachment = null;
+    protected MAttachment m_attachment = null;
 
     /**
      * 	Is new record

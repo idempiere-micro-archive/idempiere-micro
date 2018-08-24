@@ -1,3 +1,5 @@
+package software.hsharp.woocommerce
+
 import org.compiere.crm.X_I_BPartner
 import org.compiere.order.MOrder
 import org.compiere.order.X_I_Order
@@ -8,7 +10,6 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import org.junit.Assert
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
 import software.hsharp.woocommerce.impl.*
@@ -16,8 +17,7 @@ import org.compiere.process.ProcessInfoParameter
 import org.compiere.product.X_I_Product
 import org.compiere.crm.ImportBPartner
 import org.junit.Ignore
-import software.hsharp.woocommerce.*
-
+import kotlin.test.assertTrue
 
 class TestGetSimpleOrder {
     @Ignore
@@ -67,7 +67,7 @@ class TestGetSimpleOrder {
         newOrder.save()
         val id = newOrder._ID
         println( "id:${id}" )
-        Assert.assertTrue( id > 0 )
+        assertTrue( id > 0 )
     }
 
     @Ignore
@@ -102,7 +102,7 @@ class TestGetSimpleOrder {
         newOrder.save()
         val id = newOrder._ID
         println( "id:${id}" )
-        Assert.assertTrue( id > 0 )
+        assertTrue( id > 0 )
 
         /* TODO: move import order
         val importOrder = ImportOrder()
@@ -211,7 +211,7 @@ class TestGetSimpleOrder {
                     newOrder.save()
                     val id = newOrder._ID
                     println("id:${id}")
-                    Assert.assertTrue(id > 0)
+                    assertTrue(id > 0)
                 }
             }
 
@@ -240,7 +240,7 @@ class TestGetSimpleOrder {
                     newOrder.save()
                     val id = newOrder._ID
                     println("id:${id}")
-                    Assert.assertTrue(id > 0)
+                    assertTrue(id > 0)
                 }
             }
 
@@ -253,7 +253,7 @@ class TestGetSimpleOrder {
                 ProcessInfoParameter( "AD_Client_ID", AD_CLIENT_ID.toBigDecimal(), null, null, null ),
                 ProcessInfoParameter( "CreateAllLocations", "Y", null, null, null )
         )
-        val pinfo1 = ProcessInfo("Import Test BPartner", 206);
+        val pinfo1 = ProcessInfo("Import Test BPartner", 206)
         pinfo1.aD_Client_ID = AD_CLIENT_ID
         pinfo1.parameter = parameters1
         importBPartner.startProcess(ctx, pinfo1, null)
@@ -303,12 +303,12 @@ class TestGetSimpleOrder {
         newProduct.bPartner_Value = "Wood, Inc"
         TODO( "add all the required values" )
 
+        /* TODO: use
         newProduct.save()
         val id = newProduct._ID
         println( "id:${id}" )
-        Assert.assertTrue( id > 0 )
+        assertTrue( id > 0 )
 
-        /* TODO: use
         val importProduct = ImportProduct()
         val pinfo = ProcessInfo("Import Test Product", 206);
 
