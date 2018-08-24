@@ -285,7 +285,7 @@ abstract class CustomerProcessBase : SvrProcessBaseSql() {
 
     private fun doUpdateCustomerCategory(bpartner: I_C_BPartner, cnn: Connection) {
         val _customerCategoryId = customerCategoryId
-        updateCustomerCategory( _customerCategoryId, bpartner, cnn )
+        updateCustomerCategory(_customerCategoryId, bpartner, cnn)
     }
 
     override fun getSqlResult(cnn: Connection): IDTOReady {
