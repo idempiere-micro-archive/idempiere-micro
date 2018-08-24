@@ -16,6 +16,7 @@
  */
 package org.adempiere.osgi;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.osgi.framework.FrameworkUtil;
 
 import java.io.Reader;
@@ -35,7 +36,9 @@ import javax.script.ScriptException;
 
 
 public class OSGiScriptEngine implements ScriptEngine{
+	@SuppressFBWarnings("UUF_UNUSED_FIELD")
 	private ScriptEngine engine;
+	@SuppressFBWarnings("UUF_UNUSED_FIELD")
 	private OSGiScriptEngineFactory factory;
 	public OSGiScriptEngine(ScriptEngine engine, OSGiScriptEngineFactory factory){
 		this.engine=engine;
