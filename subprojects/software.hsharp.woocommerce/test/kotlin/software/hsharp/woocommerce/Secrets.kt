@@ -1,12 +1,14 @@
+package software.hsharp.woocommerce
+
 import software.hsharp.woocommerce.impl.IConfig
 
 class Secrets  : IConfig {
     override val url: String
-        get() = Secrets.URL
+        get() = URL
     override val consumerKey: String
-        get() = Secrets.consumerKey
+        get() = Companion.consumerKey
     override val consumerSecret: String
-        get() = Secrets.consumerSecret
+        get() = Companion.consumerSecret
 
     companion object {
         val URL : String = System.getenv("WOOCOMMERCE_URL")

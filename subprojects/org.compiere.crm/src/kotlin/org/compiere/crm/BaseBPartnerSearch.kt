@@ -48,7 +48,7 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
         val rs = statement.executeQuery()
 
         val modelFactory: IModelFactory = DefaultModelFactory()
-        val result = generateSequence {
+        val result: List<Any> = generateSequence {
             if (rs.next()) {
                 if (full) {
                     val bpartner: I_C_BPartner = modelFactory.getPO(I_C_BPartner.Table_Name, rs, null) as I_C_BPartner
@@ -68,7 +68,7 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
                     val subName = if (foundIdx > 0) { name.substring(foundIdx) } else { name }
                     BPartnerFindResult(rs.getInt("c_bpartner_id"), name, subName, rs.getString("taxid"))
                 }
-            }
+            } else null
         }.toList()
 
         return FindResult(result)

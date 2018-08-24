@@ -1,3 +1,5 @@
+package org.compiere.crm.test
+
 import org.compiere.process.ProcessCall
 import org.compiere.process.ProcessInfo
 import org.compiere.process.ProcessInfoParameter

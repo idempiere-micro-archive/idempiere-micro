@@ -1,3 +1,5 @@
+package org.compiere.bo.tests
+
 import org.compiere.bo.CustomerProcessBase
 import org.compiere.bo.CustomerProcessBaseResult
 import org.compiere.crm.MBPartner
@@ -7,11 +9,11 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import org.junit.Assert
 import pg.org.compiere.db.DB_PostgreSQL
 import java.util.Properties
 import java.util.Random
 import org.compiere.bo.updateCustomerCategory
+import kotlin.test.assertEquals
 
 abstract class BaseCustomerTest: BaseProcessTest() {
     abstract fun preparePartnerId(ctx: Properties, AD_CLIENT_ID: Int): Int?
@@ -99,13 +101,13 @@ abstract class BaseCustomerTest: BaseProcessTest() {
         val newPartner2 = MBPartner.get( Env.getCtx(), processResult.C_BPartner_Id )
 
         try {
-            Assert.assertEquals(bodyParams.first { it.first == "bpName" }.second, newPartner2.name)
-            Assert.assertEquals(bodyParams.first { it.first == "discount" }.second.toString(), newPartner2.flatDiscount.toString())
-            Assert.assertEquals(bodyParams.first { it.first == "description" }.second, newPartner2.description)
-            Assert.assertEquals(bodyParams.first { it.first == "isCustomer" }.second, newPartner2.isCustomer)
+            assertEquals(bodyParams.first { it.first == "bpName" }.second, newPartner2.name)
+            assertEquals(bodyParams.first { it.first == "discount" }.second.toString(), newPartner2.flatDiscount.toString())
+            assertEquals(bodyParams.first { it.first == "description" }.second, newPartner2.description)
+            assertEquals(bodyParams.first { it.first == "isCustomer" }.second, newPartner2.isCustomer)
 
-            Assert.assertEquals(3, newPartner2.contacts.count())
-            Assert.assertEquals(2, newPartner2.locations.count())
+            assertEquals(3, newPartner2.contacts.count())
+            assertEquals(2, newPartner2.locations.count())
         } finally {
             updateCustomerCategory( null, newPartner2, DB.getConnectionRW() )
             newPartner2.delete(true)

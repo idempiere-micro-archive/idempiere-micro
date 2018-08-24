@@ -1,5 +1,6 @@
+package org.compiere.crm.test
+
 import org.compiere.model.I_C_BPartner
-import org.compiere.model.I_C_ContactActivity
 import org.compiere.orm.DefaultModelFactory
 import org.compiere.orm.IModelFactory
 import org.idempiere.common.db.CConnection
@@ -8,9 +9,10 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import org.junit.Assert
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class FactoryTests {
     @Test
@@ -32,7 +34,7 @@ class FactoryTests {
         val modelFactory : IModelFactory = DefaultModelFactory()
         val result = modelFactory.getPO( I_C_BPartner.Table_Name, 118, "pokus")
         println( result )
-        Assert.assertNotNull(result);
+        assertNotNull(result);
     }
 
     @Test
@@ -73,8 +75,8 @@ class FactoryTests {
         val modelFactory : IModelFactory = DefaultModelFactory()
         val result = modelFactory.getPO( tableName, rs, "pokus")
         println( result )
-        Assert.assertNotNull(result)
-        Assert.assertEquals(id, result._ID)
+        assertNotNull(result)
+        assertEquals(id, result._ID)
 
         cnn.close()
     }

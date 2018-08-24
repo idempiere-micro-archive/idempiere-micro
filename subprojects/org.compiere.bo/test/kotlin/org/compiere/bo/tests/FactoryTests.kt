@@ -1,3 +1,5 @@
+package org.compiere.bo.tests
+
 import org.compiere.model.I_C_BPartner
 import org.compiere.model.I_C_ContactActivity
 import org.compiere.orm.DefaultModelFactory
@@ -8,9 +10,10 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import org.junit.Assert
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class FactoryTests {
     @Test
@@ -46,11 +49,11 @@ class FactoryTests {
         val result = modelFactory.getPO( tableName, rs, "pokus")
         val result2 = modelFactory.getPO(I_C_ContactActivity.Table_Name, rs, "pokus", "activity_") as I_C_ContactActivity
         println( result )
-        println( result2 );
-        Assert.assertNotNull(result);
-        Assert.assertNotNull(result2);
-        Assert.assertEquals(id, result._ID)
-        Assert.assertEquals(123, result2.c_ContactActivity_ID)
+        println( result2 )
+        assertNotNull(result)
+        assertNotNull(result2)
+        assertEquals(id, result._ID)
+        assertEquals(123, result2.c_ContactActivity_ID)
 
         cnn.close()
     }
@@ -96,10 +99,10 @@ class FactoryTests {
         val result2 = modelFactory.getPO( "M_PriceList", rs, "pokus")
         println( result )
         println( result2 )
-        Assert.assertNotNull(result)
-        Assert.assertNotNull(result2)
-        Assert.assertEquals(id, result._ID)
-        Assert.assertEquals(101, result2._ID)
+        assertNotNull(result)
+        assertNotNull(result2)
+        assertEquals(id, result._ID)
+        assertEquals(101, result2._ID)
 
         cnn.close()
     }

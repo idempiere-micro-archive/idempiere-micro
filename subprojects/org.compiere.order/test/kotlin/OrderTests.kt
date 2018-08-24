@@ -7,9 +7,10 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import org.junit.Assert
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class OrderTests {
     @Test
@@ -32,12 +33,12 @@ class OrderTests {
         val modelFactory : IModelFactory = DefaultModelFactory()
         val result = modelFactory.getPO( "C_Order", order_id, "pokus")
         println( result );
-        Assert.assertNotNull(result)
+        assertNotNull(result)
         val order = result as MOrder
-        Assert.assertNotNull(order)
-        Assert.assertEquals( order_id, order._ID )
+        assertNotNull(order)
+        assertEquals( order_id, order._ID )
         val lines = order.lines
-        Assert.assertNotNull(lines)
-        Assert.assertEquals( 6, lines.count() )
+        assertNotNull(lines)
+        assertEquals( 6, lines.count() )
     }
 }

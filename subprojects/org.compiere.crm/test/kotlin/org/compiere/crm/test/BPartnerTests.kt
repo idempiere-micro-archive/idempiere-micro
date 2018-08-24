@@ -1,6 +1,7 @@
+package org.compiere.crm.test
+
 import org.compiere.crm.*
 import org.compiere.model.I_C_BPartner
-import org.junit.Assert
 import org.junit.Test
 import org.idempiere.common.db.CConnection
 import org.idempiere.common.db.Database
@@ -10,6 +11,7 @@ import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
 import pg.org.compiere.db.DB_PostgreSQL
 import java.util.Random
+import kotlin.test.assertEquals
 
 // generates random string with small letters of a given length
 fun randomString(length: Int): String {
@@ -46,9 +48,9 @@ class BPartnerTests : BaseProcessTest() {
         val id = 118
         val partner = MBPartner.get( Env.getCtx(), id )
 
-        Assert.assertEquals( id, partner.c_BPartner_ID)
-        Assert.assertEquals( "JoeBlock", partner.value)
-        Assert.assertEquals( "Joe Block", partner.name)
+        assertEquals( id, partner.c_BPartner_ID)
+        assertEquals( "JoeBlock", partner.value)
+        assertEquals( "Joe Block", partner.name)
 
         val partner2 : I_C_BPartner = partner as I_C_BPartner
 
@@ -58,17 +60,17 @@ class BPartnerTests : BaseProcessTest() {
 
         val partner3 = MBPartner.get( Env.getCtx(), id )
 
-        Assert.assertEquals( id, partner3.c_BPartner_ID)
-        Assert.assertEquals( newValue, partner3.value)
-        Assert.assertEquals( "Joe Block", partner3.name)
+        assertEquals( id, partner3.c_BPartner_ID)
+        assertEquals( newValue, partner3.value)
+        assertEquals( "Joe Block", partner3.name)
 
         partner2.setValue( "JoeBlock" )
         partner2.save()
 
         val newPartner = MBPartner.getTemplate(ctx, AD_CLIENT_ID)
-        val name = "Test "+randomString(10)
+        val name = "Test "+ randomString(10)
         newPartner.setName(name)
-        val value = "t-"+randomString(5)
+        val value = "t-"+ randomString(5)
         newPartner.setValue(value)
         newPartner.save()
 
@@ -81,7 +83,7 @@ class BPartnerTests : BaseProcessTest() {
         partnerLocation.save()
 
         val newPartner2 = MBPartner.get( Env.getCtx(), newPartner.c_BPartner_ID )
-        Assert.assertEquals( 1, newPartner2.locations.count() )
+        assertEquals( 1, newPartner2.locations.count() )
 
         newPartner.delete(true)
 
