@@ -24,26 +24,6 @@ dependencies {
     testCompile project(':org.compiere.db.postgresql.provider')
     testCompile files('../org.compiere.db.postgresql.provider/bin')
 
-    testCompile project(':org.idempiere.process')
-    testCompile files('../org.idempiere.process/bin')
-
     testCompile project(':org.compiere.process')
     testCompile files('../org.compiere.process/bin')
-
-    testCompile project(':org.adempiere.base')
-    testCompile files('../org.adempiere.base/bin')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-buildscript {
-    ext.kotlin_version = '1.2.41'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-apply plugin: 'kotlin'
-repositories {
-    mavenCentral()
 }

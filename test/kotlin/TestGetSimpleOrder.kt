@@ -8,7 +8,6 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import org.idempiere.process.ImportOrder
 import org.junit.Assert
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
@@ -16,7 +15,6 @@ import software.hsharp.woocommerce.impl.*
 import org.compiere.process.ProcessInfoParameter
 import org.compiere.product.X_I_Product
 import org.compiere.crm.ImportBPartner
-import org.idempiere.process.ImportProduct
 import org.junit.Ignore
 import software.hsharp.woocommerce.*
 
@@ -74,8 +72,6 @@ class TestGetSimpleOrder {
 
     @Ignore
     fun createNewImportOrderAndProcess() {
-        println( org.compiere.impl.X_C_BPartner::class.java )
-
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
@@ -108,6 +104,7 @@ class TestGetSimpleOrder {
         println( "id:${id}" )
         Assert.assertTrue( id > 0 )
 
+        /* TODO: move import order
         val importOrder = ImportOrder()
         val pinfo = ProcessInfo("Import Test Order", 206);
 
@@ -122,12 +119,11 @@ class TestGetSimpleOrder {
         importOrder.startProcess(ctx, pinfo, null)
 
         println( "pinfo:$pinfo" )
+         */
     }
 
     @Ignore
     fun importFromWooCommerceAndProcess() {
-        println( org.compiere.impl.X_C_BPartner::class.java )
-
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
@@ -264,7 +260,7 @@ class TestGetSimpleOrder {
 
         println( "pinfo1:$pinfo1" )
 
-
+        /* TODO fix
         val importOrder = ImportOrder()
 
         val parameters : Array<ProcessInfoParameter> = arrayOf(
@@ -279,6 +275,7 @@ class TestGetSimpleOrder {
         importOrder.startProcess(ctx, pinfo, null)
 
         println( "pinfo:$pinfo" )
+         */
     }
 
     @Ignore("Unfinished")
@@ -306,6 +303,7 @@ class TestGetSimpleOrder {
         newProduct.bPartner_Value = "Wood, Inc"
         TODO( "add all the required values" )
 
+        /* TODO: use
         newProduct.save()
         val id = newProduct._ID
         println( "id:${id}" )
@@ -325,6 +323,7 @@ class TestGetSimpleOrder {
         importProduct.startProcess(ctx, pinfo, null)
 
         println( "pinfo:$pinfo" )
+         */
     }
 
     @Test
