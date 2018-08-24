@@ -11,21 +11,6 @@ dependencies {
     compile project(':org.compiere.process')
     compile files('../org.compiere.process/bin')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     testCompile project(':software.hsharp.core.models')
     compile files('../software.hsharp.core.models/bin')
-}
-buildscript {
-    ext.kotlin_version = '1.2.41'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-apply plugin: 'kotlin'
-repositories {
-    mavenCentral()
 }
