@@ -20,21 +20,17 @@ class WooCommerceAPI(config: IConfig, apiVersion: ApiVersionType) : IWooCommerce
 
     override fun getOrders(): Array<SingleOrder> {
         val orders: Array<SingleOrder> =
-                getAll(
-                        EndpointBaseType.ORDERS.value,
-                        mapOf(),
-                        { MappedOrder(it as Map<String, Any?>) }
-                ).map { getOrder(it.id) }.toTypedArray()
+                getAll<Map<String, Any?>, MappedOrder>(
+                        EndpointBaseType.ORDERS.value
+                ) { MappedOrder(it) }.map { getOrder(it.id) }.toTypedArray()
         return orders
     }
 
     override fun getProducts(): Array<IProduct> {
         val products: Array<IProduct> =
-                getAll(
-                        EndpointBaseType.PRODUCTS.value,
-                        mapOf(),
-                        { MappedProduct(it as Map<String, Any?>) }
-                ).map { it as IProduct }.toTypedArray()
+                getAll<Map<String, Any?>, MappedProduct>(
+                        EndpointBaseType.PRODUCTS.value
+                ) { MappedProduct(it) }.map { it as IProduct }.toTypedArray()
         return products
     }
 }

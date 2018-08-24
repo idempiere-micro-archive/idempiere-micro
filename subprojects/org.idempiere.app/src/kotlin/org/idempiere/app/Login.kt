@@ -54,7 +54,7 @@ class Login : ILoginUtility {
             pstmt!!.setInt(1, role.Key)
             rs = pstmt.executeQuery()
 
-            if (!rs!!.next()) {
+            if (!rs.next()) {
                 log.log(Level.SEVERE, "No Clients for Role: " + role.toString())
                 return arrayOf()
             }
@@ -217,7 +217,7 @@ class Login : ILoginUtility {
                     pstmt!!.setInt(1, user.getAD_User_ID())
                     rs = pstmt.executeQuery()
 
-                    while (rs!!.next()) {
+                    while (rs.next()) {
                         val AD_Client_ID = rs.getInt(1)
                         val Name = rs.getString(2)
                         val p = KeyNamePair(AD_Client_ID, Name)
@@ -322,7 +322,7 @@ class Login : ILoginUtility {
             pstmt.setString(2, app_user)
             rs = pstmt.executeQuery()
 
-            if (!rs!!.next()) {
+            if (!rs.next()) {
                 log.log(Level.SEVERE, "No Roles for Client: " + client.toString())
                 return arrayOf()
             }
@@ -385,7 +385,7 @@ class Login : ILoginUtility {
             pstmt.setInt(3, AD_User_ID)
             rs = pstmt.executeQuery()
             //  load Orgs
-            if (!rs!!.next()) {
+            if (!rs.next()) {
                 log.log(Level.SEVERE, "No org for Role: " + rol.toString())
                 return arrayOf()
             }
@@ -458,7 +458,7 @@ class Login : ILoginUtility {
             pstmt!!.setInt(1, tree.aD_Tree_ID)
             pstmt.setInt(2, Summary_Org_ID)
             rs = pstmt.executeQuery()
-            while (rs!!.next()) {
+            while (rs.next()) {
                 // int AD_Client_ID = rs.getInt(1);
                 val AD_Org_ID = rs.getInt(2)
                 val Name = rs.getString(3)
@@ -493,7 +493,7 @@ class Login : ILoginUtility {
             pstmt!!.setInt(1, org.Key)
             rs = pstmt.executeQuery()
 
-            if (!rs!!.next()) {
+            if (!rs.next()) {
                 if (log.isLoggable(Level.INFO)) log.info("No Warehouses for Org: " + org.toString())
                 return arrayOf()
             }
@@ -599,7 +599,7 @@ class Login : ILoginUtility {
             pstmt!!.setInt(1, AD_Client_ID)
             rs = pstmt.executeQuery()
 
-            if (!rs!!.next()) {
+            if (!rs.next()) {
                 //  No Warning for System
                 if (AD_Client_ID != 0)
                     retValue = "NoValidAcctInfo"
@@ -640,7 +640,7 @@ class Login : ILoginUtility {
             pstmt = DB.prepareStatement(sql, null)
             pstmt!!.setInt(1, C_AcctSchema_ID)
             rs = pstmt.executeQuery()
-            while (rs!!.next())
+            while (rs.next())
                 Env.setContext(m_ctx, "\$Element_" + rs.getString("ElementType"), "Y")
             DB.close(rs, pstmt)
 
@@ -730,7 +730,7 @@ class Login : ILoginUtility {
         try {
             pstmt = DB.prepareStatement(sql, null)
             rs = pstmt!!.executeQuery()
-            if (rs!!.next())
+            if (rs.next())
                 value = rs.getString(1)
         } catch (e: SQLException) {
             log.log(Level.SEVERE, "$TableName ($sql)", e)

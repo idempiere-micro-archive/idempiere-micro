@@ -14,8 +14,6 @@ import pg.org.compiere.db.DB_PostgreSQL
 class ProductTests {
     @Test
     fun getUsingDefaultModelFactoryById() {
-        val p : org.compiere.product.MProduct? = null
-
         Ini.getIni().isClient = false
         CLogger.getCLogger(ProductTests::class.java)
         Ini.getIni().properties

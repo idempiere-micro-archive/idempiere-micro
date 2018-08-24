@@ -1,5 +1,6 @@
 package org.compiere.crm
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.compiere.model.I_C_BPartner
 import org.compiere.model.I_C_ContactActivity
 import org.compiere.orm.DefaultModelFactory
@@ -31,6 +32,14 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
     abstract fun getSql(): String
     abstract fun setStatementParams(statement: PreparedStatement)
 
+    @SuppressFBWarnings("BC_BAD_CAST_TO_ABSTRACT_COLLECTION")
+    private fun convertBusinessPartner(bpartner: I_C_BPartner): BusinessPartner {
+        return BusinessPartner(
+                bpartner.c_BPartner_ID, bpartner.name, bpartner.value, bpartner.locations.map { BusinessPartnerLocation(it) }.toTypedArray(),
+                bpartner.flatDiscount
+        )
+    }
+
     override fun getSqlResult(cnn: Connection): IDTOReady {
         val sql = getSql()
 
@@ -39,33 +48,28 @@ abstract class BaseBPartnerSearch : SvrProcessBaseSql() {
         val rs = statement.executeQuery()
 
         val modelFactory: IModelFactory = DefaultModelFactory()
-        val result = mutableListOf<Any>()
-
-        while (rs.next()) {
-            if (full) {
-                val bpartner: I_C_BPartner = modelFactory.getPO("C_BPartner", rs, null) as I_C_BPartner
-                val c_contactactivity_id = rs.getObject("c_contactactivity_id") as BigDecimal?
-                val row = BPartnerWithActivity(
-                    BusinessPartner(
-                        bpartner.c_BPartner_ID, bpartner.name, bpartner.value, bpartner.locations.map { BusinessPartnerLocation(it) }.toTypedArray(),
-                        bpartner.flatDiscount
-                    ),
-                    if (c_contactactivity_id == null) { null } else {
-                        ContactActivity(
-                            modelFactory.getPO("C_ContactActivity", rs, null, "activity_") as I_C_ContactActivity
-                        )
-                    },
-                    rs.getString("category_name")
-                )
-                result.add(row)
-            } else {
-                val name = rs.getString("name")
-                val foundIdx = name.toLowerCase().indexOf(search.toLowerCase())
-                val subName = if (foundIdx > 0) { name.substring(foundIdx) } else { name }
-                val keyName = BPartnerFindResult(rs.getInt("c_bpartner_id"), name, subName, rs.getString("taxid"))
-                result.add(keyName)
+        val result = generateSequence {
+            if (rs.next()) {
+                if (full) {
+                    val bpartner: I_C_BPartner = modelFactory.getPO(I_C_BPartner.Table_Name, rs, null) as I_C_BPartner
+                    val c_contactactivity_id = rs.getObject("c_contactactivity_id") as BigDecimal?
+                    BPartnerWithActivity(
+                            convertBusinessPartner(bpartner),
+                            if (c_contactactivity_id == null) { null } else {
+                                ContactActivity(
+                                        modelFactory.getPO(I_C_ContactActivity.Table_Name, rs, null, "activity_") as I_C_ContactActivity
+                                )
+                            },
+                            rs.getString("category_name")
+                    )
+                } else {
+                    val name = rs.getString("name")
+                    val foundIdx = name.toLowerCase().indexOf(search.toLowerCase())
+                    val subName = if (foundIdx > 0) { name.substring(foundIdx) } else { name }
+                    BPartnerFindResult(rs.getInt("c_bpartner_id"), name, subName, rs.getString("taxid"))
+                }
             }
-        }
+        }.toList()
 
         return FindResult(result)
     }

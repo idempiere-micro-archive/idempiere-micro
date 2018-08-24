@@ -64,12 +64,12 @@ and salesrep_id = ? and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0
                     if (rs.next()) {
                         val c_contactactivity_id = rs.getObject("c_contactactivity_id") as BigDecimal?
                         if (c_contactactivity_id != null) {
-                            val activity = modelFactory.getPO("C_ContactActivity", rs, null) as I_C_ContactActivity
-                            activity
+                            val activity = modelFactory.getPO(I_C_ContactActivity.Table_Name, rs, null) as I_C_ContactActivity
+                            ContactActivity(activity)
                         } else null
                     } else null
                 }.toList()
-            return Result(activities.map { ContactActivity(it) })
+            return Result(activities)
         } finally {
             rs.close()
         }

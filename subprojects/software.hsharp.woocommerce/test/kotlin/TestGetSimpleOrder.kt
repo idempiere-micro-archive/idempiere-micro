@@ -303,12 +303,12 @@ class TestGetSimpleOrder {
         newProduct.bPartner_Value = "Wood, Inc"
         TODO( "add all the required values" )
 
+        /* TODO: use
         newProduct.save()
         val id = newProduct._ID
         println( "id:${id}" )
         Assert.assertTrue( id > 0 )
 
-        /* TODO: use
         val importProduct = ImportProduct()
         val pinfo = ProcessInfo("Import Test Product", 206);
 

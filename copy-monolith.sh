@@ -6,6 +6,8 @@ pull()
   cp -R subprojects/$module/src/kotlin ../idempiere-micro-spring/src/main/
 }
 
+rm -rf ../idempiere-micro-spring/src/main/java
+rm -rf ../idempiere-micro-spring/src/main/kotlin
 
 pull org.idempiere.app
 pull org.adempiere.exceptions

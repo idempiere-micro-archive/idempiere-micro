@@ -1,4 +1,4 @@
-import junit.framework.Assert
+import org.junit.Assert
 import org.compiere.bo.MyFutureContactActivities
 import org.compiere.crm.*
 import org.compiere.model.I_C_BPartner

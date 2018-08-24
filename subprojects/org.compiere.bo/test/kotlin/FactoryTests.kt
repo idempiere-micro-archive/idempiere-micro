@@ -1,3 +1,4 @@
+import org.compiere.model.I_C_BPartner
 import org.compiere.model.I_C_ContactActivity
 import org.compiere.orm.DefaultModelFactory
 import org.compiere.orm.IModelFactory
@@ -28,7 +29,7 @@ class FactoryTests {
         ctx.setProperty(Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
         Env.setContext(ctx, Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
 
-        val tableName = "C_BPartner"
+        val tableName = I_C_BPartner.Table_Name
         val id = 118
 
         val sql = """select *, C_ContactActivity_ID as activity_C_ContactActivity_ID from adempiere.bpartner_v
@@ -43,7 +44,7 @@ class FactoryTests {
 
         val modelFactory : IModelFactory = DefaultModelFactory()
         val result = modelFactory.getPO( tableName, rs, "pokus")
-        val result2 = modelFactory.getPO("C_ContactActivity", rs, "pokus", "activity_") as I_C_ContactActivity
+        val result2 = modelFactory.getPO(I_C_ContactActivity.Table_Name, rs, "pokus", "activity_") as I_C_ContactActivity
         println( result )
         println( result2 );
         Assert.assertNotNull(result);
@@ -71,7 +72,7 @@ class FactoryTests {
         ctx.setProperty(Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
         Env.setContext(ctx, Env.AD_CLIENT_ID, AD_CLIENT_ID_s )
 
-        val tableName = "C_BPartner"
+        val tableName = I_C_BPartner.Table_Name
         val AD_ORG_ID = 0
         val id = 118
 

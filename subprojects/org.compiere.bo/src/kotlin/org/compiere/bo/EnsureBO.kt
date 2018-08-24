@@ -1,5 +1,6 @@
 package org.compiere.bo
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import org.compiere.crm.SvrProcessBase
 import org.compiere.product.MCurrency
 import org.idempiere.common.util.DB
@@ -29,25 +30,27 @@ and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
 order by 1 desc
                 """.trimIndent()
 
+        @SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE")
         val cnn = DB.getConnectionRO()
         val statement = cnn.prepareStatement(sql)
-        statement.setInt(1, businessPartnerId)
-
-        statement.setInt(2, AD_CLIENT_ID)
-        statement.setInt(3, AD_ORG_ID)
-        statement.setInt(4, AD_ORG_ID)
-        val rs = statement.executeQuery()
-
         try {
-            var oppId = 0
+            statement.setInt(1, businessPartnerId)
+            statement.setInt(2, AD_CLIENT_ID)
+            statement.setInt(3, AD_ORG_ID)
+            statement.setInt(4, AD_ORG_ID)
 
-            while (rs.next()) {
-                oppId = rs.getInt("c_opportunity_id")
+            val rs = statement.executeQuery()
+            try {
+                var oppId = 0
+                when {
+                    rs.next() -> oppId = rs.getInt("c_opportunity_id")
+                }
+                return oppId
+            } finally {
+                rs.close()
             }
-            return oppId
         } finally {
             statement.close()
-            rs.close()
             cnn.close()
         }
     }

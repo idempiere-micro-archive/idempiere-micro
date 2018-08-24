@@ -27,8 +27,7 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
     @Inject
     internal var uriInfo: javax.inject.Provider<UriInfo>? = null
 
-    protected abstract fun decodeUserLoginModel(requestContext: ContainerRequestContext, userLoginModel: String): IUserLoginModel
-    protected abstract fun decodeRoles(roleModel: String): Array<String>
+    protected abstract fun decodeUserLoginModel(requestContext: ContainerRequestContext, userLoginModel: String)
 
     @Throws(IOException::class)
     override fun filter(requestContext: ContainerRequestContext) {
@@ -39,9 +38,8 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
 
         if (("options" == method) ||
                 ("get" == method &&
-                ("application.wadl" == path || "application.wadl/xsd0.xsd" == path || "status" == path) || "authentication" == path)) {
+                        ("application.wadl" == path || "application.wadl/xsd0.xsd" == path || "status" == path) || "authentication" == path)) {
             // pass through the filter.
-            requestContext.setSecurityContext(NoLoginSecurityContextAuthorizer(uriInfo!!))
             return
         }
 
@@ -54,14 +52,8 @@ abstract class JwtAuthenticationFilter : ContainerRequestFilter {
         if (jwt != null && !jwt.isEmpty()) {
             try {
                 val claims = JwtManager.parseToken(jwt)
-                val userLogin = claims.body.subject as String
-                val role = claims.body[JwtManager.CLAIM_ROLE] as String
                 val userLoginModel = claims.body[JwtManager.CLAIM_LOGINMODEL] as String
-                requestContext.setSecurityContext(
-                        SecurityContextAuthorizer(
-                                uriInfo!!, userLogin, decodeRoles(role), decodeUserLoginModel(requestContext, userLoginModel)
-                        )
-                )
+                decodeUserLoginModel(requestContext, userLoginModel)
                 return
             } catch (ex: Exception) {
                 // just swallow an exception here, should look like
