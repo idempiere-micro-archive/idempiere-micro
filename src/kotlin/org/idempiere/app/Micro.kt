@@ -16,7 +16,7 @@ import software.hsharp.core.services.ISystemImpl
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
 @Component
-open class iDempiereMicro : ISystemImpl {
+open class Micro : ISystemImpl {
     override fun getThreadPoolExecutor(): ScheduledThreadPoolExecutor {
         return threadPoolExecutor!!
     }
@@ -51,7 +51,7 @@ open class iDempiereMicro : ISystemImpl {
         val ini = Ini.getIni()
         ini.isClient = false
         CLogMgt.initialize(false)
-        log = CLogger.getCLogger(iDempiereMicro::class.java)
+        log = CLogger.getCLogger(Micro::class.java)
 
         val properties = ini.properties
         for (key in properties.keys) {
