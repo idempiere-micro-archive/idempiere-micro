@@ -1,3 +1,5 @@
+package org.compiere.bo.tests
+
 import org.compiere.process.ProcessCall
 import org.compiere.process.ProcessInfo
 import org.compiere.process.ProcessInfoParameter

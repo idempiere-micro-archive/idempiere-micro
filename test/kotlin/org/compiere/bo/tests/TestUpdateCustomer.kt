@@ -1,3 +1,5 @@
+package org.compiere.bo.tests
+
 import org.compiere.bo.CustomerProcessBase
 import org.compiere.bo.UpdateCustomer
 import org.compiere.crm.MBPartner
