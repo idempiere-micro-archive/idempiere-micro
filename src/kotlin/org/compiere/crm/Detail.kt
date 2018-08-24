@@ -51,13 +51,13 @@ and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
 
         while (rs.next()) {
             if (bpartner == null) {
-                bpartner = modelFactory.getPO("C_BPartner", rs, null) as I_C_BPartner
+                bpartner = modelFactory.getPO(I_C_BPartner.Table_Name, rs, null) as I_C_BPartner
                 categoryName = rs.getString("category_name")
             }
 
             val c_contactactivity_id = rs.getObject("c_contactactivity_id") as BigDecimal?
             if (c_contactactivity_id != null) {
-                val activity = modelFactory.getPO("C_ContactActivity", rs, null, "activity_") as I_C_ContactActivity
+                val activity = modelFactory.getPO(I_C_ContactActivity.Table_Name, rs, null, "activity_") as I_C_ContactActivity
                 activities.add(activity)
             }
         }
