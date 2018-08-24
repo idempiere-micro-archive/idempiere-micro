@@ -1,18 +1,4 @@
 dependencies {
     compile project(':software.hsharp.api.icommon')
     compile files('../software.hsharp.api.icommon/bin')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-buildscript {
-    ext.kotlin_version = '1.2.41'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-apply plugin: 'kotlin'
-repositories {
-    mavenCentral()
 }

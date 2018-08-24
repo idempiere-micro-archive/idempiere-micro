@@ -47,8 +47,6 @@ dependencies {
     compile project(':software.hsharp.business.models')
     compile files('../software.hsharp.business.models/bin')
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-
     testCompile project(':software.hsharp.db.postgresql.provider')
     testCompile files('../software.hsharp.db.postgresql.provider/bin')
 
@@ -61,17 +59,4 @@ dependencies {
     testCompile project(':org.idempiere.common')
     testCompile files('../org.idempiere.common/bin')
 
-}
-buildscript {
-    ext.kotlin_version = '1.2.41'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-apply plugin: 'kotlin'
-repositories {
-    mavenCentral()
 }
