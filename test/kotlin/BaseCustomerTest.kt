@@ -11,6 +11,7 @@ import org.junit.Assert
 import pg.org.compiere.db.DB_PostgreSQL
 import java.util.Properties
 import java.util.Random
+import org.compiere.bo.updateCustomerCategory
 
 abstract class BaseCustomerTest: BaseProcessTest() {
     abstract fun preparePartnerId(ctx: Properties, AD_CLIENT_ID: Int): Int?
@@ -103,9 +104,10 @@ abstract class BaseCustomerTest: BaseProcessTest() {
             Assert.assertEquals(bodyParams.first { it.first == "description" }.second, newPartner2.description)
             Assert.assertEquals(bodyParams.first { it.first == "isCustomer" }.second, newPartner2.isCustomer)
 
-            Assert.assertEquals(3, newPartner2.getContacts().count())
+            Assert.assertEquals(3, newPartner2.contacts.count())
             Assert.assertEquals(2, newPartner2.locations.count())
         } finally {
+            updateCustomerCategory( null, newPartner2, DB.getConnectionRW() )
             newPartner2.delete(true)
             runFinallyCleanup()
         }
