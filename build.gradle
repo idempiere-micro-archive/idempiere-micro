@@ -85,7 +85,6 @@ subprojects {
         testCompile 'junit:junit:4.12'
         testCompile "org.scalatest:scalatest_${scala_version.split('\\.')[0..<2].join('.')}:3.0.3"
         testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
-        testCompile group: 'com.mchange', name: 'c3p0', version: '0.9.5.2'
         testCompile group: 'org.jfree', name: 'jcommon', version: '1.0.24'
 
         // find bugs
