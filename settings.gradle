@@ -117,21 +117,3 @@ project(":osgi.org.compiere.db.postgresql.provider").projectDir = file("subproje
 
 include "osgi.org.idempiere.app"
 project(":osgi.org.idempiere.app").projectDir = file("subprojects/osgi.org.idempiere.app")
-
-include "osgi.software.hsharp.db.postgresql.provider"
-project(":osgi.software.hsharp.db.postgresql.provider").projectDir = file("subprojects/osgi.software.hsharp.db.postgresql.provider")
-
-include "osgi.org.idempiere.common"
-project(":osgi.org.idempiere.common").projectDir = file("subprojects/osgi.org.idempiere.common")
-
-include "osgi.org.idempiere.orm"
-project(":osgi.org.idempiere.orm").projectDir = file("subprojects/osgi.org.idempiere.orm")
-
-include "osgi.software.hsharp.business.core"
-project(":osgi.software.hsharp.business.core").projectDir = file("subprojects/osgi.software.hsharp.business.core")
-
-include "osgi.org.compiere.crm"
-project(":osgi.org.compiere.crm").projectDir = file("subprojects/osgi.org.compiere.crm")
-
-include "osgi.org.compiere.db.postgresql.provider"
-project(":osgi.org.compiere.db.postgresql.provider").projectDir = file("subprojects/osgi.org.compiere.db.postgresql.provider")
