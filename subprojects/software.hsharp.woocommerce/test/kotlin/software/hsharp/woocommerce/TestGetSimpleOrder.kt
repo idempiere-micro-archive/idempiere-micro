@@ -50,7 +50,7 @@ class TestGetSimpleOrder {
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -76,7 +76,7 @@ class TestGetSimpleOrder {
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -128,7 +128,7 @@ class TestGetSimpleOrder {
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -284,7 +284,7 @@ class TestGetSimpleOrder {
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -328,11 +328,13 @@ class TestGetSimpleOrder {
 
     @Test
     fun exportOrderToXml() {
+        DummyEventManager.setup()
+        DummyService.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestGetSimpleOrder::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 

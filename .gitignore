@@ -127,3 +127,4 @@ subprojects/cnf
 **/bin/**
 /.vscode/settings.json
 *.kotlin_module
+*.ipr

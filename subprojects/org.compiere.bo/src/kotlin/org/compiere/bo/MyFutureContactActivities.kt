@@ -22,17 +22,104 @@ class MyFutureContactActivities : SvrProcessBaseSql() {
             """
 select * from(
 select * from (
-select 0 as loc_ord, * from adempiere.v_contactactivity
+select 0 as loc_ord, * from 
+
+(select 
+    c_contactactivity_id,
+    A.ad_client_id,
+    A.ad_org_id,
+    A.created,
+    A.createdby,
+    A.description,
+    A.isactive ,
+    A.updated,
+    A.updatedby,
+    A.startdate,
+    BTRIM(to_json(startdate)::varchar,'"') as startdate_f, 
+    A.enddate,
+    BTRIM(to_json(enddate)::varchar,'"') as enddate_f,
+    A.comments ,
+    A.salesrep_id ,
+    A.ad_user_id ,
+    A.contactactivitytype ,
+    A.iscomplete ,
+    A.c_opportunity_id ,
+    A.c_contactactivity_uu,
+    O.description as o_description,
+    C.value as c_value,
+    C.name as c_name
+from adempiere.c_contactactivity A
+inner join adempiere.c_opportunity O ON O.c_opportunity_id = A.c_opportunity_id
+inner join adempiere.c_bpartner C ON O.c_bpartner_id = C.c_bpartner_id) X
+
 where EXTRACT(WEEK FROM startdate) = EXTRACT(WEEK FROM current_date )
 and abs(EXTRACT(day FROM startdate) - EXTRACT(day FROM current_date ) ) = 0
 and salesrep_id = ? and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
 union
-select 1 as loc_ord, * from adempiere.v_contactactivity
+select 1 as loc_ord, * from 
+
+(select 
+    c_contactactivity_id,
+    A.ad_client_id,
+    A.ad_org_id,
+    A.created,
+    A.createdby,
+    A.description,
+    A.isactive ,
+    A.updated,
+    A.updatedby,
+    A.startdate,
+    BTRIM(to_json(startdate)::varchar,'"') as startdate_f, 
+    A.enddate,
+    BTRIM(to_json(enddate)::varchar,'"') as enddate_f,
+    A.comments ,
+    A.salesrep_id ,
+    A.ad_user_id ,
+    A.contactactivitytype ,
+    A.iscomplete ,
+    A.c_opportunity_id ,
+    A.c_contactactivity_uu,
+    O.description as o_description,
+    C.value as c_value,
+    C.name as c_name
+from adempiere.c_contactactivity A
+inner join adempiere.c_opportunity O ON O.c_opportunity_id = A.c_opportunity_id
+inner join adempiere.c_bpartner C ON O.c_bpartner_id = C.c_bpartner_id) X
+
 where EXTRACT(WEEK FROM startdate) = EXTRACT(WEEK FROM current_date )
 and abs(EXTRACT(day FROM startdate) - EXTRACT(day FROM current_date ) ) = 1
 and salesrep_id = ? and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'
 union
-select 2 as loc_ord, * from adempiere.v_contactactivity
+select 2 as loc_ord, * from 
+
+(select
+    c_contactactivity_id,
+    A.ad_client_id,
+    A.ad_org_id,
+    A.created,
+    A.createdby,
+    A.description,
+    A.isactive ,
+    A.updated,
+    A.updatedby,
+    A.startdate,
+    BTRIM(to_json(startdate)::varchar,'"') as startdate_f, 
+    A.enddate,
+    BTRIM(to_json(enddate)::varchar,'"') as enddate_f,
+    A.comments ,
+    A.salesrep_id ,
+    A.ad_user_id ,
+    A.contactactivitytype ,
+    A.iscomplete ,
+    A.c_opportunity_id ,
+    A.c_contactactivity_uu,
+    O.description as o_description,
+    C.value as c_value,
+    C.name as c_name
+from adempiere.c_contactactivity A
+inner join adempiere.c_opportunity O ON O.c_opportunity_id = A.c_opportunity_id
+inner join adempiere.c_bpartner C ON O.c_bpartner_id = C.c_bpartner_id) X
+
 where EXTRACT(WEEK FROM startdate) = EXTRACT(WEEK FROM current_date )
 and abs(EXTRACT(day FROM startdate) - EXTRACT(day FROM current_date ) ) > 1
 and salesrep_id = ? and ad_client_id IN (0, ?) and ( ad_org_id IN (0,?) or ? = 0) and isactive = 'Y'

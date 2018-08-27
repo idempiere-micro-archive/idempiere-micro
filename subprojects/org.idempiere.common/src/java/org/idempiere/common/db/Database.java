@@ -21,9 +21,6 @@ import org.idempiere.common.base.ServiceQuery;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.icommon.db.AdempiereDatabase;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,7 +31,6 @@ import java.util.logging.Level;
  *  @author     Jorg Janke
  *  @version    $Id: Database.java,v 1.3 2006/07/30 00:55:13 jjanke Exp $
  */
-@Component
 public class Database
 {
 	/**	Logger							*/
@@ -62,22 +58,11 @@ public class Database
 		instance = this;
 	}
 
-    private AdempiereDatabase databaseService = null;
+    protected static AdempiereDatabase databaseService = null;
 
-    @Reference
-    public void setDatabase(AdempiereDatabase databaseService) {
-        this.databaseService = databaseService;
-    }	
-
-	/**
-	 *  Get Database by database Id.
-	 *  @return database
-	 */
-	private AdempiereDatabase doGetDatabase (String type)
-	{
-		return databaseService;
+	public void setDatabase(AdempiereDatabase databaseService) {
+		Database.databaseService = databaseService;
 	}
-	
 
 	/**
 	 *  Get Database by database Id.
@@ -85,7 +70,7 @@ public class Database
 	 */
 	public static AdempiereDatabase getDatabase (String type)
 	{
-		return instance.doGetDatabase( type );
+		return databaseService;
 	}
 	
 	private String[] doGetDatabaseNames()

@@ -26,11 +26,8 @@ import org.idempiere.common.util.*;
 import org.idempiere.icommon.db.AdempiereDatabase;
 import org.idempiere.icommon.model.IPO;
 import org.jfree.io.IOUtils;
-import org.osgi.service.component.annotations.Component;
-import pg.org.adempiere.db.postgresql.PostgreSQLBundleActivator;
 import pg.org.compiere.dbPort.Convert_PostgreSQL;
 import software.hsharp.api.icommon.ICConnection;
-import software.hsharp.db.postgresql.provider.PgDB;
 import software.hsharp.db.postgresql.provider.PgDatabaseSetup;
 
 import javax.sql.ConnectionPoolDataSource;
@@ -55,8 +52,7 @@ import java.util.logging.Level;
  *                 set rw/ro properties for the connection accordingly.
  *  @author Ashley Ramdass (Posterita)
  */
-@Component
-public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
+public class DB_PostgreSQL extends PooledPgDB
 {
 
     private static final String POOL_PROPERTIES = "pool.properties";
@@ -487,13 +483,13 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 	 */
 	public String[] getCommands (int cmdType)
 	{
-		if (CMD_CREATE_USER == cmdType)
+		if (AdempiereDatabase.CMD_CREATE_USER == cmdType)
 			return new String[]
 			{
 			"CREATE USER adempiere;",
 			};
 		//
-		if (CMD_CREATE_DATABASE == cmdType)
+		if (AdempiereDatabase.CMD_CREATE_DATABASE == cmdType)
 			return new String[]
 			{
 		    "CREATE DATABASE adempiere OWNER adempiere;",
@@ -502,7 +498,7 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 			"SET search_path TO adempiere;"
 			};
 		//
-		if (CMD_DROP_DATABASE == cmdType)
+		if (AdempiereDatabase.CMD_DROP_DATABASE == cmdType)
 			return new String[]
 			{
 			"DROP DATABASE adempiere;"
@@ -638,6 +634,8 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 		return base + getName() + File.separator + POOL_PROPERTIES;
 	}	//	getFileName
 
+	protected URL getServerPoolDefaultPropertiesUrl() { return null; }
+
 	/**
 	 * 	Create DataSource (Client)
 	 *	@param connection connection
@@ -673,8 +671,8 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 			propertyFile = null;
 
 	    	try {
-				url = PostgreSQLBundleActivator.bundleContext.getBundle().getEntry("server.pool.default.properties");
-				inputStream = url.openStream();
+				url = getServerPoolDefaultPropertiesUrl();
+				if (url != null) { inputStream = url.openStream(); }
 			} catch (Exception e) {
 				e.printStackTrace();
 			}						
@@ -1008,7 +1006,6 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 		return b;
 	}
 
-	@Override
 	public boolean forUpdate(IPO po, int timeout) {
     	//only can lock for update if using trx
     	if (po.get_TrxName() == null)
@@ -1048,7 +1045,7 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 				for(int i = 0; i < keyColumns.length; i++) {
 					stmt.setObject(i+1, parameters[i]);
 				}
-				stmt.setQueryTimeout(timeout > 0 ? timeout : LOCK_TIME_OUT);
+				stmt.setQueryTimeout(timeout > 0 ? timeout : AdempiereDatabase.LOCK_TIME_OUT);
 				
 				rs = stmt.executeQuery();
 				if (rs.next()) {
@@ -1067,7 +1064,6 @@ public class DB_PostgreSQL extends PooledPgDB implements AdempiereDatabase
 		return false;
 	}
 	
-	@Override
 	public String getNameOfUniqueConstraintError(Exception e) {
 		String info = e.getMessage();
 		int fromIndex = info.indexOf("\"");

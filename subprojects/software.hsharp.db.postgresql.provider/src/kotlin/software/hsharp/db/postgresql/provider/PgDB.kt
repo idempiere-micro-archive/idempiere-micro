@@ -1,8 +1,6 @@
 package software.hsharp.db.postgresql.provider
 
-import org.osgi.service.component.annotations.Component
 import software.hsharp.api.icommon.ICConnection
-import software.hsharp.api.icommon.IDatabase
 import software.hsharp.api.icommon.IDatabaseSetup
 import java.sql.Connection
 import java.sql.Driver
@@ -16,9 +14,8 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 import javax.sql.DataSource
 
-@Component
-open class PgDB : IDatabase {
-    override fun fubar() {
+open class PgDB {
+    fun fubar() {
         println("Trying to restart local PostgreSQL.")
         val pb = ProcessBuilder("bin/restartpgsql.sh")
         try {
@@ -46,17 +43,17 @@ open class PgDB : IDatabase {
         return driverInst
     }
 
-    override val status: String
+    val status: String
     get() = ""
-    override val driver: Driver
+    val driver: Driver
     get() = driverObj
 
-    final override val defaultSetupParameters: IDatabaseSetup
+    final val defaultSetupParameters: IDatabaseSetup
     get() = PgDatabaseSetup()
 
     private var parameters: IDatabaseSetup = defaultSetupParameters
 
-    override fun setup(parameters: IDatabaseSetup) {
+    fun setup(parameters: IDatabaseSetup) {
         this.parameters = parameters
     }
 
@@ -65,7 +62,7 @@ open class PgDB : IDatabase {
         val cachedDs: ConcurrentMap<String, HikariDataSource> = ConcurrentHashMap()
     }
 
-    override fun connect(connection: ICConnection): DataSource? {
+    fun connect(connection: ICConnection): DataSource? {
         connectionparams = connection
         val jdbcUrl = getConnectionURL(connection)
         val username = connection.dbUid
@@ -156,7 +153,7 @@ open class PgDB : IDatabase {
         }
     } // 	close
 
-    override fun cleanup(connection: Connection) {
+    fun cleanup(connection: Connection) {
         // try to kill the old idle connections first
         // we take the number that should be handled by HikariCP and just add 10% of minutes on the top of that
         val maxLifeTimeInMinutes = (parameters.maxLifetime / 1000 / 60 * 1.1).toInt()

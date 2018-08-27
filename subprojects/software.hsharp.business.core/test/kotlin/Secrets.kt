@@ -1,5 +1,0 @@
-val userName = System.getenv("MAIL_USERNAME")
-val password = System.getenv("MAIL_PASSWORD")
-val host = System.getenv("MAIL_HOST")
-val port: Int = System.getenv("MAIL_PORT").toInt()
-val to = System.getenv("MAIL_TO")

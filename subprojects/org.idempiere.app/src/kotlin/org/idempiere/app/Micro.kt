@@ -11,13 +11,10 @@ import org.idempiere.common.util.Ini
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.SecureInterface
 import org.idempiere.common.util.SecureEngine
-import org.osgi.service.component.annotations.Component
-import software.hsharp.core.services.ISystemImpl
 import java.util.concurrent.ScheduledThreadPoolExecutor
 
-@Component
-open class Micro : ISystemImpl {
-    override fun getThreadPoolExecutor(): ScheduledThreadPoolExecutor {
+open class Micro {
+    fun getThreadPoolExecutor(): ScheduledThreadPoolExecutor {
         return threadPoolExecutor!!
     }
 
@@ -46,7 +43,7 @@ open class Micro : ISystemImpl {
         threadPoolExecutor = ScheduledThreadPoolExecutor(max)
     }
 
-    override fun startup() {
+    fun startup() {
         if (log != null) return
         val ini = Ini.getIni()
         ini.isClient = false

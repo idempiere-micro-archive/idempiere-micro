@@ -5,4 +5,5 @@ dependencies {
     compile project(':software.hsharp.core.models')
     compile files('../software.hsharp.core.models/bin')
 
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.25.1'
 }

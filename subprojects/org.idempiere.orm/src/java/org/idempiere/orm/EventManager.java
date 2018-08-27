@@ -21,10 +21,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import org.idempiere.common.base.BaseActivator;
 import org.idempiere.common.util.CLogger;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceRegistration;
 import org.osgi.service.event.Event;
 import org.osgi.service.event.EventAdmin;
 import org.osgi.service.event.EventConstants;
@@ -36,15 +33,13 @@ import org.osgi.service.event.EventHandler;
  * @author hengsin
  *
  */
-public class EventManager implements IEventManager {
+public abstract class EventManager implements IEventManager {
 
 	private EventAdmin eventAdmin;
-	private static IEventManager instance = new EventManager(); // no, should be null
-	private final static CLogger log = CLogger.getCLogger(EventManager.class);
+	protected static IEventManager instance = null;
+	protected final static CLogger log = CLogger.getCLogger(EventManager.class);
 
 	private final static Object mutex = new Object();
-
-	private Map<EventHandler, List<ServiceRegistration<?>>> registrations = new HashMap<EventHandler, List<ServiceRegistration<?>>>();
 
 	/**
 	 * @param eventAdmin
@@ -77,6 +72,7 @@ public class EventManager implements IEventManager {
 		synchronized (mutex) {
 			while (instance == null) {
 				try {
+					log.info("Waiting for the IEventManager instance...");
 					mutex.wait(10000);
 				} catch (InterruptedException e) {
 				}
@@ -134,48 +130,6 @@ public class EventManager implements IEventManager {
 		return register(topics, filter, eventHandler);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String[], java.lang.String, org.osgi.service.event.EventHandler)
-	 */
-	@Override
-	public boolean register(String[] topics, String filter, EventHandler eventHandler) {
-		BundleContext bundleContext = BaseActivator.getBundleContext();
-		if (bundleContext == null) {
-			log.severe("No bundle context. Topic="+Arrays.toString(topics));
-			return false;
-		}
-		Dictionary<String, Object> d = new Hashtable<String, Object>();
-		d.put(EventConstants.EVENT_TOPIC, topics);
-		if (filter != null)
-			d.put(EventConstants.EVENT_FILTER, filter);
-		ServiceRegistration<?> registration = bundleContext.registerService(EventHandler.class.getName(), eventHandler, d);
-		synchronized(registrations) {
-			List<ServiceRegistration<?>> list = registrations.get(eventHandler);
-			if (list == null) {
-				list = new ArrayList<ServiceRegistration<?>>();
-				registrations.put(eventHandler, list);
-			}
-			list.add(registration);
-		}
-		return true;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.idempiere.app.event.IEventManager#unregister(org.osgi.service.event.EventHandler)
-	 */
-	@Override
-	public boolean unregister(EventHandler eventHandler) {
-		List<ServiceRegistration<?>> serviceRegistrations = null;
-		synchronized(registrations) {
-			serviceRegistrations = registrations.remove(eventHandler);
-		}
-		if (serviceRegistrations == null)
-			return false;
-		for (ServiceRegistration<?> registration : serviceRegistrations)
-			registration.unregister();
-		return true;
-	}
-
 	/**
 	 * @param topic
 	 * @param parameter
@@ -185,20 +139,20 @@ public class EventManager implements IEventManager {
 		Event event = null;
 		if (data instanceof Dictionary<?,?>) {
 			Dictionary<String,Object>dict = (Dictionary<String,Object>)data;
-			if (dict.get(IEventManager.EVENT_ERROR_MESSAGES) == null)
-				dict.put(IEventManager.EVENT_ERROR_MESSAGES, new ArrayList<String>());
+			if (dict.get(EVENT_ERROR_MESSAGES) == null)
+				dict.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
 			event = new Event(topic, dict);
 		} else if (data instanceof Map<?, ?>) {
 			Map<String, Object> map = (Map<String, Object>)data;
-			if (!map.containsKey(IEventManager.EVENT_ERROR_MESSAGES))
-				map.put(IEventManager.EVENT_ERROR_MESSAGES, new ArrayList<String>());
+			if (!map.containsKey(EVENT_ERROR_MESSAGES))
+				map.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
 			event = new Event(topic, map);
 		} else {
 			Map<String, Object> map = new HashMap<String, Object>(3);
 			map.put(EventConstants.EVENT_TOPIC, topic);
 			if (data != null)
-				map.put(IEventManager.EVENT_DATA, data);
-			map.put(IEventManager.EVENT_ERROR_MESSAGES, new ArrayList<String>());
+				map.put(EVENT_DATA, data);
+			map.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
 			event = new Event(topic, map);
 		}
 		return event;
@@ -219,8 +173,8 @@ public class EventManager implements IEventManager {
 			}
 			if (!map.containsKey(EventConstants.EVENT_TOPIC))
 				map.put(EventConstants.EVENT_TOPIC, topic);
-			if (!map.containsKey(IEventManager.EVENT_ERROR_MESSAGES))
-				map.put(IEventManager.EVENT_ERROR_MESSAGES, new ArrayList<String>());
+			if (!map.containsKey(EVENT_ERROR_MESSAGES))
+				map.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
 		}
 		event = new Event(topic, map);
 		return event;

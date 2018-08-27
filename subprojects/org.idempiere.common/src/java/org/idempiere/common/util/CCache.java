@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.idempiere.common.base.IServiceHolder;
 import org.idempiere.common.base.Service;
 import org.idempiere.icommon.distributed.ICacheService;
 
@@ -112,9 +113,12 @@ public class CCache<K,V> implements CacheInterface, Map<K, V>, Serializable
 		m_distributed = distributed;
 		if (distributed) {
 			try {
-				ICacheService provider = Service.locator().locate(ICacheService.class).getService();
-				if (provider != null) {
-					nullList = provider.getSet(name);
+				IServiceHolder<ICacheService> service = Service.locator().locate(ICacheService.class);
+				if (service != null) {
+					ICacheService provider = service.getService();
+					if (provider != null) {
+						nullList = provider.getSet(name);
+					}
 				}
 			} catch ( Exception ex ) {
 				ex.printStackTrace();

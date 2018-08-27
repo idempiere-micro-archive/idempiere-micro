@@ -11,6 +11,8 @@ dependencies {
     compile project(':org.compiere.process')
     compile files('../org.compiere.process/bin')
 
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.+"
+
     testCompile project(':software.hsharp.core.models')
     compile files('../software.hsharp.core.models/bin')
 }

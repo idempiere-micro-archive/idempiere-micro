@@ -10,8 +10,6 @@ import org.compiere.process.ProcessInfoParameter
 import org.compiere.process.ProcessUtil
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
-import org.osgi.service.component.annotations.Component
-import org.osgi.service.component.annotations.Reference
 import software.hsharp.core.models.IGetDataResult
 import software.hsharp.core.util.Paging
 import software.hsharp.core.util.parse
@@ -24,13 +22,11 @@ import software.hsharp.core.models.IGetRowResultData
 import software.hsharp.core.models.IGetRowResultObject
 import software.hsharp.core.models.IUpdateDataResult
 import software.hsharp.core.models.ICreateDataResult
-import software.hsharp.core.models.IDataService
 import software.hsharp.core.models.ITreeDataDescriptor
 import software.hsharp.core.models.IGetTreeDataResult
 import software.hsharp.core.models.IDataTable
 import software.hsharp.core.models.IDataColumn
 import software.hsharp.core.models.IGetRowResult
-import software.hsharp.core.models.IDataServiceRegister
 
 data class GetDataResult(
     override val rs: ResultSet?,
@@ -89,13 +85,12 @@ data class ExecuteJavaProcessResult(
     val result: Serializable?
 )
 
-@Component
-class DataService : IDataService {
-    override fun getTreeData(connection: Connection, root: ITreeDataDescriptor, orderBy: String, orderByOrder: String, offset: Int, limit: Int, filterName1: String, filterValue1: String, filterName2: String, filterValue2: String): IGetTreeDataResult {
+open class DataService {
+    fun getTreeData(connection: Connection, root: ITreeDataDescriptor, orderBy: String, orderByOrder: String, offset: Int, limit: Int, filterName1: String, filterValue1: String, filterName2: String, filterValue2: String): IGetTreeDataResult {
         TODO("not implemented")
     }
 
-    override fun execute(connection: Connection, procName: String, jsonBody: String): String? {
+    fun execute(connection: Connection, procName: String, jsonBody: String): String? {
         val ctx = Env.getCtx()
         val ad_Client_ID = Env.getAD_Client_ID(ctx)
         val ad_Org_ID = Env.getAD_Org_ID(ctx)
@@ -120,10 +115,10 @@ class DataService : IDataService {
         return mapper.writeValueAsString(processInfo.serializableObject)
     }
 
-    override fun getSchemasSupported(connection: Connection): Array<String> {
+    fun getSchemasSupported(connection: Connection): Array<String> {
         return arrayOf("adempiere", "idempiere")
     }
-    override val name: String
+    val name: String
         get() = "iDempiere Data Service"
 
     private fun getColumn(next: Pair<String, Any>, table: IDataTable): IDataColumn? {
@@ -135,7 +130,7 @@ class DataService : IDataService {
         return if (column == null) { "?" } else "CAST(? AS ${column.columnType})"
     }
 
-    override fun createData(
+    fun createData(
         connection: Connection,
         tableName: String,
         table: IDataTable?,
@@ -182,7 +177,7 @@ class DataService : IDataService {
         return CreateDataResult(result, null, null)
     }
 
-    override fun updateData(
+    fun updateData(
         connection: Connection,
         tableName: String,
         table: IDataTable?,
@@ -221,7 +216,7 @@ class DataService : IDataService {
         return UpdateDataResult(result, null, null)
     }
 
-    override fun getRow(
+    fun getRow(
         connection: Connection,
         tableName: String,
         id: Int,
@@ -255,7 +250,7 @@ class DataService : IDataService {
         }
     }
 
-    override fun getData(
+    fun getData(
         connection: Connection,
         tableName: String,
         columnsRequested: Array<String>?, // null => *
@@ -329,19 +324,5 @@ class DataService : IDataService {
 
         val result = GetDataResult(rs = rs, __metadata = null, __paging = Paging(count), rsmdColumnCount = rs.metaData.columnCount, cnn = cnn)
         return result
-    }
-}
-
-@Component
-class DataServiceRegisterHolder {
-    companion object {
-        var DataServiceRegister: IDataServiceRegister? = null
-        var dataService: DataService = DataService()
-    }
-
-    @Reference
-    fun setDataServiceRegister(dataServiceRegister: IDataServiceRegister) {
-        DataServiceRegister = dataServiceRegister
-        dataServiceRegister.registerService(dataService)
     }
 }

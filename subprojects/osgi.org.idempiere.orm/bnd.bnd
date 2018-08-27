@@ -1,0 +1,8 @@
+#
+#   OSGI ORG IDEMPIERE ORM
+#
+Bundle-Name: iDempiere ORM
+Bundle-Activator: osgi.org.idempiere.orm.BaseActivator
+Import-Package: *
+Export-Package: osgi.org.idempiere.orm*
+-dsannotations-options: extender

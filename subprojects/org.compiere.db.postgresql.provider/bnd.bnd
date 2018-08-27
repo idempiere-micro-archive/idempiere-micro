@@ -2,7 +2,6 @@
 #   ORG COMPIERE DB POSTGRESQL PROVIDER
 #
 Bundle-Name: iDempiere PostgreSQL Provider
-Bundle-Activator: pg.org.adempiere.db.postgresql.PostgreSQLBundleActivator
 Import-Package: !org.jfree.io, !pg.org.adempiere.db.postgresql*, javax.naming*;resolution:=optional,*
 -includeresource: \
     {jcommon-1.0.24.jar}, {server.pool.default.properties}
@@ -10,4 +9,3 @@ Export-Package: \
     pg.org.compiere.db*,\
     pg.org.adempiere.db.postgresql*,\
     org.jfree.io*
--dsannotations-options: extender

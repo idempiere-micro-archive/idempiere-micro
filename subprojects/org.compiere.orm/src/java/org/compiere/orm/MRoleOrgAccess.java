@@ -18,18 +18,13 @@ package org.compiere.orm;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import org.idempiere.common.exceptions.DBException;
 import org.idempiere.common.util.*;
 import org.compiere.util.Msg;
 import org.idempiere.orm.EventManager;
-import org.idempiere.orm.IEventTopics;
-import org.osgi.service.event.Event;
 
 /**
  *	Role Org Access Model

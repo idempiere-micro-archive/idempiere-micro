@@ -1,0 +1,8 @@
+#
+#   OSGI SOFTWARE HSHARP BUSINESS CORE
+#
+Bundle-Name: H# iDempiere NG Core
+Import-Package: !org.jetbrains.exposed*,!org.h2.engine*,!org.h2.jdbc*,!software.hsharp.business.core*,*
+Export-Package: \
+    osgi.software.hsharp.business.core*
+-dsannotations-options: extender

@@ -31,6 +31,8 @@ import java.util.logging.Level;
 import java.util.Arrays;
 
 import org.compiere.model.I_AD_Table;
+import org.idempiere.common.base.IServiceHolder;
+import org.idempiere.common.base.IServicesHolder;
 import org.idempiere.common.base.Service;
 import org.idempiere.common.util.CCache;
 import org.idempiere.common.util.CLogger;
@@ -168,9 +170,15 @@ public class MTable extends X_AD_Table
 	private static CLogger	s_log	= CLogger.getCLogger (MTable.class);
 
 	private static List<IModelFactory> getFactoryList() {
-		List<IModelFactory> factoryList = Service.locator().list(IModelFactory.class).getServices();
-		if ( factoryList == null || factoryList.size() == 0 ) {
+		IServicesHolder<IModelFactory> service = Service.locator().list(IModelFactory.class);
+		List<IModelFactory> factoryList;
+		if (service==null) {
 			factoryList = Arrays.asList( new IModelFactory[] { new DefaultModelFactory() } );
+		} else {
+			factoryList = service.getServices();
+			if ( factoryList == null || factoryList.size() == 0 ) {
+				factoryList = Arrays.asList( new IModelFactory[] { new DefaultModelFactory() } );
+			}
 		}
 		return factoryList;
 	}

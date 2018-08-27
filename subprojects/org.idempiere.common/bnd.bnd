@@ -2,7 +2,6 @@
 #   ORG IDEMPIERE BASE DB
 #
 Bundle-Name: iDempiere Core Commons
-Bundle-Activator: org.idempiere.common.base.BaseActivator
 Import-Package: !org.idempiere.common*,*
 Export-Package: \
  org.idempiere.common.base*,\

@@ -1,0 +1,7 @@
+#
+#   OSGI ORG IDEMPIERE APP
+#
+Bundle-Name: iDempiere Micro Application OSGi
+Import-Package: *
+Export-Package: osgi.org.idempiere.app*
+-dsannotations-options: extender

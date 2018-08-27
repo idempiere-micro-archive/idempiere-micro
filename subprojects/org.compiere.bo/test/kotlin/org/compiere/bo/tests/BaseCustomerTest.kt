@@ -9,10 +9,9 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
-import pg.org.compiere.db.DB_PostgreSQL
 import java.util.Properties
 import java.util.Random
-import org.compiere.bo.updateCustomerCategory
+//import org.compiere.bo.updateCustomerCategory
 import kotlin.test.assertEquals
 
 abstract class BaseCustomerTest: BaseProcessTest() {
@@ -31,11 +30,13 @@ abstract class BaseCustomerTest: BaseProcessTest() {
     }
 
     fun doTheTest() {
+        DummyService.setup()
+        DummyEventManager.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestUpdateCustomer::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -96,7 +97,7 @@ abstract class BaseCustomerTest: BaseProcessTest() {
             Pair( "locationCountryId", 166 ), // country_id "CZ"
             Pair( "legalCountryId", 166 ) // country_id "CZ"
         )
-        val processResult = runProcess(DB_PostgreSQL(), getProcess(), bodyParams) as CustomerProcessBaseResult
+        val processResult = runProcess(DatabaseImpl(), getProcess(), bodyParams) as CustomerProcessBaseResult
 
         val newPartner2 = MBPartner.get( Env.getCtx(), processResult.C_BPartner_Id )
 
@@ -109,7 +110,7 @@ abstract class BaseCustomerTest: BaseProcessTest() {
             assertEquals(3, newPartner2.contacts.count())
             assertEquals(2, newPartner2.locations.count())
         } finally {
-            updateCustomerCategory( null, newPartner2, DB.getConnectionRW() )
+            //updateCustomerCategory( null, newPartner2, DB.getConnectionRW() )
             newPartner2.delete(true)
             runFinallyCleanup()
         }

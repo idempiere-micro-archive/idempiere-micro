@@ -16,6 +16,7 @@
  *****************************************************************************/
 package org.idempiere.common.util;
 
+import org.idempiere.common.base.IServiceHolder;
 import org.idempiere.common.base.Service;
 import org.idempiere.icommon.base.IKeyStore;
 
@@ -400,7 +401,9 @@ public class Secure implements SecureInterface
 	 * @return keystore
 	 */
 	public static IKeyStore getKeyStoreService(){
-		return Service.locator().locate(IKeyStore.class).getService();
+		IServiceHolder<IKeyStore> keyStoreService = Service.locator().locate(IKeyStore.class);
+		if ( keyStoreService == null ) { return null; }
+		return keyStoreService.getService();
 	}
 
 	/**

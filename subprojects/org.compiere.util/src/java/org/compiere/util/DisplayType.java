@@ -16,6 +16,8 @@
  *****************************************************************************/
 package org.compiere.util;
 
+import org.idempiere.common.base.IServiceLocator;
+import org.idempiere.common.base.IServicesHolder;
 import org.idempiere.common.base.Service;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
@@ -165,13 +167,15 @@ public final class DisplayType
 			|| displayType == Account || displayType == Assignment || displayType == PAttribute
 			|| displayType == Image || displayType == Chart || displayType == Color)
 			return true;
-		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.isID(displayType))
-				return true;
+
+		IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+		if ( service != null ) {
+			List<IDisplayTypeFactory> factoryList = service.getServices();
+			for (IDisplayTypeFactory factory : factoryList) {
+				if (factory.isID(displayType))
+					return true;
+			}
 		}
-		
 		return false;
 	}	//	isID
 
@@ -186,12 +190,15 @@ public final class DisplayType
 		if (displayType == Amount || displayType == Number || displayType == CostPrice
 			|| displayType == Integer || displayType == Quantity)
 			return true;
-		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.isNumeric(displayType))
-				return true;
-		}
+
+        IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+        if ( service != null ) {
+            List<IDisplayTypeFactory> factoryList = service.getServices();
+            for (IDisplayTypeFactory factory : factoryList) {
+                if (factory.isNumeric(displayType))
+                    return true;
+            }
+        }
 		
 		return false;
 	}	//	isNumeric
@@ -211,13 +218,16 @@ public final class DisplayType
 		if (displayType == CostPrice
 			|| displayType == Quantity)
 			return 4;
-		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.getDefaultPrecision(displayType) != null)
-				return factory.getDefaultPrecision(displayType).intValue();
-				
-		}
+
+        IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+        if ( service != null ) {
+            List<IDisplayTypeFactory> factoryList = service.getServices();
+            for (IDisplayTypeFactory factory : factoryList) {
+                if (factory.getDefaultPrecision(displayType) != null)
+                    return factory.getDefaultPrecision(displayType).intValue();
+
+            }
+        }
 		
 		return 0;
 	}	//	getDefaultPrecision
@@ -238,11 +248,14 @@ public final class DisplayType
 			|| displayType == MultipleSelectionGrid)
 			return true;
 		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.isText(displayType))
-				return true;
-		}
+        IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+        if ( service != null ) {
+            List<IDisplayTypeFactory> factoryList = service.getServices();
+            for (IDisplayTypeFactory factory : factoryList) {
+                if (factory.isText(displayType))
+                    return true;
+            }
+        }
 		return false;
 	}	//	isText
 
@@ -256,12 +269,15 @@ public final class DisplayType
 	{
 		if (displayType == Date || displayType == DateTime || displayType == Time)
 			return true;
-		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.isDate(displayType))
-				return true;
-		}
+
+        IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+        if ( service != null ) {
+            List<IDisplayTypeFactory> factoryList = service.getServices();
+            for (IDisplayTypeFactory factory : factoryList) {
+                if (factory.isDate(displayType))
+                    return true;
+            }
+        }
 		
 		return false;
 	}	//	isDate
@@ -277,12 +293,15 @@ public final class DisplayType
 		if (displayType == List || displayType == Table
 			|| displayType == TableDir || displayType == Search)
 			return true;
-		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.isLookup(displayType))
-				return true;				
-		}
+
+        IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+        if ( service != null ) {
+            List<IDisplayTypeFactory> factoryList = service.getServices();
+            for (IDisplayTypeFactory factory : factoryList) {
+                if (factory.isLookup(displayType))
+                    return true;
+            }
+        }
 		
 		return false;
 	}	//	isLookup
@@ -297,12 +316,15 @@ public final class DisplayType
 		if (displayType == Binary
 			|| displayType == TextLong)
 			return true;
-		
-		List<IDisplayTypeFactory> factoryList = Service.locator().list(IDisplayTypeFactory.class).getServices();
-		for(IDisplayTypeFactory factory : factoryList){
-			if(factory.isLOB(displayType))
-				return true;				
-		}
+
+        IServicesHolder<IDisplayTypeFactory> service = Service.locator().list(IDisplayTypeFactory.class);
+        if ( service != null ) {
+            List<IDisplayTypeFactory> factoryList = service.getServices();
+            for (IDisplayTypeFactory factory : factoryList) {
+                if (factory.isLOB(displayType))
+                    return true;
+            }
+        }
 		
 		return false;
 	}	//	isLOB

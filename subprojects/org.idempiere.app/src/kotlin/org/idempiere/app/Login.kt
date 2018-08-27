@@ -2,9 +2,7 @@ package org.idempiere.app
 
 import org.compiere.crm.MUser
 import org.compiere.util.Msg
-import org.osgi.service.component.annotations.Component
 import software.hsharp.core.models.INameKeyPair
-import software.hsharp.core.services.ILoginUtility
 import java.sql.PreparedStatement
 import java.sql.ResultSet
 import java.sql.SQLException
@@ -24,16 +22,14 @@ import org.idempiere.common.util.KeyNamePair
 import org.idempiere.common.util.Ini
 import org.idempiere.common.util.Util
 import java.util.Date
-import java.util.Properties
 import org.compiere.orm.MTree_Base
 
-@Component
-class Login : ILoginUtility {
+open class Login {
     private val log = CLogger.getCLogger(Login::class.java)
     private var loginErrMsg: String? = null
     private var isPasswordExpired: Boolean = false
 
-    override fun getClients(role: INameKeyPair): Array<INameKeyPair> {
+    fun getClients(role: INameKeyPair): Array<INameKeyPair> {
         val m_ctx = Env.getCtx()
         val list = mutableListOf<KeyNamePair>()
         val sql = ("SELECT DISTINCT r.UserLevel, r.ConnectionProfile, " + // 	1/2
@@ -83,7 +79,7 @@ class Login : ILoginUtility {
         return list.toTypedArray()
     }
 
-    override fun getClients(app_user: String, app_pwd: String): Array<INameKeyPair> {
+    fun getClients(app_user: String, app_pwd: String): Array<INameKeyPair> {
         val m_ctx = Env.getCtx()
         if (log.isLoggable(Level.INFO)) log.info("User=$app_user")
 
@@ -288,7 +284,7 @@ class Login : ILoginUtility {
         return clientList.toTypedArray()
     }
 
-    override fun getRoles(app_user: String, client: INameKeyPair): Array<INameKeyPair> {
+    fun getRoles(app_user: String, client: INameKeyPair): Array<INameKeyPair> {
         val m_ctx = Env.getCtx()
 
         val rolesList = ArrayList<KeyNamePair>()
@@ -348,7 +344,7 @@ class Login : ILoginUtility {
         return rolesList.toTypedArray()
     }
 
-    override fun getOrgs(rol: INameKeyPair): Array<INameKeyPair> {
+    fun getOrgs(rol: INameKeyPair): Array<INameKeyPair> {
         val m_ctx = Env.getCtx()
         if (Env.getContext(m_ctx, "#AD_Client_ID").length == 0)
         // 	could be number 0
@@ -479,7 +475,7 @@ class Login : ILoginUtility {
         }
     } // 	getOrgAddSummary
 
-    override fun getWarehouses(org: INameKeyPair): Array<INameKeyPair> {
+    fun getWarehouses(org: INameKeyPair): Array<INameKeyPair> {
         val list = ArrayList<KeyNamePair>()
         val sql = ("SELECT M_Warehouse_ID, Name FROM M_Warehouse " +
                 "WHERE AD_Org_ID=? AND IsActive='Y' " +
@@ -517,10 +513,6 @@ class Login : ILoginUtility {
         return list.toTypedArray()
     }
 
-    override fun init(ctx: Properties): ILoginUtility {
-        return this
-    }
-
     private fun loadUserPreferences() {
         Env.getCtx()
         /* DAP commented out for now
@@ -528,7 +520,7 @@ class Login : ILoginUtility {
         userPreference.fillPreferences()*/
     }
 
-    override fun loadPreferences(org: INameKeyPair, warehouse: INameKeyPair?, timestamp: Timestamp?, printerName: String?): String {
+    fun loadPreferences(org: INameKeyPair, warehouse: INameKeyPair?, timestamp: Timestamp?, printerName: String?): String {
         val m_ctx = Env.getCtx()
         if (log.isLoggable(Level.INFO)) log.info("Org: " + org.toString())
 

@@ -8,8 +8,6 @@ import java.util.Collection;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.compiere.model.I_A_Asset;
 import org.compiere.model.I_C_BPartner_Location;
 import org.compiere.orm.MTable;
