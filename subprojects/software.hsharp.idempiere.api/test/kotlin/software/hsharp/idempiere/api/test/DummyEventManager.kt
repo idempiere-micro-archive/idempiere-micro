@@ -1,13 +1,31 @@
 package software.hsharp.idempiere.api.test
 
-import org.osgi.service.event.EventHandler
+import org.idempiere.orm.EventProperty
+import org.idempiere.orm.IEvent
+import org.idempiere.orm.IEventHandler
 
 class DummyEventManager : org.idempiere.orm.EventManager() {
-    override fun unregister(eventHandler: EventHandler?): Boolean {
+    override fun postEvent(event: IEvent?): Boolean {
         return true
     }
 
-    override fun register(topics: Array<out String>?, filter: String?, eventHandler: EventHandler?): Boolean {
+    override fun sendEvent(event: IEvent?): Boolean {
+        return true
+    }
+
+    override fun createNewEvent(topic: String?, data: Any?): IEvent? {
+        return null
+    }
+
+    override fun createNewEvent(topic: String?, vararg properties: EventProperty?): IEvent? {
+        return null
+    }
+
+    override fun unregister(eventHandler: IEventHandler?): Boolean {
+        return true
+    }
+
+    override fun register(topics: Array<out String>?, filter: String?, eventHandler: IEventHandler?): Boolean {
         return true
     }
 

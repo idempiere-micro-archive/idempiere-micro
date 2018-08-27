@@ -41,7 +41,7 @@ import org.idempiere.common.util.Language;
 import org.compiere.util.Msg;
 import org.idempiere.common.distributed.IMessageService;
 import org.idempiere.common.distributed.ITopic;
-import org.osgi.service.event.Event;
+import org.idempiere.orm.IEvent;
 
 /**
  *  Process Instance Model
@@ -388,7 +388,7 @@ public class MPInstance extends X_AD_PInstance
 	public static void postOnChangedEvent(int AD_User_ID) {
 		Map<String, Integer> properties = new HashMap<String, Integer>();
 		properties.put("AD_User_ID", AD_User_ID);
-		Event event = new Event(ON_RUNNING_JOB_CHANGED_TOPIC, properties);
+		IEvent event = EventManager.getInstance().createNewEvent(ON_RUNNING_JOB_CHANGED_TOPIC, properties);
 		EventManager.getInstance().postEvent(event);
 	}
 	

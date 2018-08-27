@@ -24,7 +24,6 @@ import org.compiere.util.PaymentExport;
 import org.compiere.util.ReplenishInterface;
 import org.idempiere.common.base.Service;
 import org.idempiere.common.util.CLogger;
-import org.osgi.framework.FrameworkUtil;
 
 import javax.script.ScriptEngine;
 import java.net.URL;

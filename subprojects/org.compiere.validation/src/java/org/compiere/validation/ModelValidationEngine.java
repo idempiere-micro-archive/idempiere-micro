@@ -38,14 +38,13 @@ import org.idempiere.common.base.Service;
 import org.idempiere.icommon.model.IPO;
 import org.idempiere.orm.EventManager;
 import org.idempiere.orm.EventProperty;
+import org.idempiere.orm.IEvent;
 import org.idempiere.orm.IEventManager;
 import org.idempiere.orm.IEventTopics;
 import org.idempiere.common.util.CLogger;
 import org.idempiere.common.util.Env;
 import org.idempiere.common.util.KeyNamePair;
 import org.idempiere.common.util.Util;
- 
-import org.osgi.service.event.Event;
 
 /**
  *	Model Validation Engine
@@ -287,7 +286,7 @@ public class ModelValidationEngine
 
 		//now process osgi event handler
 		LoginEventData eventData = new LoginEventData(AD_Client_ID, AD_Org_ID, AD_Role_ID, AD_User_ID);
-		Event event = EventManager.newEvent(IEventTopics.AFTER_LOGIN, eventData);
+		IEvent event = EventManager.newEvent(IEventTopics.AFTER_LOGIN, eventData);
 		EventManager.getInstance().sendEvent(event);
 		@SuppressWarnings("unchecked")
 		List<String> errors = (List<String>) event.getProperty(IEventManager.EVENT_ERROR_MESSAGES);
@@ -422,7 +421,7 @@ public class ModelValidationEngine
 		}
 
 		//now process osgi event handlers
-		Event event = EventManager.newEvent(ModelValidator.tableEventTopics[changeType],
+		IEvent event = EventManager.newEvent(ModelValidator.tableEventTopics[changeType],
 				new EventProperty(EventManager.EVENT_DATA, po), new EventProperty("tableName", po.get_TableName()));
 		EventManager.getInstance().sendEvent(event);
 		@SuppressWarnings("unchecked")
@@ -586,7 +585,7 @@ public class ModelValidationEngine
 		}
 
 		//now process osgi event handlers
-		Event event = EventManager.newEvent(ModelValidator.documentEventTopics[docTiming],
+		IEvent event = EventManager.newEvent(ModelValidator.documentEventTopics[docTiming],
 				new EventProperty(EventManager.EVENT_DATA, po), new EventProperty("tableName", po.get_TableName()));
 		EventManager.getInstance().sendEvent(event);
 		@SuppressWarnings("unchecked")
@@ -736,7 +735,7 @@ public class ModelValidationEngine
 
 		//process osgi event handlers
 		FactsEventData eventData = new FactsEventData(schema, facts, po);
-		Event event = EventManager.newEvent(IEventTopics.ACCT_FACTS_VALIDATE,
+		IEvent event = EventManager.newEvent(IEventTopics.ACCT_FACTS_VALIDATE,
 				new EventProperty(EventManager.EVENT_DATA, eventData), new EventProperty("tableName", po.get_TableName()));
 		EventManager.getInstance().sendEvent(event);
 		@SuppressWarnings("unchecked")
@@ -815,7 +814,7 @@ public class ModelValidationEngine
 			topic = IEventTopics.IMPORT_BEFORE_IMPORT;
 		else if (timing == ImportValidator.TIMING_BEFORE_VALIDATE)
 			topic = IEventTopics.IMPORT_BEFORE_VALIDATE;
-		Event event = EventManager.newEvent(topic, new EventProperty(EventManager.EVENT_DATA, eventData), new EventProperty("importTableName", process.getImportTableName()));
+		IEvent event = EventManager.newEvent(topic, new EventProperty(EventManager.EVENT_DATA, eventData), new EventProperty("importTableName", process.getImportTableName()));
 		EventManager.getInstance().sendEvent(event);
 	}
 
@@ -851,7 +850,7 @@ public class ModelValidationEngine
 			topic = IEventTopics.IMPORT_BEFORE_IMPORT;
 		else if (timing == ImportValidator.TIMING_BEFORE_VALIDATE)
 			topic = IEventTopics.IMPORT_BEFORE_VALIDATE;
-		Event event = EventManager.newEvent(topic, new EventProperty(EventManager.EVENT_DATA, eventData), new EventProperty("importTableName", process.getImportTableName()));
+		IEvent event = EventManager.newEvent(topic, new EventProperty(EventManager.EVENT_DATA, eventData), new EventProperty("importTableName", process.getImportTableName()));
 		EventManager.getInstance().sendEvent(event);
 	}
 
@@ -945,7 +944,7 @@ public class ModelValidationEngine
 		}
 
 		//osgi event handlers
-		Event event = new Event(IEventTopics.PREF_AFTER_LOAD, (Map<String, ?>)null);
+		IEvent event = EventManager.getInstance().createNewEvent(IEventTopics.PREF_AFTER_LOAD, (Map<String, ?>)null);
 		EventManager.getInstance().sendEvent(event);
 	}
 
