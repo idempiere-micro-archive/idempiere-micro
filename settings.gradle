@@ -123,3 +123,6 @@ project(":osgi.software.hsharp.db.postgresql.provider").projectDir = file("subpr
 
 include "osgi.org.idempiere.common"
 project(":osgi.org.idempiere.common").projectDir = file("subprojects/osgi.org.idempiere.common")
+
+include "osgi.org.idempiere.orm"
+project(":osgi.org.idempiere.orm").projectDir = file("subprojects/osgi.org.idempiere.orm")
