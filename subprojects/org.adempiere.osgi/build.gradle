@@ -4,4 +4,6 @@ dependencies {
 
     compile project(':org.idempiere.common')
     compile files('../org.idempiere.common/bin')
+
+    compile 'org.osgi:org.osgi.framework:1.8.0'
 }

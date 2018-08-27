@@ -1,0 +1,7 @@
+#
+#   OSGI ORG COMPIERE CRM
+#
+Bundle-Name: iDempiere CRM OSGi
+Import-Package: *
+Export-Package: osgi.org.compiere.crm*
+-dsannotations-options: extender

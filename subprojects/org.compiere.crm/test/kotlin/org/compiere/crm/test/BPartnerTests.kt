@@ -27,11 +27,13 @@ class BPartnerTests : BaseProcessTest() {
 
     @Test
     fun `loading saving finding business partner work`() {
+        DummyService.setup()
+        DummyEventManager.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(BPartnerTests::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 

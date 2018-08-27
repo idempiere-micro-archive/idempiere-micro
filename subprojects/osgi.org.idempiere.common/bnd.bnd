@@ -1,0 +1,15 @@
+#
+#   ORG IDEMPIERE COMMONS DB
+#
+Bundle-Name: iDempiere Core Commons OSGi
+Bundle-Activator: osgi.org.idempiere.common.base.BaseActivator
+Import-Package: !osgi.org.idempiere.common*,*
+Export-Package: \
+ osgi.org.idempiere.common.base*,\
+ osgi.org.idempiere.common.db*,\
+ osgi.org.idempiere.common.dbPort*,\
+ osgi.org.idempiere.common.distributed*,\
+ osgi.org.idempiere.common.exceptions*,\
+ osgi.org.idempiere.common.imodel*,\
+ osgi.org.idempiere.common.util*
+-dsannotations-options: extender

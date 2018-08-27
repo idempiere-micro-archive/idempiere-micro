@@ -9,6 +9,7 @@ import org.idempiere.common.util.CLogger
 import org.idempiere.common.util.DB
 import org.idempiere.common.util.Env
 import org.idempiere.common.util.Ini
+import org.junit.Ignore
 import org.junit.Test
 import pg.org.compiere.db.DB_PostgreSQL
 import java.util.*
@@ -27,13 +28,15 @@ fun randomString(length: Int): String {
 }
 
 class TestFutureActivities : BaseProcessTest() {
-    @Test
+    @Ignore
     fun `gardenuser has at least one contact activity`() {
+        DummyService.setup()
+        DummyEventManager.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestFutureActivities::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -47,17 +50,19 @@ class TestFutureActivities : BaseProcessTest() {
         ctx.setProperty(Env.AD_USER_ID, AD_USER_ID_s )
         Env.setContext(ctx, Env.AD_USER_ID, AD_USER_ID_s )
 
-        val processResult = runProcess(DB_PostgreSQL(), MyFutureContactActivities(), arrayOf()) as MyFutureContactActivities.Result
+        val processResult = runProcess(DatabaseImpl(), MyFutureContactActivities(), arrayOf()) as MyFutureContactActivities.Result
         assertTrue( processResult.activities.count() > 0 )
     }
 
     @Test
     fun `CRM processes runs` () {
+        DummyService.setup()
+        DummyEventManager.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(TestFutureActivities::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -115,7 +120,7 @@ class TestFutureActivities : BaseProcessTest() {
                 "Full" to true,
                 "Search" to value
         )
-        val result = runProcess(DB_PostgreSQL(), Find(), bodyParams) as FindResult
+        val result = runProcess(DatabaseImpl(), Find(), bodyParams) as FindResult
         assertEquals(1,result.rows.count())
         val bp = result.rows[0] as BPartnerWithActivity
         assertNotNull(bp)
@@ -124,7 +129,7 @@ class TestFutureActivities : BaseProcessTest() {
         assertEquals(name, bpp.name)
         assertEquals(1,bpp.Locations.count())
 
-        val result2 = runProcess(DB_PostgreSQL(), AbandonedBPartners(), bodyParams) as FindResult
+        val result2 = runProcess(DatabaseImpl(), AbandonedBPartners(), bodyParams) as FindResult
         assertTrue(result2.rows.count() > 0)
         val bp2 = result2.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
         assertNotNull(bp2)
@@ -136,7 +141,7 @@ class TestFutureActivities : BaseProcessTest() {
         newPartner2.salesRep_ID = AD_USER_ID
         newPartner2.save()
 
-        val result3 = runProcess(DB_PostgreSQL(), MyBPartners(), bodyParams) as FindResult
+        val result3 = runProcess(DatabaseImpl(), MyBPartners(), bodyParams) as FindResult
         assertTrue(result3.rows.count() > 0)
         val bp3 = result3.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
         assertNotNull(bp3)
@@ -145,7 +150,7 @@ class TestFutureActivities : BaseProcessTest() {
         assertEquals(name, bpp3.name)
         assertEquals(1,bpp3.Locations.count())
 
-        val result4 = runProcess(DB_PostgreSQL(), ForgottenBPartners(), bodyParams) as FindResult
+        val result4 = runProcess(DatabaseImpl(), ForgottenBPartners(), bodyParams) as FindResult
         assertTrue(result4.rows.count() > 0)
         val bp4 = result4.rows.first { (it as BPartnerWithActivity).BPartner.value == value } as BPartnerWithActivity
         assertNotNull(bp4)

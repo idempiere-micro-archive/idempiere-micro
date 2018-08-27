@@ -17,11 +17,13 @@ import kotlin.test.assertNotNull
 class FactoryTests {
     @Test
     fun getUsingDefaultModelFactoryById() {
+        DummyService.setup()
+        DummyEventManager.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(BPartnerTests::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 
@@ -39,11 +41,13 @@ class FactoryTests {
 
     @Test
     fun getUsingDefaultModelFactoryFromRS() {
+        DummyService.setup()
+        DummyEventManager.setup()
         Ini.getIni().isClient = false
         CLogger.getCLogger(BPartnerTests::class.java)
         Ini.getIni().properties
         val db = Database()
-        db.setDatabase(DB_PostgreSQL())
+        db.setDatabase(DatabaseImpl())
         DB.setDBTarget(CConnection.get(null))
         DB.isConnected()
 

@@ -1,3 +1,10 @@
+#!/bin/bash
+rm -rf ./runtime/bundle/hot-deploy/subprojects/*
+find subprojects -type d -name "bin" -print | xargs rm -rf
+find subprojects -type d -name "bin_test" -print | xargs rm -rf
+find subprojects -type d -name "generated" -print | xargs rm -rf
+rm -rf ./tmp/*
+
 rm -rf idempiere-docker-pgsql-5.1.0.latest.tar.gz
 wget https://sourceforge.net/projects/idempiereksys/files/idempiere-docker-image/idempiere-docker-pgsql-5.1.0.latest.tar.gz
 zcat idempiere-docker-pgsql-5.1.0.latest.tar.gz | docker load
