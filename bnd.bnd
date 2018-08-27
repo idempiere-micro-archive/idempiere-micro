@@ -1,0 +1,9 @@
+#
+#   OSGI ORG COMPIERE DB POSTGRESQL PROVIDER
+#
+Bundle-Name: iDempiere PostgreSQL Provider OSGi
+Bundle-Activator: osgi.org.compiere.db.postgresql.provider.PostgreSQLBundleActivator
+Import-Package: !org.jfree.io, javax.naming*;resolution:=optional,*
+Export-Package: \
+    osgi.org.compiere.db.postgresql.provider*
+-dsannotations-options: extender
