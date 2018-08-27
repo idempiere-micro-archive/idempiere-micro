@@ -12,7 +12,6 @@ rm -rf ../idempiere-micro-spring/src/main/kotlin
 pull org.idempiere.app
 pull org.adempiere.exceptions
 pull org.adempiere.install
-pull org.adempiere.osgi
 
 pull org.compiere.bo
 pull org.compiere.conversionrate
@@ -46,6 +45,5 @@ pull software.hsharp.business.models
 pull software.hsharp.core.models
 
 pull software.hsharp.db.postgresql.provider
-pull software.hsharp.idempiere.api
 
 pull software.hsharp.woocommerce
