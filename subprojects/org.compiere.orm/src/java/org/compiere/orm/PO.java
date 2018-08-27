@@ -18,9 +18,9 @@ import org.idempiere.common.util.Trx;
 import org.idempiere.common.util.ValueNamePair;
 import org.idempiere.icommon.model.IPO;
 import org.idempiere.orm.EventManager;
+import org.idempiere.orm.IEvent;
 import org.idempiere.orm.IEventTopics;
 import org.idempiere.orm.Null;
-import org.osgi.service.event.Event;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -587,7 +587,7 @@ public abstract class PO extends org.idempiere.orm.PO {
             if (success)
             {
                 //osgi event handler
-                Event event = EventManager.newEvent(IEventTopics.PO_POST_DELETE, this);
+                IEvent event = EventManager.newEvent(IEventTopics.PO_POST_DELETE, this);
                 EventManager.getInstance().postEvent(event);
 
                 m_idOld = 0;

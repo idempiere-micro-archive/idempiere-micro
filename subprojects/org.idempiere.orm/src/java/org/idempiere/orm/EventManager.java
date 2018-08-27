@@ -22,10 +22,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.idempiere.common.util.CLogger;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventAdmin;
-import org.osgi.service.event.EventConstants;
-import org.osgi.service.event.EventHandler;
 
 /**
  * Simple wrapper for the osgi event admin service.
@@ -35,31 +31,10 @@ import org.osgi.service.event.EventHandler;
  */
 public abstract class EventManager implements IEventManager {
 
-	private EventAdmin eventAdmin;
 	protected static IEventManager instance = null;
 	protected final static CLogger log = CLogger.getCLogger(EventManager.class);
 
-	private final static Object mutex = new Object();
-
-	/**
-	 * @param eventAdmin
-	 */
-	public void bindEventAdmin(EventAdmin eventAdmin) {
-		synchronized (mutex) {
-			if (instance == null) {
-				instance  = this;
-				mutex.notifyAll();
-			}
-		}
-		this.eventAdmin = eventAdmin;
-	}
-
-	/**
-	 * @param eventAdmin
-	 */
-	public void unbindEventAdmin(EventAdmin eventAdmin) {
-		this.eventAdmin = null;
-	}
+	protected final static Object mutex = new Object();
 
 	/**
 	 * Get the singleton instance created by the osgi service framework
@@ -81,35 +56,13 @@ public abstract class EventManager implements IEventManager {
 		return instance;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.idempiere.app.event.IEventManager#postEvent(org.osgi.service.event.Event)
-	 */
-	@Override
-	public boolean postEvent(Event event) {
-		if (eventAdmin != null) {
-			eventAdmin.postEvent(event);
-			return true;
-		}
-		return false;
-	}
 
-	/* (non-Javadoc)
-	 * @see org.idempiere.app.event.IEventManager#sendEvent(org.osgi.service.event.Event)
-	 */
-	@Override
-	public boolean sendEvent(Event event) {
-		if (eventAdmin != null) {
-			eventAdmin.sendEvent(event);
-			return true;
-		}
-		return false;
-	}
 
 	/* (non-Javadoc)
 	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String, org.osgi.service.event.EventHandler)
 	 */
 	@Override
-	public boolean register(String topic, EventHandler eventHandler) {
+	public boolean register(String topic, IEventHandler eventHandler) {
 		return register(topic, null, eventHandler);
 	}
 
@@ -117,7 +70,7 @@ public abstract class EventManager implements IEventManager {
 	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String[], org.osgi.service.event.EventHandler)
 	 */
 	@Override
-	public boolean register(String[] topics, EventHandler eventHandler) {
+	public boolean register(String[] topics, IEventHandler eventHandler) {
 		return register(topics, null, eventHandler);
 	}
 
@@ -125,7 +78,7 @@ public abstract class EventManager implements IEventManager {
 	 * @see org.idempiere.app.event.IEventManager#register(java.lang.String, java.lang.String, org.osgi.service.event.EventHandler)
 	 */
 	@Override
-	public boolean register(String topic, String filter, EventHandler eventHandler) {
+	public boolean register(String topic, String filter, IEventHandler eventHandler) {
 		String[] topics = new String[] {topic};
 		return register(topics, filter, eventHandler);
 	}
@@ -134,28 +87,8 @@ public abstract class EventManager implements IEventManager {
 	 * @param topic
 	 * @param parameter
 	 */
-	@SuppressWarnings("unchecked")
-	public static Event newEvent(String topic, Object data) {
-		Event event = null;
-		if (data instanceof Dictionary<?,?>) {
-			Dictionary<String,Object>dict = (Dictionary<String,Object>)data;
-			if (dict.get(EVENT_ERROR_MESSAGES) == null)
-				dict.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
-			event = new Event(topic, dict);
-		} else if (data instanceof Map<?, ?>) {
-			Map<String, Object> map = (Map<String, Object>)data;
-			if (!map.containsKey(EVENT_ERROR_MESSAGES))
-				map.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
-			event = new Event(topic, map);
-		} else {
-			Map<String, Object> map = new HashMap<String, Object>(3);
-			map.put(EventConstants.EVENT_TOPIC, topic);
-			if (data != null)
-				map.put(EVENT_DATA, data);
-			map.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
-			event = new Event(topic, map);
-		}
-		return event;
+	public static IEvent newEvent(String topic, Object data) {
+		return getInstance().createNewEvent(topic, data);
 	}
 
 	/**
@@ -164,19 +97,7 @@ public abstract class EventManager implements IEventManager {
 	 * @param properties
 	 * @return event object
 	 */
-	public static Event newEvent(String topic, EventProperty ...properties) {
-		Event event = null;
-		Map<String, Object> map = new HashMap<String, Object>(3);
-		if (properties != null) {
-			for(int i = 0; i < properties.length; i++) {
-				map.put(properties[i].name, properties[i].value);
-			}
-			if (!map.containsKey(EventConstants.EVENT_TOPIC))
-				map.put(EventConstants.EVENT_TOPIC, topic);
-			if (!map.containsKey(EVENT_ERROR_MESSAGES))
-				map.put(EVENT_ERROR_MESSAGES, new ArrayList<String>());
-		}
-		event = new Event(topic, map);
-		return event;
+	public static IEvent newEvent(String topic, EventProperty ...properties) {
+		return getInstance().createNewEvent(topic, properties);
 	}
 }

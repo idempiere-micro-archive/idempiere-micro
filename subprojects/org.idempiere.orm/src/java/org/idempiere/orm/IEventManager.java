@@ -13,9 +13,6 @@
  *****************************************************************************/
 package org.idempiere.orm;
 
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
-
 /**
  *
  * @author hengsin
@@ -37,7 +34,7 @@ public interface IEventManager {
 	 *         <code>TopicPermission[topic,PUBLISH]</code> for the topic
 	 *         specified in the event.
 	 */
-	public abstract boolean postEvent(Event event);
+	public abstract boolean postEvent(IEvent event);
 
 	/**
 	 * Initiate synchronous delivery of an event. This method does not return to
@@ -50,7 +47,7 @@ public interface IEventManager {
 	 *         <code>TopicPermission[topic,PUBLISH]</code> for the topic
 	 *         specified in the event.
 	 */
-	public abstract boolean sendEvent(Event event);
+	public abstract boolean sendEvent(IEvent event);
 
 	/**
 	 * register a new event handler
@@ -58,7 +55,7 @@ public interface IEventManager {
 	 * @param eventHandler
 	 * @return true if registration is successful, false otherwise
 	 */
-	public abstract boolean register(String topic, EventHandler eventHandler);
+	public abstract boolean register(String topic, IEventHandler eventHandler);
 
 	/**
 	 * register a new event handler
@@ -66,7 +63,7 @@ public interface IEventManager {
 	 * @param eventHandler
 	 * @return true if registration is successful, false otherwise
 	 */
-	public abstract boolean register(String[] topics, EventHandler eventHandler);
+	public abstract boolean register(String[] topics, IEventHandler eventHandler);
 
 	/**
 	 * register a new event handler
@@ -76,7 +73,7 @@ public interface IEventManager {
 	 * @return true if registration is successful, false otherwise
 	 */
 	public abstract boolean register(String topic, String filter,
-			EventHandler eventHandler);
+									 IEventHandler eventHandler);
 
 	/**
 	 * register a new event handler
@@ -86,13 +83,16 @@ public interface IEventManager {
 	 * @return true if registration is successful, false otherwise
 	 */
 	public abstract boolean register(String[] topics, String filter,
-			EventHandler eventHandler);
+									 IEventHandler eventHandler);
 
 	/**
 	 * un-register an event handler
 	 * @param eventHandler
 	 * @return true if unregistration is done, false otherwise
 	 */
-	public abstract boolean unregister(EventHandler eventHandler);
+	public abstract boolean unregister(IEventHandler eventHandler);
 
+
+	public abstract IEvent createNewEvent(String topic, Object data);
+    public abstract IEvent createNewEvent(String topic, EventProperty ...properties);
 }

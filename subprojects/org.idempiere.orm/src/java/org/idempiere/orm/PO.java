@@ -26,7 +26,6 @@ import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.exceptions.DBException;
 import org.idempiere.common.util.*;
 import org.idempiere.icommon.model.IPO;
-import org.osgi.service.event.Event;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -2750,7 +2749,7 @@ public abstract class PO
 		{
 			//post osgi event
 			String topic = newRecord ? IEventTopics.PO_POST_CREATE : IEventTopics.PO_POST_UPADTE;
-			Event event = EventManager.newEvent(topic, this);
+			IEvent event = EventManager.newEvent(topic, this);
 			EventManager.getInstance().postEvent(event);
 
 			if (s_docWFMgr == null)

@@ -19,7 +19,4 @@ dependencies {
 
     compile project(':org.compiere.query')
     compile files('../org.compiere.query/bin')
-
-    compile project(':org.adempiere.osgi')
-    compile files('../org.adempiere.osgi/bin')
 }
