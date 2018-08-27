@@ -55,4 +55,14 @@ copy_files org.compiere.schedule
 copy_files org.compiere.server
 copy_files org.compiere.validation
 
+copy_files org.compiere.validation
+
+copy_files osgi.software.hsharp.db.postgresql.provider
+copy_files osgi.org.idempiere.common
+copy_files osgi.org.idempiere.orm
+copy_files osgi.software.hsharp.business.core
+copy_files osgi.org.compiere.crm
+copy_files osgi.org.compiere.db.postgresql.provider
+copy_files osgi.org.idempiere.app
+
 copy_files_github_root integration_tests
