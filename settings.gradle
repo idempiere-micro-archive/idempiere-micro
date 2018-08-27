@@ -132,3 +132,6 @@ project(":osgi.software.hsharp.business.core").projectDir = file("subprojects/os
 
 include "osgi.org.compiere.crm"
 project(":osgi.org.compiere.crm").projectDir = file("subprojects/osgi.org.compiere.crm")
+
+include "osgi.org.compiere.db.postgresql.provider"
+project(":osgi.org.compiere.db.postgresql.provider").projectDir = file("subprojects/osgi.org.compiere.db.postgresql.provider")
