@@ -1,0 +1,8 @@
+#
+#   OSGI SOFTWARE HSHARP DB POSTGRESQL PROVIDER
+#
+Bundle-Name: H# PostgreSQL Provider (OSGi Component)
+Import-Package: !javax.naming*;resolution:=optional,*;resolution:=optional
+Export-Package: \
+    osgi.software.hsharp.db.postgresql.provider*
+-dsannotations-options: extender
