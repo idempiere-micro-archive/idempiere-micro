@@ -46,3 +46,11 @@ pull software.hsharp.db.postgresql.provider
 pull software.hsharp.idempiere.api
 
 pull software.hsharp.woocommerce
+
+pull osgi.software.hsharp.db.postgresql.provider
+pull osgi.org.idempiere.common
+pull osgi.org.idempiere.orm
+pull osgi.software.hsharp.business.core
+pull osgi.org.compiere.crm
+pull osgi.org.compiere.db.postgresql.provider
+pull osgi.org.idempiere.app
