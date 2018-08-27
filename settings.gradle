@@ -120,3 +120,6 @@ project(":osgi.org.idempiere.app").projectDir = file("subprojects/osgi.org.idemp
 
 include "osgi.software.hsharp.db.postgresql.provider"
 project(":osgi.software.hsharp.db.postgresql.provider").projectDir = file("subprojects/osgi.software.hsharp.db.postgresql.provider")
+
+include "osgi.org.idempiere.common"
+project(":osgi.org.idempiere.common").projectDir = file("subprojects/osgi.org.idempiere.common")
