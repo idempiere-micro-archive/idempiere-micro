@@ -129,3 +129,6 @@ project(":osgi.org.idempiere.orm").projectDir = file("subprojects/osgi.org.idemp
 
 include "osgi.software.hsharp.business.core"
 project(":osgi.software.hsharp.business.core").projectDir = file("subprojects/osgi.software.hsharp.business.core")
+
+include "osgi.org.compiere.crm"
+project(":osgi.org.compiere.crm").projectDir = file("subprojects/osgi.org.compiere.crm")
