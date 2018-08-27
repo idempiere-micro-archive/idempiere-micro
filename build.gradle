@@ -1,0 +1,6 @@
+dependencies {
+    compile project(':org.compiere.crm')
+    compile files('../org.compiere.crm/bin')
+
+    compile 'org.osgi:org.osgi.service.component.annotations:1.3.0'
+}
