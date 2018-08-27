@@ -1,8 +1,0 @@
-dependencies {
-    compile project(':org.idempiere.orm')
-    compile files('../org.idempiere.orm/bin')
-
-    compile project(':osgi.org.idempiere.common')
-    compile files('../osgi.org.idempiere.common/bin')
-
-}
