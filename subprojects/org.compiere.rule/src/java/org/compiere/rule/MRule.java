@@ -25,15 +25,12 @@ import java.util.Properties;
 
 import javax.script.ScriptEngine;
 
-import org.adempiere.osgi.OSGiScriptEngine;
 import org.compiere.model.I_AD_Rule;
 import org.compiere.orm.Query;
-import org.idempiere.common.exceptions.AdempiereException;
 import org.idempiere.common.util.CCache;
 import org.idempiere.common.util.CLogger;
 import org.compiere.util.Msg;
 import org.idempiere.common.util.Util;
-import org.osgi.framework.FrameworkUtil;
 
 /**
  *	Persistent Rule Model
@@ -205,7 +202,7 @@ public class MRule extends X_AD_Rule
 		String engineName = getEngineName();
 
 		if(engineName != null)
-			engine = OSGiScriptEngine.getScriptEngine(engineName);
+			engine = ScriptEngineWrapper.getScriptEngine(engineName);
 
 		return engine;
 	}

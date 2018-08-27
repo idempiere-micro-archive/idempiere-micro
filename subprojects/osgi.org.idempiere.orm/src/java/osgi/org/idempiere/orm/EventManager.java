@@ -25,6 +25,11 @@ public class EventManager extends org.idempiere.orm.EventManager {
 
     public class EventHolder implements IEvent {
         private Event event;
+
+        @Override
+        public List<String> getProperty(String eventErrorMessages) {
+            return (List<String>)event.getProperty(eventErrorMessages);
+        }
     }
 
 
